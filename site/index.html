@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HSK Reader</title>
+  <meta name="description" content="Free graded Chinese stories (HSK 3.0): myths, history and culture, with tap-to-translate and pinyin.">
+  <meta name="theme-color" content="#f7f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1916" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23b4432f'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='white' font-family='serif'>读</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="brand"><span class="brand-mark">读</span> HSK Reader</a>
+    <nav class="topnav">
+      <a href="#/" data-nav="library">Library</a>
+      <a href="#/words" data-nav="words">My words <span class="count" id="saved-count"></span></a>
+      <button class="icon-btn" id="settings-btn" aria-label="Reading settings" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 6h11v2H3zm0 10h7v2H3zm14-10h4v2h-4zm-4-2h2v6h-2zm-2 12h10v2H11zm-4-2h2v6H7z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <div class="settings" id="settings" hidden>
+    <label>My level
+      <select id="my-level">
+        <option value="1">HSK 1</option><option value="2">HSK 2</option><option value="3">HSK 3</option>
+        <option value="4">HSK 4</option><option value="5">HSK 5</option><option value="6">HSK 6</option>
+        <option value="7">HSK 7–9</option>
+      </select>
+    </label>
+    <label>Pinyin
+      <select id="pinyin-mode">
+        <option value="off">Off</option>
+        <option value="hard">Only words above my level</option>
+        <option value="all">All words</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="mark-hard"> Underline words above my level</label>
+  </div>
+
+  <main id="app" tabindex="-1"></main>
+
+  <div class="popup" id="popup" role="dialog" aria-modal="false" aria-labelledby="popup-word" hidden>
+    <button class="popup-close" id="popup-close" aria-label="Close">×</button>
+    <div class="popup-head">
+      <span class="popup-word" id="popup-word"></span>
+      <span class="badge" id="popup-level"></span>
+    </div>
+    <div class="popup-pinyin" id="popup-pinyin"></div>
+    <div class="popup-meaning" id="popup-meaning"></div>
+    <button class="btn" id="popup-save"></button>
+  </div>
+
+  <footer class="footer">
+    <p>Stories are retold from <a href="https://zh.wikipedia.org" rel="noopener">Wikipedia</a> (CC BY-SA 4.0) and
+      <a href="https://zh.wikisource.org" rel="noopener">Wikisource</a> (public domain); sources are linked under each story.</p>
+    <p>Dictionary: <a href="https://www.mdbg.net/chinese/dictionary?page=cc-cedict" rel="noopener">CC-CEDICT</a> (CC BY-SA 4.0).
+      HSK word lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

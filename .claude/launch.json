@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "C:/Users/user/Downloads/hsk-reader/.venv/Scripts/python.exe",
+      "runtimeArgs": ["-m", "http.server", "8321", "--bind", "127.0.0.1", "--directory", "C:/Users/user/Downloads/hsk-reader/site"],
+      "port": 8321
+    }
+  ]
+}

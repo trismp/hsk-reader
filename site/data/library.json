@@ -1,0 +1,135 @@
+[
+ {
+  "id": "01-change-moon",
+  "title": "嫦娥奔月",
+  "level": 3,
+  "category": "folklore",
+  "summary": "Why the archer's wife lives on the moon, and where the Mid-Autumn Festival comes from.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E5%AB%A6%E5%A8%A5%E5%A5%94%E6%9C%88"
+  ],
+  "estimated_level": "3",
+  "within_target": 0.995,
+  "characters": 338
+ },
+ {
+  "id": "06-momotaro",
+  "title": "桃太郎",
+  "level": 3,
+  "category": "east_asia",
+  "summary": "Japan's best-known folk tale: a boy born from a peach sets off for Demon Island.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E6%A1%83%E5%A4%AA%E9%83%8E"
+  ],
+  "estimated_level": "3",
+  "within_target": 0.995,
+  "characters": 349
+ },
+ {
+  "id": "02-jingwei",
+  "title": "精卫填海",
+  "level": 3,
+  "category": "folklore",
+  "summary": "A little bird that never gives up trying to fill the sea. From the Classic of Mountains and Seas.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E7%B2%BE%E5%8D%AB"
+  ],
+  "estimated_level": "3",
+  "within_target": 0.987,
+  "characters": 263
+ },
+ {
+  "id": "03-kuafu",
+  "title": "夸父追日",
+  "level": 4,
+  "category": "folklore",
+  "summary": "A giant chases the sun across the world. Foolish, or brave?",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E5%A4%B8%E7%88%B6"
+  ],
+  "estimated_level": "3",
+  "within_target": 0.99,
+  "characters": 343
+ },
+ {
+  "id": "05-niulang-zhinu",
+  "title": "牛郎织女",
+  "level": 4,
+  "category": "folklore",
+  "summary": "A cowherd, a heavenly weaver and a bridge of magpies: the story behind Qixi.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E7%89%9B%E9%83%8E%E7%B9%94%E5%A5%B3"
+  ],
+  "estimated_level": "3",
+  "within_target": 1.0,
+  "characters": 377
+ },
+ {
+  "id": "04-duanwu",
+  "title": "端午节的故事",
+  "level": 4,
+  "category": "culture",
+  "summary": "Zongzi, dragon boats and the poet Qu Yuan, plus the other stories behind the festival.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%8D%88%E8%8A%82"
+  ],
+  "estimated_level": "4",
+  "within_target": 1.0,
+  "characters": 347
+ },
+ {
+  "id": "07-mengjiangnu",
+  "title": "孟姜女哭长城",
+  "level": 5,
+  "category": "history",
+  "summary": "A wife's grief brings down a stretch of the Great Wall, and how the legend grew over 2,000 years.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E5%AD%9F%E5%A7%9C%E5%A5%B3",
+   "https://zh.wikipedia.org/wiki/%E9%95%BF%E5%9F%8E"
+  ],
+  "estimated_level": "4",
+  "within_target": 1.0,
+  "characters": 452
+ },
+ {
+  "id": "10-shanhaijing-lands",
+  "title": "山海经里的奇怪国家",
+  "level": 5,
+  "category": "classics",
+  "summary": "Giants who carve boats sitting down, polite gentlemen with pet tigers: travel notes from a 2,000-year-old book.",
+  "sources": [
+   "https://zh.wikisource.org/wiki/%E5%B1%B1%E6%B5%B7%E7%B6%93/%E6%B5%B7%E5%A4%96%E6%9D%B1%E7%B6%93"
+  ],
+  "estimated_level": "4",
+  "within_target": 0.996,
+  "characters": 431
+ },
+ {
+  "id": "08-qinshihuang",
+  "title": "秦始皇：第一个皇帝",
+  "level": 5,
+  "category": "history",
+  "summary": "The ruler who unified China in 221 BC, and the clay army that guards his tomb.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E7%A7%A6%E5%A7%8B%E7%9A%87",
+   "https://zh.wikipedia.org/wiki/%E7%A7%A6%E5%A7%8B%E7%9A%87%E5%85%B5%E9%A9%AC%E4%BF%91"
+  ],
+  "estimated_level": "4",
+  "within_target": 1.0,
+  "characters": 453
+ },
+ {
+  "id": "09-xuanzang",
+  "title": "玄奘西行",
+  "level": 6,
+  "category": "history",
+  "summary": "The real monk behind Journey to the West, who walked to India and back in the 7th century.",
+  "sources": [
+   "https://zh.wikipedia.org/wiki/%E7%8E%84%E5%A5%98",
+   "https://zh.wikipedia.org/wiki/%E4%B8%9D%E7%BB%B8%E4%B9%8B%E8%B7%AF"
+  ],
+  "estimated_level": "5",
+  "within_target": 0.996,
+  "characters": 472
+ }
+]

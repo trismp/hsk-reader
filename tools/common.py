@@ -32,6 +32,8 @@ WORD_FIXES = {
     "着作": "著作", "着名": "著名", "显着": "显著", "着称": "著称",
     "原着": "原著", "名着": "名著", "专着": "专著", "论着": "论著", "所着": "所著",
     "编着": "编著", "合着": "合著",
+    # leftovers from an earlier, rarer-form table (寧->㝉, 麼->幺)
+    "㝉": "宁", "那幺": "那么", "什幺": "什么", "怎幺": "怎么", "这幺": "这么", "多幺": "多么",
 }
 
 # Meanings that signal a rare or cross-reference reading of a character,

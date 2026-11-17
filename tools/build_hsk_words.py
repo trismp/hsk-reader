@@ -24,6 +24,15 @@ OUT = ROOT / "data" / "hsk_words.json"
 SCHEMES = {"new": "hsk30", "newest": "hsk2026", "old": "hsk2"}
 
 
+TONE_MARKED = set("āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈŌÓǑÒ")
+
+
+def _neutral_ending(pinyin: str) -> bool:
+    """True if a multi-syllable word ends in a neutral (unmarked) tone: 'dōng xi'."""
+    syllables = pinyin.split()
+    return len(syllables) > 1 and not (set(syllables[-1]) & TONE_MARKED)
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     entries = json.loads(RAW.read_text(encoding="utf-8"))
@@ -31,9 +40,17 @@ def main() -> None:
     words: dict[str, dict] = {}
     for e in entries:
         word = e["simplified"]
-        # Pick the most everyday reading (抢 qiǎng "grab", not literary qiāng).
-        # min() keeps the first form when several are equally common.
-        form = min(e["forms"], key=lambda f: rarity(f["meanings"]))
+        # Pick the most everyday reading:
+        #  1. not a rare/literary one   (抢 qiǎng "grab", not literary qiāng)
+        #  2. prefer a neutral-tone ending, which is usually the colloquial word:
+        #     东西 dōng xi "thing" (not dōng xī "east and west"),
+        #     妻子 qī zi "wife"    (not qī zǐ "wife and children")
+        # sorted() is stable, so ties keep the source order.
+        forms = sorted(e["forms"], key=lambda f: (rarity(f["meanings"]),
+                                                  not _neutral_ending(f["transcriptions"]["pinyin"])))
+        form = forms[0]
+        other_meanings = [m for f in forms[1:] for m in f["meanings"]
+                          if "variant of" not in m][:2]
         levels = {}
         for tag in e["level"]:
             prefix, num = tag.rsplit("-", 1)
@@ -50,7 +67,8 @@ def main() -> None:
 
         words[word] = {
             "pinyin": form["transcriptions"]["pinyin"],
-            "meanings": form["meanings"][:4],
+            # main reading's meanings first, then the other reading's
+            "meanings": form["meanings"][:4] + [m for m in other_meanings if m not in form["meanings"]],
             "levels": levels,
         }
 

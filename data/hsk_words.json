@@ -51,7 +51,9 @@
 "meanings": [
 "interjection of surprise",
 "Ah!",
-"Oh!"
+"Oh!",
+"interjection expressing doubt or requiring answer",
+"Eh?"
 ],
 "levels": {
 "hsk2026": 2,
@@ -108,7 +110,9 @@
 "pinyin": "āi",
 "meanings": [
 "interjection or grunt of agreement or recognition (e.g. yes, it's me!)",
-"to sigh"
+"to sigh",
+"alas",
+"oh dear"
 ],
 "levels": {
 "hsk2026": 5,
@@ -120,7 +124,9 @@
 "pinyin": "āi",
 "meanings": [
 "in order; in sequence",
-"close to; adjacent to"
+"close to; adjacent to",
+"to suffer; to endure",
+"to pull through (hard times)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -382,7 +388,8 @@
 "(bound form) calm; peaceful",
 "to calm; to set at ease",
 "safe; secure; in good health",
-"content; satisfied (as in 安于)"
+"content; satisfied (as in 安于)",
+"surname An"
 ],
 "levels": {
 "hsk2026": 5,
@@ -392,7 +399,9 @@
 "安定": {
 "pinyin": "Ān dìng",
 "meanings": [
-"Anting township in Tainan county 台南县, Taiwan"
+"Anting township in Tainan county 台南县, Taiwan",
+"stable; calm; settled",
+"to stabilize"
 ],
 "levels": {
 "hsk2026": 7,
@@ -458,7 +467,9 @@
 "pinyin": "Ān níng",
 "meanings": [
 "Anning District of Lanzhou City 兰州市, Gansu",
-"Anning City, to the west of Kunming 明, Yunnan"
+"Anning City, to the west of Kunming 明, Yunnan",
+"peaceful",
+"tranquil"
 ],
 "levels": {
 "hsk2026": 7,
@@ -707,7 +718,9 @@
 "dark",
 "to turn dark",
 "secret; hidden",
-"(literary) confused; ignorant"
+"(literary) confused; ignorant",
+"(literary) to close (a door)",
+"to eclipse"
 ],
 "levels": {
 "hsk2026": 5,
@@ -777,7 +790,8 @@
 "depressed",
 "sunken",
 "indented",
-"concave"
+"concave",
+"(used in names)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -800,7 +814,9 @@
 "pinyin": "āo",
 "meanings": [
 "to boil",
-"to simmer"
+"to simmer",
+"to cook on a slow fire",
+"to extract by heating"
 ],
 "levels": {
 "hsk2026": 7,
@@ -894,7 +910,9 @@
 "to peel",
 "to skin",
 "to tear",
-"to pull down"
+"to pull down",
+"to rake up",
+"to steal"
 ],
 "levels": {
 "hsk2026": 7,
@@ -951,7 +969,8 @@
 "to hold; to grasp",
 "to hold a baby in position to help it urinate or defecate",
 "handlebar",
-"classifier: handful, bundle, bunch"
+"classifier: handful, bundle, bunch",
+"handle"
 ],
 "levels": {
 "hsk2026": 3,
@@ -983,8 +1002,11 @@
 }
 },
 "把手": {
-"pinyin": "bǎ shǒu",
+"pinyin": "bǎ shou",
 "meanings": [
+"handle",
+"grip",
+"knob",
 "to shake hands"
 ],
 "levels": {
@@ -1127,7 +1149,9 @@
 "bar (loanword) (serving drinks, or providing Internet access etc)",
 "to puff (on a pipe etc)",
 "(onom.) bang",
-"abbr. for 贴吧"
+"abbr. for 贴吧",
+"(modal particle indicating suggestion or surmise)",
+"...right?"
 ],
 "levels": {
 "hsk2026": 1,
@@ -1150,7 +1174,8 @@
 "罢了": {
 "pinyin": "bà le",
 "meanings": [
-"a modal particle indicating (that's all, only, nothing much)"
+"a modal particle indicating (that's all, only, nothing much)",
+"a modal particle indicating (don't mind it, ok)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -1199,7 +1224,8 @@
 "white",
 "snowy",
 "pure",
-"bright"
+"bright",
+"surname Bai"
 ],
 "levels": {
 "hsk2026": 5,
@@ -1281,7 +1307,8 @@
 "meanings": [
 "hundred",
 "numerous",
-"all kinds of"
+"all kinds of",
+"surname Bai"
 ],
 "levels": {
 "hsk2026": 1,
@@ -1401,11 +1428,13 @@
 }
 },
 "摆设": {
-"pinyin": "bǎi shè",
+"pinyin": "bǎi she",
 "meanings": [
+"ornament",
+"decorative item",
+"(fig.) sth that is merely for show",
 "to set out",
-"to display",
-"to furnish (a room or house)"
+"to display"
 ],
 "levels": {
 "hsk2026": 7,
@@ -1527,7 +1556,8 @@
 "team; class; grade",
 "(military) squad",
 "work shift",
-"classifier for groups of people and scheduled transport vehicles"
+"classifier for groups of people and scheduled transport vehicles",
+"surname Ban"
 ],
 "levels": {
 "hsk2026": 2,
@@ -1667,7 +1697,9 @@
 "board",
 "plank",
 "plate",
-"shutter"
+"shutter",
+"see 老板, boss",
+"to catch sight of in a doorway (old)"
 ],
 "levels": {
 "hsk30": 3
@@ -2187,7 +2219,8 @@
 "to cover",
 "to wrap",
 "to hold",
-"to include"
+"to include",
+"surname Bao"
 ],
 "levels": {
 "hsk2026": 2,
@@ -2343,7 +2376,9 @@
 "thin",
 "cold in manner",
 "indifferent",
-"weak"
+"weak",
+"meager",
+"slight"
 ],
 "levels": {
 "hsk2026": 5,
@@ -2496,7 +2531,9 @@
 "meanings": [
 "Bulgaria",
 "Bulgarian",
-"abbr. for 保加利亚"
+"abbr. for 保加利亚",
+"to defend; to protect; to keep",
+"to guarantee; to ensure"
 ],
 "levels": {
 "hsk2026": 5,
@@ -3464,7 +3501,9 @@
 "pinyin": "bēi",
 "meanings": [
 "to be burdened",
-"to carry on the back or shoulder"
+"to carry on the back or shoulder",
+"the back of a body or object",
+"to turn one's back"
 ],
 "levels": {
 "hsk2026": 4,
@@ -3558,7 +3597,9 @@
 "背着": {
 "pinyin": "bēi zhe",
 "meanings": [
-"carrying on one's back"
+"carrying on one's back",
+"turning one's back to (sth or sb)",
+"keeping sth secret from (sb)"
 ],
 "levels": {
 "hsk30": 6
@@ -3664,7 +3705,9 @@
 "to hurry",
 "to rush",
 "to run quickly",
-"to elope"
+"to elope",
+"to go to",
+"to head for"
 ],
 "levels": {
 "hsk2026": 7,
@@ -3687,7 +3730,9 @@
 "pinyin": "Bēn chí",
 "meanings": [
 "Benz (name)",
-"Mercedes-Benz, German car maker"
+"Mercedes-Benz, German car maker",
+"to run quickly",
+"to speed"
 ],
 "levels": {
 "hsk2026": 7,
@@ -3843,7 +3888,8 @@
 "inherent qualities",
 "natural qualities",
 "distinctive character",
-"true qualities"
+"true qualities",
+"natural color"
 ],
 "levels": {
 "hsk2026": 7,
@@ -3864,8 +3910,10 @@
 }
 },
 "本事": {
-"pinyin": "běn shì",
+"pinyin": "běn shi",
 "meanings": [
+"ability",
+"skill",
 "source material",
 "original story"
 ],
@@ -4015,7 +4063,8 @@
 "甭": {
 "pinyin": "béng",
 "meanings": [
-"(contraction of 用) need not; please don't"
+"(contraction of 用) need not; please don't",
+"(dialect) very"
 ],
 "levels": {
 "hsk2": 6
@@ -4027,7 +4076,8 @@
 "to draw tight",
 "to stretch taut",
 "to tack (with thread or pin)",
-"embroidery hoop"
+"embroidery hoop",
+"to have a taut face"
 ],
 "levels": {
 "hsk2026": 7,
@@ -4073,7 +4123,8 @@
 "to force (sb to do sth)",
 "to compel",
 "to press for",
-"to extort"
+"to extort",
+"to pressure"
 ],
 "levels": {
 "hsk2026": 6,
@@ -4146,7 +4197,9 @@
 "meanings": [
 "Belgium",
 "Belgian",
-"abbr. for 比利时"
+"abbr. for 比利时",
+"to compare",
+"(followed by a noun and adjective) more {adj.} than {noun}"
 ],
 "levels": {
 "hsk2026": 2,
@@ -4692,7 +4745,8 @@
 "side",
 "edge",
 "margin",
-"border"
+"border",
+"suffix of a noun of locality"
 ],
 "levels": {
 "hsk2026": 1,
@@ -4861,7 +4915,9 @@
 "pinyin": "biān zhì",
 "meanings": [
 "to establish (a unit or department)",
-"staffing structure (excluding temporary and casual staff)"
+"staffing structure (excluding temporary and casual staff)",
+"to weave",
+"to plait"
 ],
 "levels": {
 "hsk2026": 7,
@@ -4931,7 +4987,9 @@
 "扁": {
 "pinyin": "piān",
 "meanings": [
-"small boat"
+"small boat",
+"flat",
+"(coll.) to beat (sb) up"
 ],
 "levels": {
 "hsk2026": 7,
@@ -5110,7 +5168,9 @@
 "plain",
 "informal",
 "suitable",
-"convenient"
+"convenient",
+"used in 便宜",
+"used in 便"
 ],
 "levels": {
 "hsk2026": 5,
@@ -5197,8 +5257,12 @@
 }
 },
 "便宜": {
-"pinyin": "biàn yí",
+"pinyin": "pián yi",
 "meanings": [
+"cheap",
+"inexpensive",
+"small advantages",
+"to let sb off lightly",
 "convenient"
 ],
 "levels": {
@@ -5480,8 +5544,10 @@
 }
 },
 "标致": {
-"pinyin": "Biāo zhì",
+"pinyin": "biāo zhi",
 "meanings": [
+"beautiful (of woman)",
+"pretty",
 "Peugeot"
 ],
 "levels": {
@@ -5520,7 +5586,9 @@
 "exterior surface",
 "family relationship via females",
 "to show (one's opinion)",
-"a model"
+"a model",
+"watch (timepiece)",
+"meter; gauge"
 ],
 "levels": {
 "hsk2026": 4,
@@ -5742,7 +5810,9 @@
 "别": {
 "pinyin": "biè",
 "meanings": [
-"to make sb change their ways, opinions etc"
+"to make sb change their ways, opinions etc",
+"to leave; to part (from)",
+"(literary) to differentiate; to distinguish"
 ],
 "levels": {
 "hsk2026": 2,
@@ -5881,7 +5951,9 @@
 "Binhai (place name)",
 "Binhai New District, subprovincial district of Tianjin",
 "Binhai county in Yancheng 盐城, Jiangsu",
-"fictitious city Binhai in political satire"
+"fictitious city Binhai in political satire",
+"coastal",
+"bordering the sea"
 ],
 "levels": {
 "hsk30": 7
@@ -6045,7 +6117,8 @@
 "and",
 "furthermore",
 "also",
-"together with"
+"together with",
+"to amalgamate"
 ],
 "levels": {
 "hsk2026": 4,
@@ -6410,7 +6483,9 @@
 "播种": {
 "pinyin": "bō zhǒng",
 "meanings": [
-"to sow seeds"
+"to sow seeds",
+"to grow (maize etc) from seed",
+"to plant (maize etc) by sowing seed"
 ],
 "levels": {
 "hsk2026": 6,
@@ -8097,7 +8172,8 @@
 "a step",
 "a pace",
 "walk",
-"march"
+"march",
+"surname Bu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -8473,8 +8549,10 @@
 }
 },
 "裁缝": {
-"pinyin": "cái féng",
+"pinyin": "cái feng",
 "meanings": [
+"tailor",
+"dressmaker",
 "to make an item of clothing",
 "to tailor"
 ],
@@ -8525,7 +8603,9 @@
 "to pick",
 "to pluck",
 "to collect",
-"to select"
+"to select",
+"allotment to a feudal noble",
+"color"
 ],
 "levels": {
 "hsk2026": 7,
@@ -9045,7 +9125,8 @@
 "掺": {
 "pinyin": "shǎn",
 "meanings": [
-"to grasp"
+"to grasp",
+"to mix"
 ],
 "levels": {
 "hsk2026": 7,
@@ -9126,7 +9207,9 @@
 "pinyin": "Zàng",
 "meanings": [
 "Tibet",
-"abbr. for Xizang or Tibet Autonomous Region 藏"
+"abbr. for Xizang or Tibet Autonomous Region 藏",
+"to conceal",
+"to hide away"
 ],
 "levels": {
 "hsk2026": 5,
@@ -9368,7 +9451,8 @@
 "the side",
 "to incline towards",
 "to lean",
-"inclined"
+"inclined",
+"lean on one side"
 ],
 "levels": {
 "hsk2026": 6,
@@ -9568,7 +9652,9 @@
 "once",
 "already",
 "ever (in the past)",
-"former"
+"former",
+"great- (grandfather, grandchild etc)",
+"surname Zeng"
 ],
 "levels": {
 "hsk2026": 5,
@@ -9607,7 +9693,9 @@
 "fork",
 "pitchfork",
 "prong",
-"pick"
+"pick",
+"to cross",
+"be stuck"
 ],
 "levels": {
 "hsk2026": 6,
@@ -9679,7 +9767,8 @@
 "to research",
 "to check",
 "to investigate",
-"to examine"
+"to examine",
+"surname Zha"
 ],
 "levels": {
 "hsk2026": 3,
@@ -9861,7 +9950,9 @@
 "different",
 "wrong; mistaken",
 "to fall short; to lack",
-"not up to standard; inferior"
+"not up to standard; inferior",
+"difference; discrepancy",
+"(math.) difference (amount remaining after a subtraction)"
 ],
 "levels": {
 "hsk2026": 3,
@@ -10171,7 +10262,9 @@
 "pinyin": "chǎn",
 "meanings": [
 "to level off",
-"to root up"
+"to root up",
+"to shovel",
+"to remove"
 ],
 "levels": {
 "hsk2026": 7,
@@ -10292,7 +10385,8 @@
 "always",
 "ever",
 "often",
-"frequently"
+"frequently",
+"surname Chang"
 ],
 "levels": {
 "hsk2026": 3,
@@ -10436,7 +10530,9 @@
 "厂": {
 "pinyin": "hǎn",
 "meanings": [
-"\"cliff\" radical in Chinese characters (Kangxi radical 27), occurring in 原, 历, 压 etc"
+"\"cliff\" radical in Chinese characters (Kangxi radical 27), occurring in 原, 历, 压 etc",
+"factory",
+"yard"
 ],
 "levels": {
 "hsk2026": 4,
@@ -10478,7 +10574,9 @@
 "pinyin": "cháng",
 "meanings": [
 "threshing floor",
-"classifier for events and happenings: spell, episode, bout"
+"classifier for events and happenings: spell, episode, bout",
+"large place used for a specific purpose",
+"stage"
 ],
 "levels": {
 "hsk2026": 4,
@@ -10845,7 +10943,9 @@
 "朝": {
 "pinyin": "Cháo",
 "meanings": [
-"abbr. for 朝鲜 Korea"
+"abbr. for 朝鲜 Korea",
+"imperial or royal court",
+"government"
 ],
 "levels": {
 "hsk2026": 5,
@@ -11050,7 +11150,9 @@
 "car",
 "vehicle",
 "machine",
-"to shape with a lathe"
+"to shape with a lathe",
+"war chariot (archaic)",
+"rook (in Chinese chess)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -11581,7 +11683,9 @@
 "meanings": [
 "to fit",
 "balanced",
-"suitable"
+"suitable",
+"to weigh",
+"to state"
 ],
 "levels": {
 "hsk2026": 5,
@@ -11676,7 +11780,8 @@
 "to succeed",
 "to finish",
 "to complete",
-"to accomplish"
+"to accomplish",
+"surname Cheng"
 ],
 "levels": {
 "hsk2026": 6,
@@ -11720,7 +11825,9 @@
 "成功": {
 "pinyin": "Chéng gōng",
 "meanings": [
-"Chenggong or Chengkung town in Taitung County 台东县, southeast Taiwan"
+"Chenggong or Chengkung town in Taitung County 台东县, southeast Taiwan",
+"success",
+"to succeed"
 ],
 "levels": {
 "hsk2026": 4,
@@ -12240,7 +12347,9 @@
 "to ride",
 "to mount",
 "to make use of",
-"to avail oneself of"
+"to avail oneself of",
+"(archaic) four horse military chariot",
+"(archaic) four"
 ],
 "levels": {
 "hsk2026": 4,
@@ -12353,7 +12462,9 @@
 "clear (of liquid)",
 "limpid",
 "to clarify",
-"to make sth clear"
+"to make sth clear",
+"to settle (of liquid)",
+"to become clear (by precipitation of impurities)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -12583,7 +12694,8 @@
 "meanings": [
 "late",
 "delayed",
-"slow"
+"slow",
+"surname Chi"
 ],
 "levels": {
 "hsk2026": 4,
@@ -12708,7 +12820,9 @@
 "尺": {
 "pinyin": "chě",
 "meanings": [
-"one of the characters used to represent a musical note in gongche notation, 工尺谱"
+"one of the characters used to represent a musical note in gongche notation, 工尺谱",
+"a Chinese foot",
+"one-third of a meter"
 ],
 "levels": {
 "hsk2026": 6,
@@ -12927,7 +13041,9 @@
 "(of water) to dash against",
 "to mix with water",
 "to infuse",
-"to rinse"
+"to rinse",
+"thoroughfare",
+"to go straight ahead"
 ],
 "levels": {
 "hsk2026": 5,
@@ -13204,7 +13320,9 @@
 "hatred",
 "animosity",
 "enmity",
-"foe"
+"foe",
+"spouse",
+"companion"
 ],
 "levels": {
 "hsk2026": 7,
@@ -13368,7 +13486,9 @@
 "meanings": [
 "clown",
 "2nd earthly branch: 1-3 a.m., 12th solar month (6th January to 3rd February), year of the Ox",
-"ancient Chinese compass point: 30°"
+"ancient Chinese compass point: 30°",
+"shameful",
+"ugly"
 ],
 "levels": {
 "hsk2026": 5,
@@ -13424,7 +13544,9 @@
 "stench",
 "smelly",
 "to smell (bad)",
-"repulsive"
+"repulsive",
+"sense of smell",
+"smell bad"
 ],
 "levels": {
 "hsk2026": 5,
@@ -13660,11 +13782,11 @@
 }
 },
 "出来": {
-"pinyin": "chū lái",
+"pinyin": "chu lai",
 "meanings": [
+"(after a verb, indicates coming out, completion of an action, or ability to discern or detect)",
 "to come out",
-"to appear",
-"to arise"
+"to appear"
 ],
 "levels": {
 "hsk2026": 2,
@@ -13957,8 +14079,12 @@
 }
 },
 "出息": {
-"pinyin": "chū xī",
+"pinyin": "chū xi",
 "meanings": [
+"future prospects",
+"profit",
+"to mature",
+"to grow up",
 "to yield interest, profit etc",
 "to exhale (Buddhism)"
 ],
@@ -14389,7 +14515,9 @@
 "to reside",
 "to live",
 "to dwell",
-"to be in"
+"to be in",
+"place",
+"location"
 ],
 "levels": {
 "hsk2026": 5,
@@ -14583,7 +14711,9 @@
 "pinyin": "chuāi",
 "meanings": [
 "to put into (one's pockets, clothes)",
-"Taiwan pr. [chuǎi]"
+"Taiwan pr. [chuǎi]",
+"to estimate",
+"to guess"
 ],
 "levels": {
 "hsk2026": 7,
@@ -14708,7 +14838,9 @@
 "to pass on",
 "to spread",
 "to transmit",
-"to infect"
+"to infect",
+"biography",
+"historical narrative"
 ],
 "levels": {
 "hsk2026": 5,
@@ -15166,7 +15298,9 @@
 "幢": {
 "pinyin": "chuáng",
 "meanings": [
-"banner"
+"banner",
+"classifier for buildings",
+"carriage curtain (old)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -15194,7 +15328,9 @@
 "a wound",
 "cut",
 "injury",
-"trauma"
+"trauma",
+"to begin",
+"to initiate"
 ],
 "levels": {
 "hsk2026": 7,
@@ -15449,7 +15585,8 @@
 "spring (season)",
 "gay",
 "joyful",
-"youthful"
+"youthful",
+"surname Chun"
 ],
 "levels": {
 "hsk2": 3
@@ -16008,7 +16145,9 @@
 "刺": {
 "pinyin": "cī",
 "meanings": [
-"(onom.) whoosh"
+"(onom.) whoosh",
+"thorn",
+"sting"
 ],
 "levels": {
 "hsk2026": 6,
@@ -16139,7 +16278,8 @@
 "from",
 "through",
 "via",
-"to follow"
+"to follow",
+"surname Cong"
 ],
 "levels": {
 "hsk2026": 2,
@@ -16411,7 +16551,9 @@
 "coarse",
 "rough",
 "thick (for cylindrical objects)",
-"unfinished"
+"unfinished",
+"remote",
+"distant"
 ],
 "levels": {
 "hsk2026": 4,
@@ -16839,7 +16981,8 @@
 "mistake",
 "wrong",
 "bad",
-"interlocking"
+"interlocking",
+"surname Cuo"
 ],
 "levels": {
 "hsk2026": 2,
@@ -17014,7 +17157,8 @@
 "meanings": [
 "to answer",
 "to reply",
-"to respond"
+"to respond",
+"bound form having the same meaning as the free word 答, used in 答应, 理 etc"
 ],
 "levels": {
 "hsk2026": 4,
@@ -17073,7 +17217,9 @@
 "打": {
 "pinyin": "dá",
 "meanings": [
-"dozen (loanword)"
+"dozen (loanword)",
+"to beat",
+"to strike"
 ],
 "levels": {
 "hsk2026": 2,
@@ -17555,7 +17701,9 @@
 "大": {
 "pinyin": "dài",
 "meanings": [
-"see 夫"
+"see 夫",
+"big; large; great",
+"older (than another person)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -17698,7 +17846,9 @@
 "大都": {
 "pinyin": "Dà dū",
 "meanings": [
-"Dadu, capital of China during the Yuan Dynasty (1280-1368), modern day Beijing"
+"Dadu, capital of China during the Yuan Dynasty (1280-1368), modern day Beijing",
+"for the most part",
+"on the whole"
 ],
 "levels": {
 "hsk2026": 6,
@@ -17740,12 +17890,14 @@
 }
 },
 "大方": {
-"pinyin": "dà fāng",
+"pinyin": "dà fang",
 "meanings": [
+"generous",
+"magnanimous",
+"stylish",
+"in good taste",
 "expert",
-"scholar",
-"mother earth",
-"a type of green tea"
+"scholar"
 ],
 "levels": {
 "hsk2026": 6,
@@ -17764,8 +17916,10 @@
 }
 },
 "大夫": {
-"pinyin": "dà fū",
+"pinyin": "dài fu",
 "meanings": [
+"doctor",
+"physician",
 "senior official (in imperial China)"
 ],
 "levels": {
@@ -18001,7 +18155,8 @@
 "大陆": {
 "pinyin": "Dà lù",
 "meanings": [
-"mainland China (reference to the PRC)"
+"mainland China (reference to the PRC)",
+"continent; mainland"
 ],
 "levels": {
 "hsk2026": 7,
@@ -18022,7 +18177,9 @@
 "大门": {
 "pinyin": "Dà mén",
 "meanings": [
-"the Doors, US rock band"
+"the Doors, US rock band",
+"entrance",
+"door"
 ],
 "levels": {
 "hsk30": 2
@@ -18352,7 +18509,9 @@
 "大学": {
 "pinyin": "Dà xué",
 "meanings": [
-"the Great Learning, one of the Four Books 四书 in Confucianism"
+"the Great Learning, one of the Four Books 四书 in Confucianism",
+"university",
+"college"
 ],
 "levels": {
 "hsk2026": 1,
@@ -18381,8 +18540,11 @@
 }
 },
 "大爷": {
-"pinyin": "dà yé",
+"pinyin": "dà ye",
 "meanings": [
+"(coll.) father's older brother",
+"uncle",
+"term of respect for older man",
 "arrogant idler",
 "self-centered show-off"
 ],
@@ -18404,8 +18566,9 @@
 }
 },
 "大意": {
-"pinyin": "dà yì",
+"pinyin": "dà yi",
 "meanings": [
+"careless",
 "general idea",
 "main idea"
 ],
@@ -18461,7 +18624,9 @@
 "大众": {
 "pinyin": "Dà zhòng",
 "meanings": [
-"Volkswagen (automobile manufacturer)"
+"Volkswagen (automobile manufacturer)",
+"the masses",
+"the great bulk of the population"
 ],
 "levels": {
 "hsk2026": 5,
@@ -18522,7 +18687,8 @@
 "pinyin": "dǎi",
 "meanings": [
 "(coll.) to catch",
-"to seize"
+"to seize",
+"(literary) to arrest"
 ],
 "levels": {
 "hsk2026": 7,
@@ -18747,7 +18913,9 @@
 "待": {
 "pinyin": "dāi",
 "meanings": [
-"to stay"
+"to stay",
+"to wait",
+"to treat"
 ],
 "levels": {
 "hsk2026": 4,
@@ -18833,7 +19001,8 @@
 "to put on or wear (glasses, hat, gloves etc)",
 "to respect",
 "to bear",
-"to support"
+"to support",
+"surname Dai"
 ],
 "levels": {
 "hsk2026": 4,
@@ -18847,7 +19016,8 @@
 "bill",
 "list",
 "form",
-"single"
+"single",
+"surname Shan"
 ],
 "levels": {
 "hsk2026": 5,
@@ -18989,7 +19159,9 @@
 "to undertake",
 "to carry",
 "to shoulder",
-"to take responsibility"
+"to take responsibility",
+"picul (100 catties, 50 kg)",
+"two buckets full"
 ],
 "levels": {
 "hsk2026": 7,
@@ -19227,7 +19399,9 @@
 "crossball",
 "bullet",
 "shot",
-"shell"
+"shell",
+"to pluck (a string)",
+"to play (a string instrument)"
 ],
 "levels": {
 "hsk2026": 4,
@@ -19290,7 +19464,9 @@
 "淡水": {
 "pinyin": "Dàn shuǐ",
 "meanings": [
-"Tamsui or Danshui, district of New Taipei City 市, Taiwan"
+"Tamsui or Danshui, district of New Taipei City 市, Taiwan",
+"potable water (water with low salt content)",
+"fresh water"
 ],
 "levels": {
 "hsk2026": 7,
@@ -19333,7 +19509,9 @@
 "pinyin": "dāng",
 "meanings": [
 "(onom.) dong",
-"ding dong (bell)"
+"ding dong (bell)",
+"to be",
+"to act as"
 ],
 "levels": {
 "hsk2026": 4,
@@ -19440,7 +19618,8 @@
 "in those days",
 "then",
 "in those years",
-"during that time"
+"during that time",
+"that very same year"
 ],
 "levels": {
 "hsk2026": 5,
@@ -19476,7 +19655,9 @@
 "当日": {
 "pinyin": "dāng rì",
 "meanings": [
-"on that day"
+"on that day",
+"that very day",
+"the same day"
 ],
 "levels": {
 "hsk2026": 7,
@@ -19488,7 +19669,9 @@
 "meanings": [
 "then",
 "at that time",
-"while"
+"while",
+"at once",
+"right away"
 ],
 "levels": {
 "hsk2026": 4,
@@ -19510,7 +19693,8 @@
 "当天": {
 "pinyin": "dāng tiān",
 "meanings": [
-"on that day"
+"on that day",
+"the same day"
 ],
 "levels": {
 "hsk2026": 6,
@@ -19520,7 +19704,8 @@
 "当晚": {
 "pinyin": "dāng wǎn",
 "meanings": [
-"on that evening"
+"on that evening",
+"the same evening"
 ],
 "levels": {
 "hsk2026": 7,
@@ -19648,7 +19833,9 @@
 "to resist",
 "to obstruct",
 "to hinder",
-"to keep off"
+"to keep off",
+"to arrange",
+"to put in order"
 ],
 "levels": {
 "hsk2026": 5,
@@ -19662,7 +19849,8 @@
 "party",
 "association",
 "club",
-"society"
+"society",
+"surname Dang"
 ],
 "levels": {
 "hsk2026": 7,
@@ -19727,7 +19915,8 @@
 "knife",
 "blade",
 "single-edged sword",
-"cutlass"
+"cutlass",
+"surname Dao"
 ],
 "levels": {
 "hsk2026": 4,
@@ -19970,7 +20159,9 @@
 "to fall; to collapse; to lie horizontally",
 "to fail; to go bankrupt",
 "to overthrow",
-"to change (trains or buses)"
+"to change (trains or buses)",
+"to invert; to place upside down or frontside back",
+"to pour out"
 ],
 "levels": {
 "hsk2026": 4,
@@ -19993,7 +20184,9 @@
 "倒车": {
 "pinyin": "dǎo chē",
 "meanings": [
-"to change buses, trains etc"
+"to change buses, trains etc",
+"to reverse (a vehicle)",
+"to drive backwards"
 ],
 "levels": {
 "hsk2026": 6,
@@ -20052,7 +20245,9 @@
 "to count backwards (from 10 down to 0)",
 "to count down",
 "from the bottom (lines on a page)",
-"from the back (rows of seats)"
+"from the back (rows of seats)",
+"inverse number",
+"reciprocal (math.)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -20237,7 +20432,9 @@
 "meanings": [
 "Germany",
 "German",
-"abbr. for 德国"
+"abbr. for 德国",
+"virtue",
+"goodness"
 ],
 "levels": {
 "hsk30": 7
@@ -20247,7 +20444,9 @@
 "pinyin": "de",
 "meanings": [
 "-ly",
-"structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct"
+"structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct",
+"earth",
+"ground"
 ],
 "levels": {
 "hsk2026": 2,
@@ -20290,8 +20489,11 @@
 }
 },
 "地道": {
-"pinyin": "dì dào",
+"pinyin": "dì dao",
 "meanings": [
+"authentic",
+"genuine",
+"proper",
 "tunnel",
 "causeway"
 ],
@@ -20326,11 +20528,14 @@
 }
 },
 "地方": {
-"pinyin": "dì fāng",
+"pinyin": "dì fang",
 "meanings": [
+"area",
+"place",
+"space",
+"room",
 "region",
-"regional (away from the central administration)",
-"local"
+"regional (away from the central administration)"
 ],
 "levels": {
 "hsk2026": 3,
@@ -20582,7 +20787,9 @@
 "of; ~'s (possessive particle)",
 "(used after an attribute)",
 "(used to form a nominal expression)",
-"(used at the end of a declarative sentence for emphasis)"
+"(used at the end of a declarative sentence for emphasis)",
+"a taxi; a cab (abbr. for 士)",
+"really and truly"
 ],
 "levels": {
 "hsk2026": 1,
@@ -20618,7 +20825,9 @@
 "to obtain",
 "to get",
 "to gain",
-"to catch (a disease)"
+"to catch (a disease)",
+"structural particle: used after a verb (or adjective as main verb), linking it to following phrase indicating effect, degree, possibility etc",
+"to have to"
 ],
 "levels": {
 "hsk2026": 2,
@@ -20683,7 +20892,8 @@
 "pinyin": "dé le",
 "meanings": [
 "all right!",
-"that's enough!"
+"that's enough!",
+"(emphatically, in rhetorical questions) possible"
 ],
 "levels": {
 "hsk2026": 6,
@@ -20808,12 +21018,14 @@
 }
 },
 "得罪": {
-"pinyin": "dé zuì",
+"pinyin": "dé zui",
 "meanings": [
+"to offend sb",
+"to make a faux pas",
+"a faux pas",
+"see also 罪",
 "to commit an offense",
-"to violate the law",
-"excuse me! (formal)",
-"see also 罪"
+"to violate the law"
 ],
 "levels": {
 "hsk2026": 7,
@@ -21257,7 +21469,9 @@
 "底": {
 "pinyin": "de",
 "meanings": [
-"(equivalent to 的 as possessive particle)"
+"(equivalent to 的 as possessive particle)",
+"background",
+"bottom"
 ],
 "levels": {
 "hsk2026": 4,
@@ -22259,7 +22473,9 @@
 "meanings": [
 "to suspend",
 "to hang up",
-"to hang a person"
+"to hang a person",
+"a string of 100 cash (arch.)",
+"to lament"
 ],
 "levels": {
 "hsk2026": 6,
@@ -22304,7 +22520,9 @@
 "to transfer",
 "to move (troops or cadres)",
 "to investigate",
-"to enquire into"
+"to enquire into",
+"to harmonize",
+"to reconcile"
 ],
 "levels": {
 "hsk2026": 5,
@@ -22581,7 +22799,8 @@
 "male adult",
 "the 4th of the 10 Heavenly Stems 干",
 "fourth (used like \"4\" or \"D\")",
-"small cube of meat or vegetable"
+"small cube of meat or vegetable",
+"surname Ding"
 ],
 "levels": {
 "hsk2026": 7,
@@ -22622,7 +22841,9 @@
 "to join things together by fixing them in place at one or more points",
 "to nail",
 "to pin",
-"to staple"
+"to staple",
+"nail",
+"to follow closely"
 ],
 "levels": {
 "hsk2026": 7,
@@ -22979,7 +23200,8 @@
 "meanings": [
 "east",
 "host (i.e. sitting on east side of guest)",
-"landlord"
+"landlord",
+"surname Dong"
 ],
 "levels": {
 "hsk2026": 3,
@@ -22991,7 +23213,8 @@
 "pinyin": "Dōng běi",
 "meanings": [
 "Northeast China",
-"Manchuria"
+"Manchuria",
+"northeast"
 ],
 "levels": {
 "hsk2026": 3,
@@ -23049,7 +23272,9 @@
 "东方": {
 "pinyin": "dōng fāng",
 "meanings": [
-"east"
+"east",
+"the East",
+"the Orient"
 ],
 "levels": {
 "hsk2026": 3,
@@ -23067,8 +23292,11 @@
 }
 },
 "东西": {
-"pinyin": "dōng xī",
+"pinyin": "dōng xi",
 "meanings": [
+"thing",
+"stuff",
+"person",
 "east and west"
 ],
 "levels": {
@@ -23092,7 +23320,9 @@
 "冬": {
 "pinyin": "dōng",
 "meanings": [
-"winter"
+"winter",
+"(onom.) beating a drum",
+"rat-a-tat"
 ],
 "levels": {
 "hsk2": 3
@@ -23542,7 +23772,9 @@
 "all; both; entirely",
 "(used for emphasis) even",
 "already",
-"(not) at all"
+"(not) at all",
+"capital city",
+"metropolis"
 ],
 "levels": {
 "hsk2026": 1,
@@ -23647,7 +23879,9 @@
 "斗": {
 "pinyin": "Dǒu",
 "meanings": [
-"abbr. for the Big Dipper constellation 星"
+"abbr. for the Big Dipper constellation 星",
+"to fight",
+"to struggle"
 ],
 "levels": {
 "hsk2026": 7,
@@ -23886,7 +24120,9 @@
 "pinyin": "dòu",
 "meanings": [
 "comma",
-"phrase marked by pause"
+"phrase marked by pause",
+"to read out; to read aloud",
+"to read"
 ],
 "levels": {
 "hsk2026": 1,
@@ -24027,7 +24263,9 @@
 "to pass",
 "to spend (time)",
 "measure",
-"limit"
+"limit",
+"to estimate",
+"Taiwan pr. [duò]"
 ],
 "levels": {
 "hsk2026": 5,
@@ -24086,7 +24324,9 @@
 "end",
 "extremity",
 "item",
-"port"
+"port",
+"start",
+"origin"
 ],
 "levels": {
 "hsk2026": 6,
@@ -24227,7 +24467,8 @@
 "paragraph",
 "section",
 "segment",
-"stage (of a process)"
+"stage (of a process)",
+"surname Duan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -24965,11 +25206,13 @@
 }
 },
 "多少": {
-"pinyin": "duō shǎo",
+"pinyin": "duō shao",
 "meanings": [
+"how much?",
+"how many?",
+"(phone number, student ID etc) what number?",
 "number",
-"amount",
-"somewhat"
+"amount"
 ],
 "levels": {
 "hsk2026": 1,
@@ -25263,7 +25506,9 @@
 "evil",
 "fierce",
 "vicious",
-"ugly"
+"ugly",
+"to hate",
+"to loathe"
 ],
 "levels": {
 "hsk2026": 7,
@@ -25300,7 +25545,9 @@
 "nausea",
 "to feel sick",
 "disgust",
-"nauseating"
+"nauseating",
+"bad habit",
+"vicious habit"
 ],
 "levels": {
 "hsk2026": 6,
@@ -25694,7 +25941,9 @@
 "to send out",
 "to show (one's feeling)",
 "to issue",
-"to develop"
+"to develop",
+"hair",
+"Taiwan pr. [fǎ]"
 ],
 "levels": {
 "hsk2026": 3,
@@ -26306,7 +26555,9 @@
 "France",
 "French",
 "abbr. for 法国",
-"Taiwan pr. [Fà]"
+"Taiwan pr. [Fà]",
+"law",
+"method"
 ],
 "levels": {
 "hsk2026": 4,
@@ -26391,7 +26642,8 @@
 "法制": {
 "pinyin": "fǎ zhì",
 "meanings": [
-"legal system and institutions"
+"legal system and institutions",
+"made in France"
 ],
 "levels": {
 "hsk2026": 7,
@@ -26402,7 +26654,9 @@
 "pinyin": "fān",
 "meanings": [
 "sail",
-"Taiwan pr. [fán], except 布 canvas"
+"Taiwan pr. [fán], except 布 canvas",
+"to gallop",
+"Taiwan pr. [fán]"
 ],
 "levels": {
 "hsk2026": 7,
@@ -26425,7 +26679,8 @@
 "foreign (non-Chinese)",
 "barbarian",
 "classifier for occurrences (of an event, action or speech utterance)",
-"classifier for iterations: times, -fold (as in twofold etc)"
+"classifier for iterations: times, -fold (as in twofold etc)",
+"surname Pan"
 ],
 "levels": {
 "hsk2026": 6,
@@ -27135,7 +27390,8 @@
 "square",
 "power or involution (math.)",
 "upright",
-"honest"
+"honest",
+"surname Fang"
 ],
 "levels": {
 "hsk2026": 5,
@@ -27267,7 +27523,9 @@
 "方言": {
 "pinyin": "Fāng yán",
 "meanings": [
-"the first Chinese dialect dictionary, edited by Yang Xiong 扬雄 in 1st century, containing over 9000 characters"
+"the first Chinese dialect dictionary, edited by Yang Xiong 扬雄 in 1st century, containing over 9000 characters",
+"topolect",
+"dialect"
 ],
 "levels": {
 "hsk2026": 6,
@@ -27541,7 +27799,8 @@
 "pinyin": "fǎng",
 "meanings": [
 "to imitate",
-"to copy"
+"to copy",
+"seemingly"
 ],
 "levels": {
 "hsk2026": 7,
@@ -27928,7 +28187,9 @@
 "非": {
 "pinyin": "Fēi",
 "meanings": [
-"abbr. for 洲, Africa"
+"abbr. for 洲, Africa",
+"to not be; not",
+"wrong; incorrect"
 ],
 "levels": {
 "hsk2026": 7,
@@ -28083,7 +28344,8 @@
 "to abolish",
 "to abandon",
 "to abrogate",
-"to discard"
+"to discard",
+"disabled"
 ],
 "levels": {
 "hsk2026": 7,
@@ -28208,7 +28470,8 @@
 "to cost",
 "to spend",
 "fee",
-"wasteful"
+"wasteful",
+"surname Fei"
 ],
 "levels": {
 "hsk2026": 4,
@@ -28245,7 +28508,9 @@
 "to divide; to separate",
 "to distribute; to allocate",
 "to distinguish (good and bad)",
-"(bound form) branch of (an organization); sub- (as in 局)"
+"(bound form) branch of (an organization); sub- (as in 局)",
+"part",
+"share"
 ],
 "levels": {
 "hsk2026": 1,
@@ -28420,8 +28685,11 @@
 }
 },
 "分量": {
-"pinyin": "fēn liàng",
+"pinyin": "fèn liang",
 "meanings": [
+"quantity",
+"weight",
+"measure",
 "(vector) component"
 ],
 "levels": {
@@ -28912,7 +29180,9 @@
 "丰满": {
 "pinyin": "Fēng mǎn",
 "meanings": [
-"Fengman district of Jilin city 吉林市, Jilin province"
+"Fengman district of Jilin city 吉林市, Jilin province",
+"ample",
+"well developed"
 ],
 "levels": {
 "hsk2026": 7,
@@ -29301,7 +29571,8 @@
 "to confer",
 "to grant",
 "to bestow a title",
-"to seal"
+"to seal",
+"surname Feng"
 ],
 "levels": {
 "hsk2026": 3,
@@ -29481,7 +29752,8 @@
 "凤凰": {
 "pinyin": "Fèng huáng",
 "meanings": [
-"Fenghuang County in Xiangxi Tujia and Miao Autonomous Prefecture 州"
+"Fenghuang County in Xiangxi Tujia and Miao Autonomous Prefecture 州",
+"phoenix"
 ],
 "levels": {
 "hsk2026": 7,
@@ -29506,7 +29778,9 @@
 "pinyin": "féng",
 "meanings": [
 "to sew",
-"to stitch"
+"to stitch",
+"seam",
+"crack"
 ],
 "levels": {
 "hsk2026": 7,
@@ -29615,7 +29889,9 @@
 "佛": {
 "pinyin": "Fó",
 "meanings": [
-"Buddha; Buddhism (abbr. for 陀)"
+"Buddha; Buddhism (abbr. for 陀)",
+"seemingly",
+"(female) head ornament"
 ],
 "levels": {
 "hsk2026": 7,
@@ -29662,7 +29938,9 @@
 "clothes",
 "dress",
 "garment",
-"to serve (in the military, a prison sentence etc)"
+"to serve (in the military, a prison sentence etc)",
+"classifier for medicine: dose",
+"Taiwan pr. [fú]"
 ],
 "levels": {
 "hsk2026": 6,
@@ -29890,7 +30168,9 @@
 "meanings": [
 "good fortune",
 "happiness",
-"luck"
+"luck",
+"surname Fu",
+"abbr. for Fujian province 省"
 ],
 "levels": {
 "hsk2026": 5,
@@ -30148,7 +30428,8 @@
 "meanings": [
 "to pay",
 "to hand over to",
-"classifier for pairs or sets of things"
+"classifier for pairs or sets of things",
+"surname Fu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -30379,7 +30660,9 @@
 "pinyin": "fù hé",
 "meanings": [
 "(of people who were estranged) to be reconciled",
-"(of a couple) to get back together"
+"(of a couple) to get back together",
+"complex",
+"compound"
 ],
 "levels": {
 "hsk2026": 7,
@@ -30427,7 +30710,9 @@
 "pinyin": "Fù xīng",
 "meanings": [
 "Fuxing district of Handan city 邯郸市, Hebei",
-"Fuxing or Fuhsing township in Taoyuan county 桃园县, north Taiwan"
+"Fuxing or Fuhsing township in Taoyuan county 桃园县, north Taiwan",
+"to revive",
+"to rejuvenate"
 ],
 "levels": {
 "hsk2026": 7,
@@ -30526,7 +30811,8 @@
 "meanings": [
 "rich",
 "abundant",
-"wealthy"
+"wealthy",
+"surname Fu"
 ],
 "levels": {
 "hsk2026": 5,
@@ -30601,7 +30887,9 @@
 "富裕": {
 "pinyin": "Fù yù",
 "meanings": [
-"Fuyu county in Qiqihar 齐齐哈尔, Heilongjiang"
+"Fuyu county in Qiqihar 齐齐哈尔, Heilongjiang",
+"prosperous",
+"well-to-do"
 ],
 "levels": {
 "hsk2026": 6,
@@ -30930,7 +31218,8 @@
 "lid",
 "top",
 "cover",
-"canopy"
+"canopy",
+"surname Ge"
 ],
 "levels": {
 "hsk2026": 5,
@@ -31033,7 +31322,8 @@
 "杆": {
 "pinyin": "gān",
 "meanings": [
-"pole"
+"pole",
+"stick"
 ],
 "levels": {
 "hsk2026": 7,
@@ -31449,7 +31739,9 @@
 "tree trunk",
 "main part of sth",
 "to manage",
-"to work"
+"to work",
+"dry",
+"dried food"
 ],
 "levels": {
 "hsk2026": 3,
@@ -31812,7 +32104,9 @@
 "pinyin": "gǎng",
 "meanings": [
 "harbor",
-"port"
+"port",
+"Hong Kong (abbr. for 港)",
+"surname Gang"
 ],
 "levels": {
 "hsk2026": 7,
@@ -31847,7 +32141,8 @@
 "high",
 "tall",
 "above average",
-"loud"
+"loud",
+"surname Gao"
 ],
 "levels": {
 "hsk2026": 2,
@@ -32121,7 +32416,8 @@
 "高明": {
 "pinyin": "Gāo míng",
 "meanings": [
-"Gaoming District of Foshan City 市, Guangdong"
+"Gaoming District of Foshan City 市, Guangdong",
+"brilliant; superior; wise"
 ],
 "levels": {
 "hsk2026": 7,
@@ -32313,7 +32609,8 @@
 "pinyin": "gāo zhōng",
 "meanings": [
 "senior high school",
-"abbr. for 高级中学"
+"abbr. for 高级中学",
+"to pass brilliantly (used in congratulatory fashion)"
 ],
 "levels": {
 "hsk2026": 2,
@@ -32452,8 +32749,9 @@
 }
 },
 "告诉": {
-"pinyin": "gào sù",
+"pinyin": "gào su",
 "meanings": [
+"to tell; to inform; to let know",
 "to press charges; to file a complaint"
 ],
 "levels": {
@@ -32567,7 +32865,9 @@
 "meanings": [
 "to place",
 "to put aside",
-"to shelve"
+"to shelve",
+"to bear",
+"to stand"
 ],
 "levels": {
 "hsk2026": 7,
@@ -32871,7 +33171,8 @@
 "pinyin": "gè",
 "meanings": [
 "(classifier used before a noun that has no specific classifier)",
-"(bound form) individual"
+"(bound form) individual",
+"used in 自个儿"
 ],
 "levels": {
 "hsk2026": 1,
@@ -33079,7 +33380,9 @@
 "to",
 "for",
 "for the benefit of",
-"to give"
+"to give",
+"to supply",
+"to provide"
 ],
 "levels": {
 "hsk2026": 1,
@@ -33208,12 +33511,12 @@
 }
 },
 "跟前": {
-"pinyin": "gēn qián",
+"pinyin": "gēn qian",
 "meanings": [
+"(of children, parents etc) at one's side",
+"living with one",
 "the front (of)",
-"(in) front",
-"(in) sb's presence",
-"just before (a date)"
+"(in) front"
 ],
 "levels": {
 "hsk2026": 6,
@@ -33286,7 +33589,9 @@
 "to change or replace",
 "to experience",
 "one of the five two-hour periods into which the night was formerly divided",
-"watch (e.g. of a sentry or guard)"
+"watch (e.g. of a sentry or guard)",
+"more",
+"even more"
 ],
 "levels": {
 "hsk2026": 3,
@@ -33423,7 +33728,8 @@
 "period of time (may be months, or mere seconds)",
 "spare time",
 "skill",
-"labor"
+"labor",
+"(old) laborer"
 ],
 "levels": {
 "hsk2026": 6,
@@ -33603,7 +33909,8 @@
 "meanings": [
 "a bow (weapon)",
 "to bend",
-"to arch (one's back etc)"
+"to arch (one's back etc)",
+"surname Gong"
 ],
 "levels": {
 "hsk2026": 7,
@@ -33671,11 +33978,12 @@
 }
 },
 "公道": {
-"pinyin": "gōng dào",
+"pinyin": "gōng dao",
 "meanings": [
+"fair",
+"equitable",
 "justice",
-"fairness",
-"public highway"
+"fairness"
 ],
 "levels": {
 "hsk2026": 7,
@@ -34332,7 +34640,9 @@
 "pinyin": "gōng",
 "meanings": [
 "to provide",
-"to supply"
+"to supply",
+"sacrificial offering",
+"to confess"
 ],
 "levels": {
 "hsk2026": 7,
@@ -34415,7 +34725,8 @@
 "palace",
 "temple",
 "castration (as corporal punishment)",
-"first note in pentatonic scale"
+"first note in pentatonic scale",
+"surname Gong"
 ],
 "levels": {
 "hsk2026": 6,
@@ -34637,7 +34948,9 @@
 "to attract",
 "to arouse",
 "to tick",
-"to strike out"
+"to strike out",
+"surname Gou",
+"used in 勾当"
 ],
 "levels": {
 "hsk2026": 7,
@@ -35005,7 +35318,8 @@
 "meanings": [
 "ancient",
 "old",
-"paleo-"
+"paleo-",
+"surname Gu"
 ],
 "levels": {
 "hsk2026": 5,
@@ -35373,8 +35687,9 @@
 }
 },
 "故事": {
-"pinyin": "gù shì",
+"pinyin": "gù shi",
 "meanings": [
+"narrative; story; tale",
 "old practice"
 ],
 "levels": {
@@ -35426,7 +35741,8 @@
 "meanings": [
 "to look after",
 "to take into consideration",
-"to attend to"
+"to attend to",
+"surname Gu"
 ],
 "levels": {
 "hsk2026": 6,
@@ -35592,7 +35908,8 @@
 "to scrape",
 "to blow",
 "to shave",
-"to plunder"
+"to plunder",
+"to blow (of the wind)"
 ],
 "levels": {
 "hsk2026": 3,
@@ -35711,7 +36028,9 @@
 "cane",
 "walking stick",
 "crutch",
-"old man's staff"
+"old man's staff",
+"to turn (a corner etc)",
+"to kidnap"
 ],
 "levels": {
 "hsk2026": 6,
@@ -35799,7 +36118,8 @@
 "mountain pass",
 "to close; to shut; to turn off",
 "to confine; to lock (sb) up; to shut (sb in a room, a bird in a cage etc)",
-"to concern; to involve"
+"to concern; to involve",
+"surname Guan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -36137,7 +36457,8 @@
 "government official",
 "governmental",
 "official",
-"public"
+"public",
+"surname Guan"
 ],
 "levels": {
 "hsk2026": 6,
@@ -36249,7 +36570,8 @@
 "to take care (of)",
 "to control",
 "to manage",
-"to be in charge of"
+"to be in charge of",
+"surname Guan"
 ],
 "levels": {
 "hsk2026": 4,
@@ -36340,8 +36662,11 @@
 }
 },
 "管子": {
-"pinyin": "Guǎn zǐ",
+"pinyin": "guǎn zi",
 "meanings": [
+"tube",
+"pipe",
+"drinking straw",
 "Guanzi or Guan Zhong 管仲 (-645 BC), famous politician of Qi 齐国 of Spring and Autumn period",
 "Guanzi, classical book containing writings of Guan Zhong and his school"
 ],
@@ -36669,7 +36994,9 @@
 "光泽": {
 "pinyin": "Guāng zé",
 "meanings": [
-"Guangze county in Nanping 平 Fujian"
+"Guangze county in Nanping 平 Fujian",
+"luster",
+"gloss"
 ],
 "levels": {
 "hsk2026": 7,
@@ -36679,7 +37006,9 @@
 "广": {
 "pinyin": "yǎn",
 "meanings": [
-"\"house on a cliff\" radical in Chinese characters (Kangxi radical 53), occurring in 店, 序, 底 etc"
+"\"house on a cliff\" radical in Chinese characters (Kangxi radical 53), occurring in 店, 序, 底 etc",
+"wide",
+"numerous"
 ],
 "levels": {
 "hsk2026": 5,
@@ -36791,7 +37120,8 @@
 "to return",
 "to go back to",
 "to give back to",
-"(of a responsibility) to be taken care of by"
+"(of a responsibility) to be taken care of by",
+"surname Gui"
 ],
 "levels": {
 "hsk2026": 6,
@@ -36889,7 +37219,8 @@
 "pinyin": "guī",
 "meanings": [
 "tortoise",
-"turtle"
+"turtle",
+"used in 龟兹"
 ],
 "levels": {
 "hsk2026": 7,
@@ -37249,7 +37580,8 @@
 "pinyin": "guó",
 "meanings": [
 "country; nation; state",
-"(bound form) national"
+"(bound form) national",
+"surname Guo"
 ],
 "levels": {
 "hsk2026": 1,
@@ -37310,7 +37642,9 @@
 "国徽": {
 "pinyin": "Guó huī",
 "meanings": [
-"the national emblem of the PRC (a red circle containing the five stars of the PRC flag over Tiananmen 天安门)"
+"the national emblem of the PRC (a red circle containing the five stars of the PRC flag over Tiananmen 天安门)",
+"national emblem",
+"national coat of arms"
 ],
 "levels": {
 "hsk2026": 7,
@@ -37603,7 +37937,9 @@
 "to cross",
 "to go over",
 "to pass (time)",
-"to celebrate (a holiday)"
+"to celebrate (a holiday)",
+"(experienced action marker)",
+"surname Guo"
 ],
 "levels": {
 "hsk2026": 2,
@@ -37769,12 +38105,11 @@
 }
 },
 "过来": {
-"pinyin": "guò lái",
+"pinyin": "guò lai",
 "meanings": [
+"see 过来",
 "to come over",
-"to manage",
-"to handle",
-"to be able to take care of"
+"to manage"
 ],
 "levels": {
 "hsk2026": 2,
@@ -37830,12 +38165,11 @@
 }
 },
 "过去": {
-"pinyin": "guò qù",
+"pinyin": "guò qu",
 "meanings": [
+"(verb suffix)",
 "(in the) past",
-"former",
-"previous",
-"to go over"
+"former"
 ],
 "levels": {
 "hsk2026": 2,
@@ -37988,7 +38322,9 @@
 "pinyin": "Hā",
 "meanings": [
 "abbr. for 哈萨克斯坦, Kazakhstan",
-"abbr. for 哈尔滨, Harbin"
+"abbr. for 哈尔滨, Harbin",
+"(interj.) ha!",
+"(onom. for laughter)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -38010,7 +38346,8 @@
 "sound of sighing",
 "(interjection expressing surprise, sorrow, regret, disappointment etc) oh",
 "damn",
-"wow"
+"wow",
+"cough"
 ],
 "levels": {
 "hsk2026": 4,
@@ -38046,7 +38383,9 @@
 "still",
 "still in progress",
 "still more",
-"yet"
+"yet",
+"to pay back",
+"to return"
 ],
 "levels": {
 "hsk2026": 1,
@@ -38120,7 +38459,8 @@
 "ocean",
 "sea",
 "great number of people or things",
-"(dialect) numerous"
+"(dialect) numerous",
+"surname Hai"
 ],
 "levels": {
 "hsk2026": 3,
@@ -38314,7 +38654,9 @@
 "海湾": {
 "pinyin": "Hǎi wān",
 "meanings": [
-"(Persian) Gulf"
+"(Persian) Gulf",
+"bay",
+"gulf"
 ],
 "levels": {
 "hsk2026": 7,
@@ -38685,7 +39027,9 @@
 "汗": {
 "pinyin": "hán",
 "meanings": [
-"see 汗, 汗国"
+"see 汗, 汗国",
+"perspiration",
+"sweat"
 ],
 "levels": {
 "hsk2026": 4,
@@ -38908,7 +39252,8 @@
 "good",
 "appropriate; proper",
 "all right!",
-"(before a verb) easy to"
+"(before a verb) easy to",
+"to be fond of; to have a tendency to; to be prone to"
 ],
 "levels": {
 "hsk2026": 1,
@@ -38940,7 +39285,9 @@
 "pinyin": "hǎo chī",
 "meanings": [
 "tasty",
-"delicious"
+"delicious",
+"to be fond of eating",
+"to be gluttonous"
 ],
 "levels": {
 "hsk2026": 1,
@@ -38949,8 +39296,11 @@
 }
 },
 "好处": {
-"pinyin": "hǎo chǔ",
+"pinyin": "hǎo chu",
 "meanings": [
+"benefit; advantage; merit",
+"gain; profit",
+"also pr. [hǎo chù]",
 "easy to get along with"
 ],
 "levels": {
@@ -39144,7 +39494,8 @@
 "good action, deed, thing or work (also sarcastic, \"a fine thing indeed\")",
 "charity",
 "happy occasion",
-"Daoist or Buddhist ceremony for the souls of the dead"
+"Daoist or Buddhist ceremony for the souls of the dead",
+"to be meddlesome"
 ],
 "levels": {
 "hsk30": 2
@@ -39230,7 +39581,9 @@
 "好学": {
 "pinyin": "hǎo xué",
 "meanings": [
-"easy to learn"
+"easy to learn",
+"eager to study",
+"studious"
 ],
 "levels": {
 "hsk2026": 6,
@@ -39296,7 +39649,9 @@
 "pinyin": "háo",
 "meanings": [
 "roar",
-"cry"
+"cry",
+"ordinal number",
+"day of a month"
 ],
 "levels": {
 "hsk2026": 1,
@@ -39393,7 +39748,8 @@
 "喝": {
 "pinyin": "hè",
 "meanings": [
-"to shout"
+"to shout",
+"to drink"
 ],
 "levels": {
 "hsk2026": 1,
@@ -39427,7 +39783,9 @@
 "meanings": [
 "100 ml",
 "one-tenth of a peck",
-"measure for dry grain equal to one-tenth of sheng 升 or liter, or one-hundredth dou 斗"
+"measure for dry grain equal to one-tenth of sheng 升 or liter, or one-hundredth dou 斗",
+"to close",
+"to join"
 ],
 "levels": {
 "hsk2026": 5,
@@ -39716,7 +40074,9 @@
 "(joining two nouns) and; together with; with (Taiwan pr. [hàn])",
 "(math.) sum",
 "to make peace",
-"(sports) to draw; to tie"
+"(sports) to draw; to tie",
+"to compose a poem in reply (to sb's poem) using the same rhyme sequence",
+"to join in the singing"
 ],
 "levels": {
 "hsk2026": 1,
@@ -39767,7 +40127,9 @@
 "pinyin": "Hé píng",
 "meanings": [
 "Heping District of Shenyang city 沈阳市, Liaoning",
-"Heping or Hoping Township in Taichung County 台中县, Taiwan"
+"Heping or Hoping Township in Taichung County 台中县, Taiwan",
+"peace",
+"peaceful"
 ],
 "levels": {
 "hsk2026": 6,
@@ -39859,7 +40221,8 @@
 "pit",
 "stone",
 "nucleus",
-"nuclear"
+"nuclear",
+"to investigate"
 ],
 "levels": {
 "hsk2026": 7,
@@ -40039,7 +40402,9 @@
 "黑": {
 "pinyin": "Hēi",
 "meanings": [
-"abbr. for Heilongjiang province 黑龙江"
+"abbr. for Heilongjiang province 黑龙江",
+"black",
+"dark"
 ],
 "levels": {
 "hsk2026": 5,
@@ -40258,7 +40623,9 @@
 "horizontal",
 "across",
 "crosswise",
-"horizontal stroke (in Chinese characters)"
+"horizontal stroke (in Chinese characters)",
+"harsh and unreasonable",
+"unexpected"
 ],
 "levels": {
 "hsk2026": 6,
@@ -40344,7 +40711,9 @@
 "meanings": [
 "roar of laughter (onom.)",
 "hubbub",
-"to roar (as a crowd)"
+"to roar (as a crowd)",
+"to deceive",
+"to coax"
 ],
 "levels": {
 "hsk2026": 7,
@@ -40415,7 +40784,8 @@
 "red",
 "popular",
 "revolutionary",
-"bonus"
+"bonus",
+"surname Hong"
 ],
 "levels": {
 "hsk2026": 5,
@@ -40641,7 +41011,9 @@
 "back",
 "behind",
 "rear",
-"afterwards"
+"afterwards",
+"empress",
+"queen"
 ],
 "levels": {
 "hsk2026": 1,
@@ -41310,7 +41682,8 @@
 "互助": {
 "pinyin": "Hù zhù",
 "meanings": [
-"Huzhu Tuzu autonomous county in Haidong prefecture 海东地区, Qinghai"
+"Huzhu Tuzu autonomous county in Haidong prefecture 海东地区, Qinghai",
+"to help each other"
 ],
 "levels": {
 "hsk2026": 6,
@@ -41387,7 +41760,8 @@
 "meanings": [
 "muddled",
 "paste",
-"scorched"
+"scorched",
+"cream"
 ],
 "levels": {
 "hsk2026": 7,
@@ -41593,7 +41967,8 @@
 "meanings": [
 "to slip; to slide",
 "slippery; smooth",
-"sly; slippery; not to be trusted"
+"sly; slippery; not to be trusted",
+"surname Hua"
 ],
 "levels": {
 "hsk2026": 5,
@@ -41765,7 +42140,9 @@
 "to row",
 "to paddle",
 "profitable",
-"worth (the effort)"
+"worth (the effort)",
+"to cut",
+"to slash"
 ],
 "levels": {
 "hsk2026": 5,
@@ -42127,7 +42504,8 @@
 "ring",
 "hoop",
 "loop",
-"(chain) link"
+"(chain) link",
+"surname Huan"
 ],
 "levels": {
 "hsk2026": 6,
@@ -42659,7 +43037,8 @@
 "meanings": [
 "yellow",
 "pornographic",
-"to fall through"
+"to fall through",
+"surname Huang or Hwang"
 ],
 "levels": {
 "hsk2026": 6,
@@ -42751,7 +43130,9 @@
 "pinyin": "huǎng",
 "meanings": [
 "to dazzle",
-"to flash past"
+"to flash past",
+"to sway",
+"to shake"
 ],
 "levels": {
 "hsk2026": 7,
@@ -42879,7 +43260,8 @@
 "to circle",
 "to go back",
 "to turn around",
-"to answer"
+"to answer",
+"to curve"
 ],
 "levels": {
 "hsk2026": 1,
@@ -43179,7 +43561,9 @@
 "pinyin": "huǐ",
 "meanings": [
 "to destroy; to ruin",
-"to defame; to slander"
+"to defame; to slander",
+"to destroy by fire",
+"to defame"
 ],
 "levels": {
 "hsk2026": 7,
@@ -43217,7 +43601,9 @@
 "meanings": [
 "to remit",
 "to converge (of rivers)",
-"to exchange"
+"to exchange",
+"class",
+"collection"
 ],
 "levels": {
 "hsk2026": 6,
@@ -43302,7 +43688,9 @@
 "can; to have the skill; to know how to",
 "to be likely to; to be sure to",
 "to meet; to get together",
-"meeting; gathering"
+"meeting; gathering",
+"to balance an account",
+"accounting"
 ],
 "levels": {
 "hsk2026": 1,
@@ -43558,7 +43946,9 @@
 "to mix",
 "to mingle",
 "muddled",
-"to drift along"
+"to drift along",
+"confused",
+"dirty"
 ],
 "levels": {
 "hsk2026": 6,
@@ -43631,7 +44021,9 @@
 "豁": {
 "pinyin": "huá",
 "meanings": [
-"to play Chinese finger-guessing game"
+"to play Chinese finger-guessing game",
+"opening",
+"stake all"
 ],
 "levels": {
 "hsk2026": 7,
@@ -43774,7 +44166,8 @@
 "fire",
 "urgent",
 "ammunition",
-"fiery or flaming"
+"fiery or flaming",
+"surname Huo"
 ],
 "levels": {
 "hsk2026": 4,
@@ -43970,7 +44363,8 @@
 "companion",
 "partner",
 "group",
-"classifier for groups of people"
+"classifier for groups of people",
+"meals (abbr. for 食)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -44122,7 +44516,9 @@
 "获": {
 "pinyin": "huò",
 "meanings": [
-"(bound form) to reap; to harvest"
+"(bound form) to reap; to harvest",
+"(literary) to catch; to capture",
+"(literary) to get; to obtain; to win"
 ],
 "levels": {
 "hsk30": 4
@@ -44402,7 +44798,8 @@
 "机制": {
 "pinyin": "jī zhì",
 "meanings": [
-"mechanism"
+"mechanism",
+"machine-processed; machine-made"
 ],
 "levels": {
 "hsk2026": 6,
@@ -44876,7 +45273,9 @@
 "吉利": {
 "pinyin": "Jí lì",
 "meanings": [
-"Geely, Chinese car make"
+"Geely, Chinese car make",
+"auspicious",
+"lucky"
 ],
 "levels": {
 "hsk2026": 7,
@@ -45281,11 +45680,11 @@
 }
 },
 "脊梁": {
-"pinyin": "jǐ liáng",
+"pinyin": "jǐ liang",
 "meanings": [
+"(coll.) back (of a human or other vertebrate)",
 "backbone",
-"spine",
-"Taiwan pr. [jǐ liang]"
+"spine"
 ],
 "levels": {
 "hsk2026": 7,
@@ -45451,7 +45850,9 @@
 "几": {
 "pinyin": "jī",
 "meanings": [
-"small table"
+"small table",
+"almost",
+"how much"
 ],
 "levels": {
 "hsk2026": 1,
@@ -45511,7 +45912,8 @@
 "to calculate",
 "to compute",
 "to count",
-"to regard as important"
+"to regard as important",
+"surname Ji"
 ],
 "levels": {
 "hsk2026": 7,
@@ -45908,7 +46310,8 @@
 "season",
 "the last month of a season",
 "fourth or youngest amongst brothers",
-"classifier for seasonal crop yields"
+"classifier for seasonal crop yields",
+"surname Ji"
 ],
 "levels": {
 "hsk2026": 3,
@@ -46114,7 +46517,8 @@
 "to offer a sacrifice to (gods or ancestors)",
 "memorial ceremony",
 "(in classical novels) to recite an incantation to activate a magic weapon",
-"(lit. and fig.) to wield"
+"(lit. and fig.) to wield",
+"surname Zhai"
 ],
 "levels": {
 "hsk2026": 7,
@@ -46148,7 +46552,9 @@
 "to add",
 "plus",
 "(used after an adverb such as 不, 大, 稍 etc, and before a disyllabic verb, to indicate that the action of the verb is applied to sth or sb previously mentioned)",
-"to apply (restrictions etc) to (sb)"
+"to apply (restrictions etc) to (sb)",
+"Canada (abbr. for 大)",
+"surname Jia"
 ],
 "levels": {
 "hsk2026": 3,
@@ -46349,7 +46755,9 @@
 "to press from either side",
 "to place in between",
 "to sandwich",
-"to carry sth under armpit"
+"to carry sth under armpit",
+"double-layered",
+"lined (garment)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -46423,7 +46831,8 @@
 "home",
 "family",
 "(polite) my (sister, uncle etc)",
-"classifier for families or businesses"
+"classifier for families or businesses",
+"used in 家伙 and 家俱"
 ],
 "levels": {
 "hsk2026": 1,
@@ -46704,7 +47113,8 @@
 "fake",
 "false",
 "artificial",
-"to borrow"
+"to borrow",
+"vacation"
 ],
 "levels": {
 "hsk2026": 4,
@@ -46815,7 +47225,9 @@
 "meanings": [
 "price",
 "value",
-"(chemistry) valence"
+"(chemistry) valence",
+"great",
+"good"
 ],
 "levels": {
 "hsk30": 5
@@ -46881,7 +47293,8 @@
 "to harness",
 "to draw (a cart etc)",
 "to drive",
-"to pilot"
+"to pilot",
+"surname Jia"
 ],
 "levels": {
 "hsk2026": 7,
@@ -47194,7 +47607,9 @@
 "between",
 "among",
 "within a definite time or space",
-"room"
+"room",
+"gap",
+"to separate"
 ],
 "levels": {
 "hsk2026": 2,
@@ -47651,7 +48066,8 @@
 "scissors",
 "shears",
 "clippers",
-"to cut with scissors"
+"to cut with scissors",
+"surname Jian"
 ],
 "levels": {
 "hsk2026": 5,
@@ -47899,7 +48315,9 @@
 "to see",
 "to meet",
 "to appear (to be sth)",
-"to interview"
+"to interview",
+"to appear",
+"also written 现"
 ],
 "levels": {
 "hsk2026": 1,
@@ -48408,7 +48826,8 @@
 "江": {
 "pinyin": "jiāng",
 "meanings": [
-"river"
+"river",
+"surname Jiang"
 ],
 "levels": {
 "hsk2026": 4,
@@ -48418,7 +48837,8 @@
 "姜": {
 "pinyin": "jiāng",
 "meanings": [
-"ginger"
+"ginger",
+"surname Jiang"
 ],
 "levels": {
 "hsk2026": 7,
@@ -48430,7 +48850,9 @@
 "meanings": [
 "to desire",
 "to invite",
-"to request"
+"to request",
+"will",
+"shall"
 ],
 "levels": {
 "hsk2026": 4,
@@ -48453,7 +48875,9 @@
 "将军": {
 "pinyin": "Jiāng jūn",
 "meanings": [
-"(common place name)"
+"(common place name)",
+"general",
+"high-ranking military officer"
 ],
 "levels": {
 "hsk2026": 6,
@@ -48736,7 +49160,9 @@
 "to drop",
 "to fall",
 "to come down",
-"to descend"
+"to descend",
+"to surrender",
+"to capitulate"
 ],
 "levels": {
 "hsk2026": 4,
@@ -49255,7 +49681,8 @@
 "burnt",
 "scorched",
 "charred",
-"worried"
+"worried",
+"surname Jiao"
 ],
 "levels": {
 "hsk2026": 7,
@@ -49334,7 +49761,9 @@
 "angle",
 "corner",
 "horn",
-"horn-shaped"
+"horn-shaped",
+"role (theater)",
+"to compete"
 ],
 "levels": {
 "hsk2026": 3,
@@ -49635,7 +50064,9 @@
 "教": {
 "pinyin": "jiāo",
 "meanings": [
-"to teach"
+"to teach",
+"religion",
+"teaching"
 ],
 "levels": {
 "hsk2026": 2,
@@ -49737,7 +50168,9 @@
 "教学": {
 "pinyin": "jiāo xué",
 "meanings": [
-"to teach (as a professor)"
+"to teach (as a professor)",
+"teaching",
+"instruction"
 ],
 "levels": {
 "hsk2026": 4,
@@ -50128,7 +50561,8 @@
 "meanings": [
 "to take the lid off",
 "to expose",
-"to unmask"
+"to unmask",
+"surname Jie"
 ],
 "levels": {
 "hsk2026": 7,
@@ -50223,7 +50657,9 @@
 "节": {
 "pinyin": "jiē",
 "meanings": [
-"see 节骨眼"
+"see 节骨眼",
+"joint; node",
+"(bound form) section; segment"
 ],
 "levels": {
 "hsk2026": 3,
@@ -50413,7 +50849,9 @@
 "pinyin": "jiē",
 "meanings": [
 "(of a plant) to produce (fruit or seeds)",
-"Taiwan pr. [jié]"
+"Taiwan pr. [jié]",
+"knot",
+"sturdy"
 ],
 "levels": {
 "hsk2026": 5,
@@ -50446,7 +50884,9 @@
 "结果": {
 "pinyin": "jiē guǒ",
 "meanings": [
-"to bear fruit"
+"to bear fruit",
+"outcome",
+"result"
 ],
 "levels": {
 "hsk2026": 4,
@@ -50521,8 +50961,12 @@
 }
 },
 "结实": {
-"pinyin": "jiē shí",
+"pinyin": "jiē shi",
 "meanings": [
+"rugged",
+"sturdy",
+"strong",
+"durable",
 "to bear fruit"
 ],
 "levels": {
@@ -50667,7 +51111,9 @@
 "to divide",
 "to break up",
 "to split",
-"to separate"
+"to separate",
+"to transport under guard",
+"surname Xie"
 ],
 "levels": {
 "hsk2026": 6,
@@ -51219,7 +51665,9 @@
 "gold",
 "chemical element Au",
 "generic term for lustrous and ductile metals",
-"money"
+"money",
+"surname Jin",
+"surname Kim (Korean)"
 ],
 "levels": {
 "hsk30": 3
@@ -51291,8 +51739,9 @@
 }
 },
 "金子": {
-"pinyin": "Jīn zǐ",
+"pinyin": "jīn zi",
 "meanings": [
+"gold",
 "Kaneko (Japanese surname)"
 ],
 "levels": {
@@ -51376,7 +51825,9 @@
 "to the greatest extent",
 "(when used before a noun of location) furthest or extreme",
 "to be within the limits of",
-"to give priority to"
+"to give priority to",
+"to use up",
+"to exhaust"
 ],
 "levels": {
 "hsk2026": 6,
@@ -51410,7 +51861,8 @@
 "尽快": {
 "pinyin": "jǐn kuài",
 "meanings": [
-"as quickly as possible; as soon as possible"
+"as quickly as possible; as soon as possible",
+"see 尽快"
 ],
 "levels": {
 "hsk2026": 5,
@@ -52018,7 +52470,8 @@
 "classics",
 "sacred book",
 "scripture",
-"to pass through"
+"to pass through",
+"surname Jing"
 ],
 "levels": {
 "hsk2026": 7,
@@ -52574,12 +53027,14 @@
 }
 },
 "精神": {
-"pinyin": "jīng shén",
+"pinyin": "jīng shen",
 "meanings": [
+"vigor",
+"vitality",
+"drive",
+"spiritual",
 "spirit",
-"mind",
-"consciousness",
-"thought"
+"mind"
 ],
 "levels": {
 "hsk2026": 5,
@@ -52692,7 +53147,9 @@
 "meanings": [
 "a well",
 "neat",
-"orderly"
+"orderly",
+"Jing, one of the 28 constellations of Chinese astronomy",
+"surname Jing"
 ],
 "levels": {
 "hsk2026": 6,
@@ -52726,7 +53183,8 @@
 "(bound form) scenery",
 "circumstance",
 "situation",
-"scene (of a play)"
+"scene (of a play)",
+"surname Jing"
 ],
 "levels": {
 "hsk30": 6
@@ -53767,7 +54225,9 @@
 "局": {
 "pinyin": "jú",
 "meanings": [
-"narrow"
+"narrow",
+"office",
+"situation"
 ],
 "levels": {
 "hsk2026": 6,
@@ -54312,7 +54772,8 @@
 "according to",
 "to act in accordance with",
 "to depend on",
-"to seize"
+"to seize",
+"used in 据"
 ],
 "levels": {
 "hsk2026": 5,
@@ -54504,7 +54965,9 @@
 "meanings": [
 "to roll up",
 "roll",
-"classifier for small rolled things (wad of paper money, movie reel etc)"
+"classifier for small rolled things (wad of paper money, movie reel etc)",
+"scroll",
+"book"
 ],
 "levels": {
 "hsk2026": 6,
@@ -54527,7 +54990,8 @@
 "pinyin": "juǎn zi",
 "meanings": [
 "steamed roll",
-"spring roll"
+"spring roll",
+"test paper; examination paper"
 ],
 "levels": {
 "hsk30": 7
@@ -54719,7 +55183,9 @@
 "pinyin": "jiào",
 "meanings": [
 "a nap",
-"a sleep"
+"a sleep",
+"to feel",
+"to find that"
 ],
 "levels": {
 "hsk30": 6
@@ -54768,7 +55234,8 @@
 "倔": {
 "pinyin": "juè",
 "meanings": [
-"gruff; surly"
+"gruff; surly",
+"used in 倔强"
 ],
 "levels": {
 "hsk2026": 7,
@@ -54813,7 +55280,8 @@
 "pinyin": "jiáo",
 "meanings": [
 "to chew",
-"also pr. [jué]"
+"also pr. [jué]",
+"used in 嚼"
 ],
 "levels": {
 "hsk2026": 7,
@@ -54920,7 +55388,9 @@
 "smart",
 "eminent",
 "handsome",
-"talented"
+"talented",
+"(dialectal pronunciation of 俊)",
+"cool"
 ],
 "levels": {
 "hsk2026": 7,
@@ -54977,7 +55447,8 @@
 "to stop",
 "to block",
 "(computing) (coll.) slow",
-"(loanword) card"
+"(loanword) card",
+"to be stuck"
 ],
 "levels": {
 "hsk2026": 3,
@@ -55425,8 +55896,9 @@
 }
 },
 "开通": {
-"pinyin": "kāi tōng",
+"pinyin": "kāi tong",
 "meanings": [
+"open-minded",
 "to open (a new road or railway line); to set up (a hotline); to launch (a service); to subscribe to (a members-only service)"
 ],
 "levels": {
@@ -55657,7 +56129,9 @@
 "to look after",
 "to take care of",
 "to watch",
-"to guard"
+"to guard",
+"to see; to look at",
+"to read"
 ],
 "levels": {
 "hsk2026": 1,
@@ -55784,7 +56258,8 @@
 "看好": {
 "pinyin": "kān hǎo",
 "meanings": [
-"to keep an eye on"
+"to keep an eye on",
+"to regard as having good prospects"
 ],
 "levels": {
 "hsk2026": 6,
@@ -55966,7 +56441,9 @@
 "pinyin": "gāng",
 "meanings": [
 "to raise aloft with both hands",
-"(of two or more people) to carry sth together"
+"(of two or more people) to carry sth together",
+"to carry on one's shoulder",
+"(fig.) to take on (a burden, duty etc)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -56037,7 +56514,9 @@
 "to check",
 "to verify",
 "to test",
-"to examine"
+"to examine",
+"to beat",
+"to hit"
 ],
 "levels": {
 "hsk2026": 2,
@@ -56396,7 +56875,8 @@
 "(prefix) can; may; able to; -able",
 "to approve; to permit",
 "to suit",
-"(particle used for emphasis) certainly; very"
+"(particle used for emphasis) certainly; very",
+"used in 汗"
 ],
 "levels": {
 "hsk2026": 3,
@@ -56726,7 +57206,9 @@
 "pinyin": "Kè",
 "meanings": [
 "abbr. for 克罗地亚, Croatia",
-"(Tw) abbr. for 克罗埃西亚, Croatia"
+"(Tw) abbr. for 克罗埃西亚, Croatia",
+"to be able to",
+"to subdue"
 ],
 "levels": {
 "hsk2026": 4,
@@ -57098,7 +57580,9 @@
 "empty",
 "air",
 "sky",
-"in vain"
+"in vain",
+"to empty",
+"vacant"
 ],
 "levels": {
 "hsk2026": 4,
@@ -57129,7 +57613,9 @@
 "空地": {
 "pinyin": "kōng dì",
 "meanings": [
-"air-to-surface (missile)"
+"air-to-surface (missile)",
+"vacant land",
+"open space"
 ],
 "levels": {
 "hsk2026": 6,
@@ -57306,7 +57792,8 @@
 "pinyin": "kǒng",
 "meanings": [
 "hole",
-"classifier for cave dwellings"
+"classifier for cave dwellings",
+"surname Kong"
 ],
 "levels": {
 "hsk2026": 7,
@@ -57618,8 +58105,10 @@
 }
 },
 "口音": {
-"pinyin": "kǒu yīn",
+"pinyin": "kǒu yin",
 "meanings": [
+"voice",
+"accent",
 "oral speech sounds (linguistics)"
 ],
 "levels": {
@@ -57939,7 +58428,8 @@
 "pinyin": "kuā",
 "meanings": [
 "to boast; to exaggerate",
-"to praise"
+"to praise",
+"used in 克"
 ],
 "levels": {
 "hsk2026": 6,
@@ -58205,7 +58695,8 @@
 "wide",
 "broad",
 "loose",
-"relaxed"
+"relaxed",
+"surname Kuan"
 ],
 "levels": {
 "hsk2026": 5,
@@ -58333,11 +58824,13 @@
 }
 },
 "款式": {
-"pinyin": "kuǎn shì",
+"pinyin": "kuǎn shi",
 "meanings": [
+"elegant",
+"elegance",
+"good taste",
 "pattern",
-"style",
-"design"
+"style"
 ],
 "levels": {
 "hsk2026": 6,
@@ -58580,7 +59073,9 @@
 "to trap",
 "to surround",
 "hard-pressed",
-"stranded"
+"stranded",
+"sleepy",
+"tired"
 ],
 "levels": {
 "hsk2026": 4,
@@ -58921,7 +59416,9 @@
 "pinyin": "la",
 "meanings": [
 "sentence-final particle, contraction of 了啊, indicating exclamation",
-"particle placed after each item in a list of examples"
+"particle placed after each item in a list of examples",
+"(onom.) sound of singing, cheering etc",
+"(phonetic)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -58956,7 +59453,9 @@
 "来宾": {
 "pinyin": "Lái bīn",
 "meanings": [
-"Laibin prefecture-level city in Guangxi"
+"Laibin prefecture-level city in Guangxi",
+"guest",
+"visitor"
 ],
 "levels": {
 "hsk2026": 7,
@@ -59138,7 +59637,9 @@
 "to depend on",
 "to hang on in a place",
 "bad",
-"to renege (on promise)"
+"to renege (on promise)",
+"surname Lai",
+"(Tw) (coll.) LINE messaging app"
 ],
 "levels": {
 "hsk2026": 6,
@@ -59198,7 +59699,8 @@
 "pinyin": "lán",
 "meanings": [
 "blue",
-"indigo plant"
+"indigo plant",
+"surname Lan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -59589,7 +60091,9 @@
 "老板": {
 "pinyin": "Lǎo bǎn",
 "meanings": [
-"Robam (brand)"
+"Robam (brand)",
+"boss",
+"business proprietor"
 ],
 "levels": {
 "hsk2026": 5,
@@ -59622,8 +60126,10 @@
 }
 },
 "老公": {
-"pinyin": "lǎo gōng",
+"pinyin": "lǎo gong",
 "meanings": [
+"(coll.) eunuch",
+"see also 公",
 "(coll.) husband"
 ],
 "levels": {
@@ -59880,7 +60386,9 @@
 "meanings": [
 "happy",
 "cheerful",
-"to laugh"
+"to laugh",
+"music",
+"surname Le"
 ],
 "levels": {
 "hsk30": 3
@@ -59980,7 +60488,9 @@
 "meanings": [
 "(completed action marker)",
 "(modal particle indicating change of state, situation now)",
-"(modal particle intensifying preceding clause)"
+"(modal particle intensifying preceding clause)",
+"(of eyes) bright",
+"clear-sighted"
 ],
 "levels": {
 "hsk2026": 1,
@@ -60041,7 +60551,9 @@
 "pinyin": "lēi",
 "meanings": [
 "to strap tightly",
-"to bind"
+"to bind",
+"to rein in",
+"to compel"
 ],
 "levels": {
 "hsk2026": 7,
@@ -60054,7 +60566,8 @@
 "thunder",
 "(bound form) (military) mine, as in 雷 land mine",
 "(coll.) to shock; to stun; to astound",
-"(Tw) (coll.) spoiler"
+"(Tw) (coll.) spoiler",
+"surname Lei"
 ],
 "levels": {
 "hsk2026": 6,
@@ -60157,7 +60670,9 @@
 "to accumulate",
 "to involve or implicate (Taiwan pr. [lèi])",
 "continuous",
-"repeated"
+"repeated",
+"tired",
+"weary"
 ],
 "levels": {
 "hsk2026": 2,
@@ -60204,7 +60719,8 @@
 "冷": {
 "pinyin": "lěng",
 "meanings": [
-"cold"
+"cold",
+"surname Leng"
 ],
 "levels": {
 "hsk2026": 1,
@@ -60348,9 +60864,12 @@
 }
 },
 "冷战": {
-"pinyin": "Lěng zhàn",
+"pinyin": "lěng zhan",
 "meanings": [
-"(US-Soviet) Cold War"
+"(coll.) shiver",
+"shudder",
+"(US-Soviet) Cold War",
+"cold war"
 ],
 "levels": {
 "hsk2026": 7,
@@ -60388,7 +60907,9 @@
 "to leave",
 "to part from",
 "to be away from",
-"(in giving distances) from"
+"(in giving distances) from",
+"mythical beast (archaic)",
+"surname Li"
 ],
 "levels": {
 "hsk2026": 2,
@@ -60487,7 +61008,9 @@
 "gift",
 "rite",
 "ceremony",
-"propriety"
+"propriety",
+"surname Li",
+"abbr. for 礼记, Classic of Rites"
 ],
 "levels": {
 "hsk30": 5
@@ -60596,7 +61119,9 @@
 "lining",
 "interior",
 "inside",
-"internal"
+"internal",
+"Li (surname)",
+"li, ancient measure of length, approx. 500 m"
 ],
 "levels": {
 "hsk2026": 1,
@@ -60848,7 +61373,8 @@
 "power",
 "force",
 "strength",
-"ability"
+"ability",
+"surname Li"
 ],
 "levels": {
 "hsk2026": 5,
@@ -61049,7 +61575,8 @@
 "to stand",
 "to set up",
 "to establish",
-"to lay down"
+"to lay down",
+"surname Li"
 ],
 "levels": {
 "hsk2026": 6,
@@ -61173,18 +61700,22 @@
 "sharp",
 "favorable",
 "advantage",
-"benefit"
+"benefit",
+"surname Li"
 ],
 "levels": {
 "hsk30": 6
 }
 },
 "利害": {
-"pinyin": "lì hài",
+"pinyin": "lì hai",
 "meanings": [
+"terrible",
+"formidable",
+"serious",
+"devastating",
 "pros and cons",
-"advantages and disadvantages",
-"gains and losses"
+"advantages and disadvantages"
 ],
 "levels": {
 "hsk2026": 7,
@@ -61325,7 +61856,8 @@
 "meanings": [
 "two (colloquial equivalent of 两个)",
 "both",
-"some"
+"some",
+"used in 伎俩"
 ],
 "levels": {
 "hsk2026": 4,
@@ -61339,7 +61871,8 @@
 "to link",
 "to join",
 "to connect",
-"continuously"
+"continuously",
+"surname Lian"
 ],
 "levels": {
 "hsk2026": 4,
@@ -61640,7 +62173,9 @@
 "联想": {
 "pinyin": "Lián xiǎng",
 "meanings": [
-"Lenovo"
+"Lenovo",
+"to associate (cognitively)",
+"to make an associative connection"
 ],
 "levels": {
 "hsk2026": 6,
@@ -61847,7 +62382,9 @@
 "凉": {
 "pinyin": "Liáng",
 "meanings": [
-"the five Liang of the Sixteen Kingdoms, namely: Former Liang 前凉 (314-376), Later Liang 后凉 (386-403), Northern Liang 北凉 (398-439), Southern Liang 南凉 (397-414), Western Liang 西凉 (400-421)"
+"the five Liang of the Sixteen Kingdoms, namely: Former Liang 前凉 (314-376), Later Liang 后凉 (386-403), Northern Liang 北凉 (398-439), Southern Liang 南凉 (397-414), Western Liang 西凉 (400-421)",
+"cool",
+"cold"
 ],
 "levels": {
 "hsk2026": 4,
@@ -62075,7 +62612,9 @@
 "量": {
 "pinyin": "liáng",
 "meanings": [
-"to measure"
+"to measure",
+"capacity",
+"quantity"
 ],
 "levels": {
 "hsk2026": 4,
@@ -62461,7 +63000,9 @@
 "to sprinkle",
 "to drip",
 "to pour",
-"to drench"
+"to drench",
+"to filter",
+"to strain"
 ],
 "levels": {
 "hsk2026": 6,
@@ -62900,7 +63441,9 @@
 "令": {
 "pinyin": "lǐng",
 "meanings": [
-"classifier for a ream of paper"
+"classifier for a ream of paper",
+"to order",
+"to command"
 ],
 "levels": {
 "hsk2026": 5,
@@ -62960,7 +63503,8 @@
 "meanings": [
 "to slip away",
 "to escape in stealth",
-"to skate"
+"to skate",
+"used in 溜"
 ],
 "levels": {
 "hsk2026": 7,
@@ -63425,7 +63969,8 @@
 "pinyin": "lóng",
 "meanings": [
 "dragon",
-"imperial"
+"imperial",
+"surname Long"
 ],
 "levels": {
 "hsk2026": 5,
@@ -63539,7 +64084,8 @@
 "meanings": [
 "house with more than 1 story",
 "storied building",
-"floor"
+"floor",
+"surname Lou"
 ],
 "levels": {
 "hsk2026": 2,
@@ -63603,7 +64149,9 @@
 "to draw towards oneself",
 "to gather",
 "to gather up (one's gown, sleeves etc)",
-"to grab (money)"
+"to grab (money)",
+"to hug",
+"to embrace"
 ],
 "levels": {
 "hsk2026": 7,
@@ -63729,7 +64277,9 @@
 "录": {
 "pinyin": "lù",
 "meanings": [
-"to carve wood"
+"to carve wood",
+"diary",
+"record"
 ],
 "levels": {
 "hsk2026": 5,
@@ -63809,7 +64359,8 @@
 "road",
 "journey",
 "route",
-"line (bus etc)"
+"line (bus etc)",
+"surname Lu"
 ],
 "levels": {
 "hsk2026": 2,
@@ -63966,7 +64517,9 @@
 "to show",
 "to reveal",
 "to betray",
-"to expose"
+"to expose",
+"dew",
+"syrup"
 ],
 "levels": {
 "hsk2026": 6,
@@ -64159,7 +64712,9 @@
 "pinyin": "lǜ",
 "meanings": [
 "rate",
-"frequency"
+"frequency",
+"to lead",
+"to command"
 ],
 "levels": {
 "hsk2026": 6,
@@ -64307,7 +64862,8 @@
 "meanings": [
 "to swing (one's arms, a heavy object)",
 "to wave (a sword, one's fists)",
-"to fling (money)"
+"to fling (money)",
+"to select"
 ],
 "levels": {
 "hsk2026": 7,
@@ -64470,7 +65026,8 @@
 "gauze",
 "to collect",
 "to gather",
-"to catch"
+"to catch",
+"surname Luo"
 ],
 "levels": {
 "hsk30": 7
@@ -64563,7 +65120,9 @@
 "to leave out",
 "to be missing",
 "to leave behind or forget to bring",
-"to lag or fall behind"
+"to lag or fall behind",
+"colloquial reading for 落 in certain compounds",
+"to fall or drop"
 ],
 "levels": {
 "hsk2026": 4,
@@ -64685,7 +65244,9 @@
 "generic name for hemp, flax etc",
 "hemp or flax fiber for textile materials",
 "sesame",
-"(of materials) rough or coarse"
+"(of materials) rough or coarse",
+"hemp",
+"surname Ma"
 ],
 "levels": {
 "hsk2026": 7,
@@ -64769,7 +65330,9 @@
 "meanings": [
 "horse",
 "horse or cavalry piece in Chinese chess",
-"knight in Western chess"
+"knight in Western chess",
+"surname Ma",
+"abbr. for Malaysia 马来西亚"
 ],
 "levels": {
 "hsk2026": 3,
@@ -64913,7 +65476,9 @@
 "吗": {
 "pinyin": "má",
 "meanings": [
-"(coll.) what?"
+"(coll.) what?",
+"(question particle for \"yes-no\" questions)",
+"used in 吗啡"
 ],
 "levels": {
 "hsk2026": 1,
@@ -64925,7 +65490,9 @@
 "pinyin": "ma",
 "meanings": [
 "modal particle indicating that sth is obvious",
-"particle indicating a pause for emphasis"
+"particle indicating a pause for emphasis",
+"used in 吽",
+"(Tw) (coll.) what?"
 ],
 "levels": {
 "hsk2026": 6,
@@ -64936,7 +65503,8 @@
 "埋": {
 "pinyin": "mái",
 "meanings": [
-"to bury"
+"to bury",
+"used in 怨"
 ],
 "levels": {
 "hsk2026": 6,
@@ -65161,7 +65729,9 @@
 "满": {
 "pinyin": "Mǎn",
 "meanings": [
-"Manchu ethnic group"
+"Manchu ethnic group",
+"to fill",
+"full"
 ],
 "levels": {
 "hsk2026": 4,
@@ -65435,7 +66005,8 @@
 "hair",
 "feather",
 "down",
-"wool"
+"wool",
+"surname Mao"
 ],
 "levels": {
 "hsk2026": 3,
@@ -65560,7 +66131,8 @@
 "to emit",
 "to give off",
 "to send out (or up, forth)",
-"to brave"
+"to brave",
+"surname Mao"
 ],
 "levels": {
 "hsk2026": 6,
@@ -65644,7 +66216,9 @@
 "没": {
 "pinyin": "méi",
 "meanings": [
-"(negative prefix for verbs) have not; not"
+"(negative prefix for verbs) have not; not",
+"drowned",
+"to end"
 ],
 "levels": {
 "hsk30": 1,
@@ -65839,7 +66413,8 @@
 "classifier for coins, rings, badges, pearls, sporting medals, rockets, satellites etc",
 "tree trunk",
 "whip",
-"wooden peg, used as a gag for marching soldiers (old)"
+"wooden peg, used as a gag for marching soldiers (old)",
+"surname Mei"
 ],
 "levels": {
 "hsk2026": 7,
@@ -65994,7 +66569,9 @@
 "pinyin": "Měi",
 "meanings": [
 "(bound form) the Americas (abbr. for 洲)",
-"(bound form) USA (abbr. for 美国)"
+"(bound form) USA (abbr. for 美国)",
+"beautiful",
+"very satisfactory; good"
 ],
 "levels": {
 "hsk2026": 4,
@@ -66004,7 +66581,8 @@
 "美德": {
 "pinyin": "Měi Dé",
 "meanings": [
-"USA and Germany"
+"USA and Germany",
+"virtue"
 ],
 "levels": {
 "hsk2026": 7,
@@ -66242,7 +66820,8 @@
 "gate",
 "door",
 "gateway",
-"doorway"
+"doorway",
+"surname Men"
 ],
 "levels": {
 "hsk2026": 2,
@@ -66331,7 +66910,9 @@
 "stuffy",
 "shut indoors",
 "to smother",
-"to cover tightly"
+"to cover tightly",
+"bored",
+"depressed"
 ],
 "levels": {
 "hsk2026": 7,
@@ -66388,7 +66969,9 @@
 "pinyin": "méng",
 "meanings": [
 "drizzle",
-"mist"
+"mist",
+"to deceive",
+"to cheat"
 ],
 "levels": {
 "hsk2026": 7,
@@ -66492,7 +67075,9 @@
 "pinyin": "mí",
 "meanings": [
 "to blind (as with dust)",
-"Taiwan pr. [mǐ]"
+"Taiwan pr. [mǐ]",
+"to narrow one's eyes",
+"to squint"
 ],
 "levels": {
 "hsk2026": 7,
@@ -66627,7 +67212,8 @@
 "谜": {
 "pinyin": "mèi",
 "meanings": [
-"see 谜儿, riddle"
+"see 谜儿, riddle",
+"riddle"
 ],
 "levels": {
 "hsk2026": 7,
@@ -66673,7 +67259,8 @@
 "pinyin": "mǐ",
 "meanings": [
 "rice",
-"meter (classifier)"
+"meter (classifier)",
+"surname Mi"
 ],
 "levels": {
 "hsk2026": 3,
@@ -66753,7 +67340,9 @@
 "secret",
 "confidential",
 "close",
-"thick"
+"thick",
+"surname Mi",
+"name of an ancient state"
 ],
 "levels": {
 "hsk2026": 6,
@@ -67011,7 +67600,9 @@
 "face",
 "side",
 "surface",
-"aspect"
+"aspect",
+"flour",
+"noodles"
 ],
 "levels": {
 "hsk2026": 2,
@@ -67195,7 +67786,8 @@
 "pinyin": "miàn zi",
 "meanings": [
 "outer surface; the outside of sth",
-"social prestige; face"
+"social prestige; face",
+"(medicinal) powder"
 ],
 "levels": {
 "hsk2026": 6,
@@ -67206,7 +67798,9 @@
 "苗": {
 "pinyin": "miáo",
 "meanings": [
-"sprout"
+"sprout",
+"Hmong or Miao ethnic group of southwest China",
+"surname Miao"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68187,7 +68781,8 @@
 "to rub",
 "to grind",
 "to polish",
-"to sharpen"
+"to sharpen",
+"grindstone"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68266,7 +68861,8 @@
 "抹": {
 "pinyin": "mā",
 "meanings": [
-"to wipe"
+"to wipe",
+"to smear"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68302,7 +68898,9 @@
 "末日": {
 "pinyin": "Mò rì",
 "meanings": [
-"Judgment Day (in Christian eschatology)"
+"Judgment Day (in Christian eschatology)",
+"last day",
+"end"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68369,7 +68967,9 @@
 "meanings": [
 "ink stick",
 "China ink",
-"corporal punishment consisting of tattooing characters on the victim's forehead"
+"corporal punishment consisting of tattooing characters on the victim's forehead",
+"surname Mo",
+"abbr. for 哥, Mexico"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68574,7 +69174,8 @@
 "pinyin": "Mǔ dan",
 "meanings": [
 "Mudan District of Heze City 菏泽市, Shandong",
-"Mutan township in Pingtung County 屏东县, Taiwan"
+"Mutan township in Pingtung County 屏东县, Taiwan",
+"tree peony (Paeonia suffruticosa)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68848,7 +69449,9 @@
 "curtain or screen",
 "canopy or tent",
 "headquarters of a general",
-"act (of a play)"
+"act (of a play)",
+"curtain",
+"screen"
 ],
 "levels": {
 "hsk2026": 7,
@@ -68877,7 +69480,9 @@
 "嗯": {
 "pinyin": "ēn",
 "meanings": [
-"(a groaning sound)"
+"(a groaning sound)",
+"(nonverbal grunt as interjection)",
+"OK, yeah"
 ],
 "levels": {
 "hsk2026": 4,
@@ -68945,7 +69550,9 @@
 "pinyin": "nǎ",
 "meanings": [
 "how",
-"which"
+"which",
+"which? (interrogative, followed by classifier or numeral-classifier)",
+"used in 吒"
 ],
 "levels": {
 "hsk2026": 1,
@@ -69018,7 +69625,9 @@
 "meanings": [
 "(specifier) that; the; those (colloquial pr. [nèi])",
 "(pronoun) that (referring to persons, things or situations)",
-"then (in that case)"
+"then (in that case)",
+"(archaic) many",
+"beautiful"
 ],
 "levels": {
 "hsk2026": 1,
@@ -69196,7 +69805,8 @@
 "meanings": [
 "breast",
 "milk",
-"to breastfeed"
+"to breastfeed",
+"mother"
 ],
 "levels": {
 "hsk30": 1
@@ -69402,7 +70012,8 @@
 "南": {
 "pinyin": "nán",
 "meanings": [
-"south"
+"south",
+"surname Nan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -69479,7 +70090,9 @@
 "difficult (to...)",
 "problem",
 "difficulty",
-"difficult"
+"difficult",
+"disaster",
+"distress"
 ],
 "levels": {
 "hsk2026": 3,
@@ -69878,7 +70491,8 @@
 "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\")",
 "particle for inquiring about location (\"Where is ...?\")",
 "particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")",
-"(at the end of a declarative sentence) particle indicating continuation of a state or action"
+"(at the end of a declarative sentence) particle indicating continuation of a state or action",
+"woolen material"
 ],
 "levels": {
 "hsk2026": 1,
@@ -69929,7 +70543,9 @@
 "meanings": [
 "inland",
 "interior",
-"hinterland"
+"hinterland",
+"mainland China (PRC excluding Hong Kong and Macau, but including islands such as Hainan)",
+"Japan (used in Taiwan during Japanese colonization)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -70101,7 +70717,8 @@
 "can",
 "to be able to",
 "might possibly",
-"ability"
+"ability",
+"surname Neng"
 ],
 "levels": {
 "hsk2026": 1,
@@ -70237,7 +70854,8 @@
 "mud",
 "clay",
 "paste",
-"pulp"
+"pulp",
+"restrained"
 ],
 "levels": {
 "hsk2026": 6,
@@ -70267,7 +70885,8 @@
 "你": {
 "pinyin": "nǐ",
 "meanings": [
-"you (informal, as opposed to courteous 您)"
+"you (informal, as opposed to courteous 您)",
+"you (Note: In Taiwan, 妳 is used to address females, but in mainland China, it is not commonly used. Instead, 你 is used to address both males and females.)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -70291,7 +70910,9 @@
 "to plan to",
 "to draft (a plan)",
 "to imitate",
-"to assess"
+"to assess",
+"doubtful",
+"suspicious"
 ],
 "levels": {
 "hsk2026": 7,
@@ -70337,7 +70958,9 @@
 "年": {
 "pinyin": "nián",
 "meanings": [
-"year"
+"year",
+"grain",
+"harvest (old)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -70596,7 +71219,8 @@
 "bird",
 "\"bird\" radical in Chinese characters (Kangxi radical 196)",
 "(dialect) to pay attention to",
-"(intensifier) damned"
+"(intensifier) damned",
+"penis"
 ],
 "levels": {
 "hsk2026": 2,
@@ -70619,7 +71243,8 @@
 "pinyin": "niào",
 "meanings": [
 "to urinate",
-"urine"
+"urine",
+"(coll.) urine"
 ],
 "levels": {
 "hsk2026": 7,
@@ -70703,7 +71328,9 @@
 "pinyin": "níng",
 "meanings": [
 "to pinch",
-"wring"
+"wring",
+"mistake",
+"to twist"
 ],
 "levels": {
 "hsk2026": 7,
@@ -70756,7 +71383,8 @@
 "ox",
 "cow",
 "bull",
-"newton (abbr. for 牛顿)"
+"newton (abbr. for 牛顿)",
+"surname Niu"
 ],
 "levels": {
 "hsk2026": 3,
@@ -71023,7 +71651,9 @@
 "pinyin": "lòng",
 "meanings": [
 "lane",
-"alley"
+"alley",
+"to do",
+"to manage"
 ],
 "levels": {
 "hsk2026": 4,
@@ -71109,8 +71739,9 @@
 }
 },
 "女人": {
-"pinyin": "nǚ rén",
+"pinyin": "nǚ ren",
 "meanings": [
+"wife",
 "woman"
 ],
 "levels": {
@@ -71263,7 +71894,9 @@
 "哦": {
 "pinyin": "é",
 "meanings": [
-"to chant"
+"to chant",
+"oh (interjection indicating doubt or surprise)",
+"oh (interjection indicating that one has just learned sth)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -71386,7 +72019,8 @@
 "to be afraid",
 "to fear",
 "to dread",
-"to be unable to endure"
+"to be unable to endure",
+"surname Pa"
 ],
 "levels": {
 "hsk2026": 3,
@@ -71922,7 +72556,9 @@
 "pinyin": "pán",
 "meanings": [
 "healthy",
-"at ease"
+"at ease",
+"fat",
+"plump"
 ],
 "levels": {
 "hsk2026": 3,
@@ -71983,7 +72619,9 @@
 "carpenter's plane",
 "to plane (woodwork)",
 "to shave off",
-"to peel (with a potato peeler etc)"
+"to peel (with a potato peeler etc)",
+"to dig",
+"to excavate"
 ],
 "levels": {
 "hsk2026": 7,
@@ -71993,7 +72631,9 @@
 "跑": {
 "pinyin": "páo",
 "meanings": [
-"(of an animal) to paw (the ground)"
+"(of an animal) to paw (the ground)",
+"to run",
+"to run away"
 ],
 "levels": {
 "hsk2026": 2,
@@ -72051,7 +72691,9 @@
 "meanings": [
 "puffed; swollen; spongy",
 "small lake (esp. in place names)",
-"classifier for urine or feces"
+"classifier for urine or feces",
+"bubble; foam",
+"blister"
 ],
 "levels": {
 "hsk2026": 6,
@@ -72076,7 +72718,9 @@
 "meanings": [
 "to sauté",
 "to fry",
-"to dry by heating"
+"to dry by heating",
+"to prepare herbal medicine by roasting or parching (in a pan)",
+"cannon"
 ],
 "levels": {
 "hsk2026": 7,
@@ -72347,7 +72991,9 @@
 "to puff",
 "to spout",
 "to spray",
-"to spurt"
+"to spurt",
+"(of a smell) strong",
+"peak season (of a crop)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -72664,7 +73310,9 @@
 "to hack",
 "to chop",
 "to split open",
-"(of lightning) to strike"
+"(of lightning) to strike",
+"to split in two",
+"to divide"
 ],
 "levels": {
 "hsk2026": 7,
@@ -72678,7 +73326,8 @@
 "leather",
 "skin",
 "fur",
-"pico- (one trillionth)"
+"pico- (one trillionth)",
+"surname Pi"
 ],
 "levels": {
 "hsk2026": 6,
@@ -72834,7 +73483,9 @@
 "pinyin": "pī",
 "meanings": [
 "mate",
-"one of a pair"
+"one of a pair",
+"classifier for horses, mules etc",
+"Taiwan pr. [pī]"
 ],
 "levels": {
 "hsk2026": 5,
@@ -73039,7 +73690,9 @@
 "pinyin": "piān",
 "meanings": [
 "disk",
-"sheet"
+"sheet",
+"thin piece",
+"flake"
 ],
 "levels": {
 "hsk2026": 4,
@@ -73099,7 +73752,9 @@
 "film",
 "movie",
 "film reel",
-"phonograph record"
+"phonograph record",
+"thin flake",
+"small piece"
 ],
 "levels": {
 "hsk2026": 7,
@@ -73201,7 +73856,9 @@
 "pinyin": "piāo",
 "meanings": [
 "to float",
-"to drift"
+"to drift",
+"to bleach",
+"elegant"
 ],
 "levels": {
 "hsk2026": 6,
@@ -73237,7 +73894,9 @@
 "pinyin": "piē",
 "meanings": [
 "to cast away",
-"to fling aside"
+"to fling aside",
+"to throw",
+"to cast"
 ],
 "levels": {
 "hsk2026": 7,
@@ -73535,7 +74194,8 @@
 "flat",
 "level",
 "equal",
-"to tie (make the same score)"
+"to tie (make the same score)",
+"surname Ping"
 ],
 "levels": {
 "hsk2026": 5,
@@ -73643,7 +74303,9 @@
 "平和": {
 "pinyin": "Píng hé",
 "meanings": [
-"Pinghe county in Zhangzhou 州, Fujian"
+"Pinghe county in Zhangzhou 州, Fujian",
+"gentle",
+"mild"
 ],
 "levels": {
 "hsk2026": 7,
@@ -74084,7 +74746,9 @@
 "rather",
 "quite",
 "considerably",
-"oblique"
+"oblique",
+"surname Po",
+"Taiwan pr. [Pǒ]"
 ],
 "levels": {
 "hsk2026": 7,
@@ -74488,7 +75152,9 @@
 "plank bed",
 "place to sleep",
 "shop",
-"store"
+"store",
+"to spread",
+"to display"
 ],
 "levels": {
 "hsk2026": 6,
@@ -74567,8 +75233,9 @@
 }
 },
 "妻子": {
-"pinyin": "qī zǐ",
+"pinyin": "qī zi",
 "meanings": [
+"wife",
 "wife and children"
 ],
 "levels": {
@@ -74581,7 +75248,8 @@
 "pinyin": "qī liáng",
 "meanings": [
 "mournful",
-"miserable"
+"miserable",
+"desolate (place)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -74595,7 +75263,8 @@
 "a period of time",
 "phase",
 "stage",
-"classifier for issues of a periodical, courses of study"
+"classifier for issues of a periodical, courses of study",
+"cycle"
 ],
 "levels": {
 "hsk2026": 4,
@@ -74738,7 +75407,9 @@
 "neat",
 "even",
 "level with",
-"identical"
+"identical",
+"(name of states and dynasties at several different periods)",
+"surname Qi"
 ],
 "levels": {
 "hsk2026": 5,
@@ -74957,7 +75628,9 @@
 "pinyin": "jì",
 "meanings": [
 "(Tw) saddle horse",
-"mounted soldier"
+"mounted soldier",
+"to sit astride",
+"to ride (a horse, bike etc)"
 ],
 "levels": {
 "hsk2026": 3,
@@ -75322,7 +75995,9 @@
 "meanings": [
 "to stand up",
 "to get up",
-"also pr. [qǐ lái]"
+"also pr. [qǐ lái]",
+"(after a verb) indicating the beginning and continuation of an action or a state",
+"indicating an upward movement (e.g. after 站)"
 ],
 "levels": {
 "hsk2026": 2,
@@ -75858,7 +76533,8 @@
 "千": {
 "pinyin": "qiān",
 "meanings": [
-"thousand"
+"thousand",
+"see 秋千"
 ],
 "levels": {
 "hsk2026": 1,
@@ -76122,7 +76798,9 @@
 "to sign one's name",
 "to write brief comments on a document",
 "inscribed bamboo stick (variant of 签)",
-"visa"
+"visa",
+"inscribed bamboo stick (used in divination, gambling, drawing lots etc)",
+"small wood sliver"
 ],
 "levels": {
 "hsk2026": 5,
@@ -76530,7 +77208,8 @@
 "meanings": [
 "coin",
 "money",
-"unit of weight, one tenth of a tael 两"
+"unit of weight, one tenth of a tael 两",
+"surname Qian"
 ],
 "levels": {
 "hsk2026": 1,
@@ -76644,7 +77323,9 @@
 "浅": {
 "pinyin": "jiān",
 "meanings": [
-"sound of moving water"
+"sound of moving water",
+"shallow",
+"light (color)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -76717,7 +77398,9 @@
 "呛": {
 "pinyin": "qiāng",
 "meanings": [
-"to choke (because of swallowing the wrong way)"
+"to choke (because of swallowing the wrong way)",
+"to irritate the nose",
+"to choke (of smoke, smell etc)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -76768,7 +77451,9 @@
 "pinyin": "jiàng",
 "meanings": [
 "stubborn",
-"unyielding"
+"unyielding",
+"strong",
+"powerful"
 ],
 "levels": {
 "hsk2026": 4,
@@ -76990,7 +77675,9 @@
 "to fight over",
 "to rush",
 "to scramble",
-"to grab"
+"to grab",
+"(literary) to knock against (esp. to knock one's head on the ground in grief or rage)",
+"opposite in direction; contrary"
 ],
 "levels": {
 "hsk2026": 5,
@@ -77225,7 +77912,9 @@
 "pinyin": "qiáo",
 "meanings": [
 "outstanding",
-"to raise"
+"to raise",
+"to stick up",
+"to rise on one end"
 ],
 "levels": {
 "hsk2026": 7,
@@ -77262,7 +77951,9 @@
 "pinyin": "qiē",
 "meanings": [
 "to cut; to slice; to carve",
-"(math) tangential"
+"(math) tangential",
+"definitely; absolutely (not)",
+"(scoffing or dismissive interjection) Yeah, right.; Tut!"
 ],
 "levels": {
 "hsk2026": 5,
@@ -77355,7 +78046,8 @@
 "parent",
 "one's own (flesh and blood)",
 "relative",
-"related"
+"related",
+"parents-in-law of one's offspring"
 ],
 "levels": {
 "hsk2026": 5,
@@ -77725,7 +78417,9 @@
 "青": {
 "pinyin": "Qīng",
 "meanings": [
-"abbr. for 海, Qinghai Province"
+"abbr. for 海, Qinghai Province",
+"green",
+"blue"
 ],
 "levels": {
 "hsk2026": 5,
@@ -77973,7 +78667,9 @@
 "(of water etc) clear; clean",
 "quiet; still",
 "pure; uncorrupted",
-"clear; distinct"
+"clear; distinct",
+"Qing (Wade-Giles: Ch'ing) dynasty of imperial China (1644-1911)",
+"surname Qing"
 ],
 "levels": {
 "hsk2026": 6,
@@ -78128,7 +78824,9 @@
 "pinyin": "Qīng míng",
 "meanings": [
 "Qingming or Pure Brightness, 5th of the 24 solar terms 二十四节气 5th-19th April",
-"Pure Brightness Festival or Tomb Sweeping Day (in early April)"
+"Pure Brightness Festival or Tomb Sweeping Day (in early April)",
+"clear and bright",
+"sober and calm"
 ],
 "levels": {
 "hsk30": 7
@@ -78170,7 +78868,8 @@
 "清新": {
 "pinyin": "Qīng xīn",
 "meanings": [
-"Qingxin county in Qingyuan 清远, Guangdong"
+"Qingxin county in Qingyuan 清远, Guangdong",
+"fresh and clean"
 ],
 "levels": {
 "hsk2026": 7,
@@ -78646,7 +79345,9 @@
 "meanings": [
 "autumn",
 "fall",
-"harvest time"
+"harvest time",
+"see 秋千",
+"surname Qiu"
 ],
 "levels": {
 "hsk2": 3
@@ -78859,7 +79560,8 @@
 "area",
 "region",
 "district",
-"small"
+"small",
+"surname Ou"
 ],
 "levels": {
 "hsk2026": 4,
@@ -78911,7 +79613,9 @@
 "meanings": [
 "bent",
 "crooked",
-"wrong"
+"wrong",
+"tune",
+"song"
 ],
 "levels": {
 "hsk2026": 6,
@@ -79279,7 +79983,9 @@
 "meanings": [
 "to confine",
 "to lock up",
-"to pen in"
+"to pen in",
+"livestock enclosure; pen; fold; sty",
+"circle; ring; loop"
 ],
 "levels": {
 "hsk2026": 6,
@@ -79316,7 +80022,8 @@
 "all",
 "whole",
 "entire",
-"every"
+"every",
+"surname Quan"
 ],
 "levels": {
 "hsk2026": 4,
@@ -79567,7 +80274,8 @@
 "authority",
 "power",
 "right",
-"(literary) to weigh"
+"(literary) to weigh",
+"surname Quan"
 ],
 "levels": {
 "hsk2026": 5,
@@ -80191,7 +80899,8 @@
 "rich",
 "abundant",
 "exuberant",
-"to add for free"
+"to add for free",
+"surname Rao"
 ],
 "levels": {
 "hsk2026": 7,
@@ -80579,12 +81288,14 @@
 }
 },
 "人家": {
-"pinyin": "rén jiā",
+"pinyin": "rén jia",
 "meanings": [
+"other people",
+"sb else",
+"he, she or they",
+"I, me (referring to oneself as \"one\" or \"people\")",
 "household",
-"dwelling",
-"family",
-"sb else's house"
+"dwelling"
 ],
 "levels": {
 "hsk2026": 6,
@@ -81182,7 +81893,9 @@
 "to assign",
 "to appoint",
 "to take up a post",
-"office"
+"office",
+"surname Ren",
+"Ren County 任县 in Hebei"
 ],
 "levels": {
 "hsk2026": 7,
@@ -81355,7 +82068,9 @@
 "日": {
 "pinyin": "Rì",
 "meanings": [
-"abbr. for 本, Japan"
+"abbr. for 本, Japan",
+"sun",
+"day"
 ],
 "levels": {
 "hsk2026": 1,
@@ -82246,7 +82961,9 @@
 "to let go",
 "to cast",
 "to let loose",
-"to discharge"
+"to discharge",
+"to scatter",
+"to sprinkle"
 ],
 "levels": {
 "hsk2026": 6,
@@ -82283,7 +83000,9 @@
 "meanings": [
 "Serbia",
 "Serbian",
-"abbr. for 塞尔维亚"
+"abbr. for 塞尔维亚",
+"to stop up",
+"to squeeze in"
 ],
 "levels": {
 "hsk2026": 6,
@@ -82350,7 +83069,8 @@
 "pinyin": "sān",
 "meanings": [
 "three",
-"3"
+"3",
+"surname San"
 ],
 "levels": {
 "hsk2026": 1,
@@ -82403,7 +83123,8 @@
 "pinyin": "sǎn",
 "meanings": [
 "umbrella",
-"parasol"
+"parasol",
+"damask silk"
 ],
 "levels": {
 "hsk2026": 3,
@@ -82417,7 +83138,9 @@
 "scattered",
 "loose",
 "to come loose",
-"to fall apart"
+"to fall apart",
+"to scatter",
+"to break up (a meeting etc)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -82542,7 +83265,8 @@
 "扫": {
 "pinyin": "sǎo",
 "meanings": [
-"to sweep"
+"to sweep",
+"broom"
 ],
 "levels": {
 "hsk2026": 3,
@@ -82609,7 +83333,9 @@
 "color",
 "look",
 "appearance",
-"sex"
+"sex",
+"(coll.) color",
+"used in 子"
 ],
 "levels": {
 "hsk30": 4
@@ -82889,7 +83615,8 @@
 "pinyin": "shān",
 "meanings": [
 "mountain; hill",
-"(coll.) small bundle of straw for silkworms to spin cocoons on"
+"(coll.) small bundle of straw for silkworms to spin cocoons on",
+"surname Shan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -83049,7 +83776,8 @@
 "to dodge",
 "to duck out of the way",
 "to beat it",
-"shaken (by a fall)"
+"shaken (by a fall)",
+"surname Shan"
 ],
 "levels": {
 "hsk2026": 6,
@@ -83085,7 +83813,9 @@
 "pinyin": "shān",
 "meanings": [
 "to fan",
-"to slap sb on the face"
+"to slap sb on the face",
+"fan",
+"sliding, hinged or detachable flat part of sth"
 ],
 "levels": {
 "hsk2026": 5,
@@ -83351,7 +84081,9 @@
 "商城": {
 "pinyin": "Shāng chéng",
 "meanings": [
-"see 商城县"
+"see 商城县",
+"shopping center",
+"department store"
 ],
 "levels": {
 "hsk30": 6
@@ -83482,7 +84214,8 @@
 "(bound form) up; upper; above; previous",
 "first (of multiple parts)",
 "to climb; to get onto; to go up",
-"to attend (class or university)"
+"to attend (class or university)",
+"used in 上声"
 ],
 "levels": {
 "hsk2026": 1,
@@ -83845,7 +84578,9 @@
 "meanings": [
 "above",
 "on top of",
-"on the surface of"
+"on the surface of",
+"(of alcohol) to go to one's head",
+"(old) (of a bride-to-be) to bind one's hair into a bun"
 ],
 "levels": {
 "hsk30": 7
@@ -84006,7 +84741,8 @@
 "still",
 "yet",
 "to value",
-"to esteem"
+"to esteem",
+"surname Shang"
 ],
 "levels": {
 "hsk2026": 7,
@@ -84083,7 +84819,8 @@
 "pinyin": "shāo",
 "meanings": [
 "somewhat",
-"a little"
+"a little",
+"see 息"
 ],
 "levels": {
 "hsk2026": 4,
@@ -84162,7 +84899,8 @@
 "few",
 "less",
 "to lack",
-"to be missing"
+"to be missing",
+"young"
 ],
 "levels": {
 "hsk2026": 1,
@@ -85185,7 +85923,9 @@
 "pinyin": "Shén",
 "meanings": [
 "God",
-"abbr. for 舟"
+"abbr. for 舟",
+"deity",
+"soul"
 ],
 "levels": {
 "hsk2026": 6,
@@ -85846,8 +86586,9 @@
 }
 },
 "生意": {
-"pinyin": "shēng yì",
+"pinyin": "shēng yi",
 "meanings": [
+"business",
 "life force",
 "vitality"
 ],
@@ -86022,7 +86763,9 @@
 "to save; to economize; to be frugal",
 "to omit; to delete; to leave out",
 "province",
-"provincial capital"
+"provincial capital",
+"(bound form) to scrutinize",
+"(bound form) to reflect (on one's conduct)"
 ],
 "levels": {
 "hsk2026": 4,
@@ -86064,7 +86807,9 @@
 "省事": {
 "pinyin": "shěng shì",
 "meanings": [
-"to simplify matters; to save trouble"
+"to simplify matters; to save trouble",
+"perceptive; understanding",
+"(archaic) to handle administrative work"
 ],
 "levels": {
 "hsk2026": 7,
@@ -86162,7 +86907,9 @@
 "to hold",
 "to contain",
 "to ladle",
-"to pick up with a utensil"
+"to pick up with a utensil",
+"flourishing",
+"vigorous"
 ],
 "levels": {
 "hsk2026": 6,
@@ -86557,7 +87304,9 @@
 "诗": {
 "pinyin": "Shī",
 "meanings": [
-"abbr. for Shijing 诗经, the Book of Songs"
+"abbr. for Shijing 诗经, the Book of Songs",
+"poem",
+"poetry"
 ],
 "levels": {
 "hsk2026": 5,
@@ -86642,8 +87391,9 @@
 }
 },
 "狮子": {
-"pinyin": "Shī zǐ",
+"pinyin": "shī zi",
 "meanings": [
+"lion",
 "Leo (star sign)",
 "Shihtzu township in Pingtung County 屏东县, Taiwan"
 ],
@@ -86765,7 +87515,8 @@
 "o'clock",
 "time",
 "when",
-"hour"
+"hour",
+"surname Shi"
 ],
 "levels": {
 "hsk2026": 2,
@@ -86808,7 +87559,9 @@
 "时代": {
 "pinyin": "Shí dài",
 "meanings": [
-"Time, US weekly news magazine"
+"Time, US weekly news magazine",
+"age",
+"era"
 ],
 "levels": {
 "hsk2026": 5,
@@ -87524,8 +88277,10 @@
 }
 },
 "世故": {
-"pinyin": "shì gù",
+"pinyin": "shì gu",
 "meanings": [
+"sophisticated",
+"worldly-wise",
 "the ways of the world"
 ],
 "levels": {
@@ -88231,7 +88986,8 @@
 "room",
 "work unit",
 "grave",
-"scabbard"
+"scabbard",
+"surname Shi"
 ],
 "levels": {
 "hsk2026": 3,
@@ -88431,7 +89187,9 @@
 "meanings": [
 "to know",
 "knowledge",
-"Taiwan pr. [shì]"
+"Taiwan pr. [shì]",
+"to record",
+"to write a footnote"
 ],
 "levels": {
 "hsk2026": 6,
@@ -88461,7 +89219,9 @@
 "拾": {
 "pinyin": "shè",
 "meanings": [
-"to ascend in light steps"
+"to ascend in light steps",
+"to pick up",
+"to collate or arrange"
 ],
 "levels": {
 "hsk2026": 6,
@@ -89472,7 +90232,9 @@
 "书": {
 "pinyin": "Shū",
 "meanings": [
-"abbr. for 书经"
+"abbr. for 书经",
+"book",
+"letter"
 ],
 "levels": {
 "hsk2026": 1,
@@ -89925,7 +90687,9 @@
 "category",
 "genus (taxonomy)",
 "family members",
-"dependents"
+"dependents",
+"to join together",
+"to fix one's attention on"
 ],
 "levels": {
 "hsk2026": 6,
@@ -90033,7 +90797,8 @@
 "to bind",
 "bunch",
 "bundle",
-"classifier for bunches, bundles, beams of light etc"
+"classifier for bunches, bundles, beams of light etc",
+"surname Shu"
 ],
 "levels": {
 "hsk2026": 5,
@@ -90083,7 +90848,9 @@
 "树林": {
 "pinyin": "Shù lín",
 "meanings": [
-"Shulin city in New Taipei City 市, Taiwan"
+"Shulin city in New Taipei City 市, Taiwan",
+"woods",
+"grove"
 ],
 "levels": {
 "hsk2026": 4,
@@ -90158,7 +90925,9 @@
 "meanings": [
 "to count",
 "to count as; to regard as",
-"to enumerate; to list"
+"to enumerate; to list",
+"number; figure",
+"several; a few"
 ],
 "levels": {
 "hsk2026": 4,
@@ -90270,7 +91039,8 @@
 "to brush",
 "to paint",
 "to daub",
-"to paste up"
+"to paste up",
+"to select"
 ],
 "levels": {
 "hsk2026": 3,
@@ -90316,7 +91086,8 @@
 "to play with",
 "to wield",
 "to act (cool etc)",
-"to display (a skill, one's temper etc)"
+"to display (a skill, one's temper etc)",
+"surname Shua"
 ],
 "levels": {
 "hsk2026": 7,
@@ -90454,7 +91225,8 @@
 "(bound form) commander-in-chief",
 "(bound form) to lead; to command",
 "handsome; graceful; dashing; elegant",
-"(coll.) cool!; sweet!"
+"(coll.) cool!; sweet!",
+"surname Shuai"
 ],
 "levels": {
 "hsk2026": 4,
@@ -90503,7 +91275,8 @@
 "two",
 "double",
 "pair",
-"both"
+"both",
+"surname Shuang"
 ],
 "levels": {
 "hsk2026": 3,
@@ -90663,7 +91436,8 @@
 "water",
 "river",
 "liquid",
-"beverage"
+"beverage",
+"surname Shui"
 ],
 "levels": {
 "hsk2026": 1,
@@ -91203,7 +91977,9 @@
 "说": {
 "pinyin": "shuì",
 "meanings": [
-"to persuade"
+"to persuade",
+"to speak; to talk; to say",
+"to explain; to comment"
 ],
 "levels": {
 "hsk2026": 1,
@@ -91253,8 +92029,10 @@
 }
 },
 "说道": {
-"pinyin": "shuō dào",
+"pinyin": "shuō dao",
 "meanings": [
+"to discuss",
+"reason (behind sth)",
 "to state",
 "to say (the quoted words)"
 ],
@@ -91263,8 +92041,12 @@
 }
 },
 "说法": {
-"pinyin": "shuō fǎ",
+"pinyin": "shuō fa",
 "meanings": [
+"way of speaking",
+"wording",
+"formulation",
+"one's version (of events)",
 "to expound Buddhist teachings"
 ],
 "levels": {
@@ -91930,7 +92712,9 @@
 "松": {
 "pinyin": "sōng",
 "meanings": [
-"pine"
+"pine",
+"loose",
+"to loosen"
 ],
 "levels": {
 "hsk2026": 6,
@@ -92554,7 +93338,8 @@
 "to follow",
 "to comply with",
 "varying according to...",
-"to allow"
+"to allow",
+"surname Sui"
 ],
 "levels": {
 "hsk2026": 5,
@@ -92721,7 +93506,8 @@
 "meanings": [
 "classifier for years (of age)",
 "year",
-"year (of crop harvests)"
+"year (of crop harvests)",
+"years old"
 ],
 "levels": {
 "hsk2026": 1,
@@ -92796,8 +93582,10 @@
 }
 },
 "孙子": {
-"pinyin": "Sūn zǐ",
+"pinyin": "sūn zi",
 "meanings": [
+"grandson",
+"son's son",
 "Sun Tzu, also known as Sun Wu 孙武 (c. 500 BC, dates of birth and death uncertain), general, strategist and philosopher of the Spring and Autumn Period (700-475 BC), believed to be the author of the “Art of War” 孙子兵法, one of the Seven Military Classics of ancient China 武经七书"
 ],
 "levels": {
@@ -93021,7 +93809,8 @@
 "所长": {
 "pinyin": "suǒ cháng",
 "meanings": [
-"what one is good at"
+"what one is good at",
+"head of an institute etc"
 ],
 "levels": {
 "hsk30": 3
@@ -93226,7 +94015,9 @@
 "踏": {
 "pinyin": "tā",
 "meanings": [
-"see 踏实"
+"see 踏实",
+"to tread",
+"to stamp"
 ],
 "levels": {
 "hsk2026": 7,
@@ -93285,7 +94076,9 @@
 "台": {
 "pinyin": "tái",
 "meanings": [
-"desk; table; counter"
+"desk; table; counter",
+"Taiwan (abbr.)",
+"platform"
 ],
 "levels": {
 "hsk2026": 4,
@@ -93307,7 +94100,8 @@
 "台风": {
 "pinyin": "tái fēng",
 "meanings": [
-"stage presence, poise"
+"stage presence, poise",
+"typhoon"
 ],
 "levels": {
 "hsk2026": 6,
@@ -93423,7 +94217,8 @@
 "太平": {
 "pinyin": "Tài píng",
 "meanings": [
-"place name"
+"place name",
+"peace and security"
 ],
 "levels": {
 "hsk2026": 7,
@@ -93590,7 +94385,8 @@
 "meanings": [
 "platform",
 "rostrum",
-"altar"
+"altar",
+"earthen jar"
 ],
 "levels": {
 "hsk2026": 7,
@@ -93603,7 +94399,8 @@
 "to speak",
 "to talk",
 "to converse",
-"to chat"
+"to chat",
+"surname Tan"
 ],
 "levels": {
 "hsk2026": 4,
@@ -93888,7 +94685,9 @@
 "汤": {
 "pinyin": "shāng",
 "meanings": [
-"rushing current"
+"rushing current",
+"soup",
+"hot or boiling water"
 ],
 "levels": {
 "hsk2026": 4,
@@ -94017,7 +94816,9 @@
 "meanings": [
 "to wade",
 "to trample",
-"to turn the soil"
+"to turn the soil",
+"classifier for times, round trips or rows",
+"a time"
 ],
 "levels": {
 "hsk2026": 4,
@@ -94677,7 +95478,8 @@
 "to carry (hanging down from the hand)",
 "to lift",
 "to put forward",
-"to mention"
+"to mention",
+"used in 防 and 溜"
 ],
 "levels": {
 "hsk2026": 4,
@@ -94950,7 +95752,8 @@
 "topic",
 "problem for discussion",
 "exam question",
-"subject"
+"subject",
+"surname Ti"
 ],
 "levels": {
 "hsk2026": 2,
@@ -95202,7 +96005,9 @@
 "剃": {
 "pinyin": "tì",
 "meanings": [
-"to shave"
+"to shave",
+"shave",
+"to weed"
 ],
 "levels": {
 "hsk2026": 7,
@@ -95388,7 +96193,9 @@
 "pinyin": "Tiān qiáo",
 "meanings": [
 "Tianqiao district of Jinan city 济南市, Shandong",
-"Tianqiao district in Beijing, formerly a center of folk culture"
+"Tianqiao district in Beijing, formerly a center of folk culture",
+"overhead walkway",
+"pedestrian bridge"
 ],
 "levels": {
 "hsk2026": 7,
@@ -95570,7 +96377,8 @@
 "pinyin": "tián",
 "meanings": [
 "field",
-"farm"
+"farm",
+"surname Tian"
 ],
 "levels": {
 "hsk2026": 6,
@@ -95717,7 +96525,9 @@
 "to carry on a shoulder pole",
 "to choose",
 "to pick",
-"to nitpick"
+"to nitpick",
+"to raise",
+"to dig up"
 ],
 "levels": {
 "hsk2026": 5,
@@ -96027,7 +96837,8 @@
 "iron (metal)",
 "arms",
 "weapons",
-"hard"
+"hard",
+"surname Tie"
 ],
 "levels": {
 "hsk2026": 7,
@@ -96063,7 +96874,8 @@
 "to listen to; to hear",
 "to heed; to obey",
 "a can (loanword from English \"tin\")",
-"classifier for canned beverages"
+"classifier for canned beverages",
+"smile (archaic)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -96377,7 +97189,8 @@
 "to go through",
 "to know well",
 "(suffix) expert",
-"to connect"
+"to connect",
+"classifier for an activity, taken in its entirety (tirade of abuse, stint of music playing, bout of drinking etc)"
 ],
 "levels": {
 "hsk2026": 4,
@@ -96437,7 +97250,9 @@
 "通道": {
 "pinyin": "Tōng dào",
 "meanings": [
-"Tongdao Dong autonomous county in Huaihua 怀化, Hunan"
+"Tongdao Dong autonomous county in Huaihua 怀化, Hunan",
+"(communications) channel",
+"thoroughfare"
 ],
 "levels": {
 "hsk2026": 6,
@@ -96672,7 +97487,8 @@
 "like",
 "same",
 "similar",
-"together"
+"together",
+"see 胡同"
 ],
 "levels": {
 "hsk2026": 5,
@@ -96844,7 +97660,8 @@
 "pinyin": "tóng háng",
 "meanings": [
 "person of the same profession",
-"of the same trade, occupation or industry"
+"of the same trade, occupation or industry",
+"to journey together"
 ],
 "levels": {
 "hsk2026": 6,
@@ -97200,7 +98017,8 @@
 "head",
 "hair style",
 "the top",
-"end"
+"end",
+"suffix for nouns"
 ],
 "levels": {
 "hsk2026": 2,
@@ -97273,7 +98091,8 @@
 "头条": {
 "pinyin": "Tóu tiáo",
 "meanings": [
-"Toutiao, personalized content recommendation app (abbr. for 今日头条)"
+"Toutiao, personalized content recommendation app (abbr. for 今日头条)",
+"lead story (on the news)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -97836,7 +98655,9 @@
 "earth",
 "dust",
 "clay",
-"local"
+"local",
+"Tu (ethnic group)",
+"surname Tu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -97844,11 +98665,12 @@
 }
 },
 "土地": {
-"pinyin": "tǔ dì",
+"pinyin": "tǔ di",
 "meanings": [
+"local god",
+"genius loci",
 "land",
-"soil",
-"territory"
+"soil"
 ],
 "levels": {
 "hsk2026": 5,
@@ -97906,7 +98728,9 @@
 "to spit",
 "to send out (silk from a silkworm, bolls from cotton flowers etc)",
 "to say",
-"to pour out (one's grievances)"
+"to pour out (one's grievances)",
+"to vomit",
+"to throw up"
 ],
 "levels": {
 "hsk2026": 6,
@@ -97940,7 +98764,8 @@
 "to apply (paint etc)",
 "to smear",
 "to daub",
-"to blot out"
+"to blot out",
+"surname Tu"
 ],
 "levels": {
 "hsk2026": 7,
@@ -97965,7 +98790,8 @@
 "round",
 "lump",
 "ball",
-"to roll into a ball"
+"to roll into a ball",
+"dumpling"
 ],
 "levels": {
 "hsk2026": 5,
@@ -98337,7 +99163,8 @@
 "腿": {
 "pinyin": "tuǐ",
 "meanings": [
-"leg"
+"leg",
+"hip bone"
 ],
 "levels": {
 "hsk2026": 3,
@@ -98509,7 +99336,9 @@
 "meanings": [
 "to station (soldiers)",
 "to store up",
-"village"
+"village",
+"difficult",
+"stingy"
 ],
 "levels": {
 "hsk30": 7
@@ -98521,7 +99350,9 @@
 "prop",
 "support (for weight)",
 "rest (e.g. arm rest)",
-"thanks to"
+"thanks to",
+"to trust",
+"to entrust"
 ],
 "levels": {
 "hsk2026": 7,
@@ -98699,7 +99530,8 @@
 "驮": {
 "pinyin": "duò",
 "meanings": [
-"load carried by a pack animal"
+"load carried by a pack animal",
+"to carry on one's back"
 ],
 "levels": {
 "hsk2026": 7,
@@ -98877,7 +99709,8 @@
 "meanings": [
 "Wow!",
 "sound of a child's crying",
-"sound of vomiting"
+"sound of vomiting",
+"replaces 啊 when following the vowel \"u\" or \"ao\""
 ],
 "levels": {
 "hsk2026": 6,
@@ -98891,7 +99724,8 @@
 "askew",
 "at a crooked angle",
 "devious",
-"noxious"
+"noxious",
+"to sprain (one's ankle) (Tw)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -99476,7 +100310,8 @@
 "to play",
 "to have fun",
 "to trifle with",
-"toy"
+"toy",
+"Taiwan pr. [wàn]"
 ],
 "levels": {
 "hsk2026": 1,
@@ -99583,7 +100418,8 @@
 "to pull",
 "to draw (a cart or a bow)",
 "to roll up",
-"to coil"
+"to coil",
+"to draw (a cart)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -99768,7 +100604,9 @@
 "pinyin": "wàn",
 "meanings": [
 "ten thousand",
-"a great number"
+"a great number",
+"used in 俟",
+"surname Wan"
 ],
 "levels": {
 "hsk2026": 2,
@@ -99875,7 +100713,9 @@
 "king or monarch",
 "best or strongest of its type",
 "grand",
-"great"
+"great",
+"to rule",
+"to reign over"
 ],
 "levels": {
 "hsk30": 4
@@ -99959,7 +100799,8 @@
 "网络": {
 "pinyin": "Wǎng luò",
 "meanings": [
-"Internet"
+"Internet",
+"network (computing, telecommunications, transport etc)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -100249,7 +101090,8 @@
 "full moon",
 "to hope",
 "to expect",
-"to visit"
+"to visit",
+"15th day of month (lunar calendar)"
 ],
 "levels": {
 "hsk2026": 6,
@@ -100397,7 +101239,9 @@
 "威信": {
 "pinyin": "Wēi xìn",
 "meanings": [
-"Weixin county in Zhaotong 通, Yunnan"
+"Weixin county in Zhaotong 通, Yunnan",
+"prestige",
+"reputation"
 ],
 "levels": {
 "hsk2026": 7,
@@ -100521,7 +101365,8 @@
 "to encircle",
 "to surround",
 "all around",
-"to wear by wrapping around (scarf, shawl)"
+"to wear by wrapping around (scarf, shawl)",
+"surname Wei"
 ],
 "levels": {
 "hsk2026": 5,
@@ -100636,7 +101481,8 @@
 "meanings": [
 "only",
 "alone",
-"-ism (in Chinese, a prefix, often combined with a suffix such as 主义 or 论, e.g. 唯理论, rationalism)"
+"-ism (in Chinese, a prefix, often combined with a suffix such as 主义 or 论, e.g. 唯理论, rationalism)",
+"yes"
 ],
 "levels": {
 "hsk2026": 7,
@@ -100912,7 +101758,9 @@
 "as (in the capacity of)",
 "to take sth as",
 "to act as",
-"to serve as"
+"to serve as",
+"because of",
+"for"
 ],
 "levels": {
 "hsk2026": 3,
@@ -100983,7 +101831,9 @@
 "pinyin": "wéi rén",
 "meanings": [
 "to conduct oneself",
-"behavior; conduct; personal character"
+"behavior; conduct; personal character",
+"for sb",
+"for others' interest"
 ],
 "levels": {
 "hsk2026": 7,
@@ -101252,7 +102102,9 @@
 "喂": {
 "pinyin": "wéi",
 "meanings": [
-"hello (when answering the phone)"
+"hello (when answering the phone)",
+"hey",
+"to feed (an animal, baby, invalid etc)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -101327,11 +102179,11 @@
 }
 },
 "温和": {
-"pinyin": "wēn hé",
+"pinyin": "wēn huo",
 "meanings": [
+"lukewarm",
 "mild",
-"gentle",
-"moderate"
+"gentle"
 ],
 "levels": {
 "hsk2026": 6,
@@ -101353,7 +102205,9 @@
 "温泉": {
 "pinyin": "Wēn quán",
 "meanings": [
-"Arishang Nahiyisi or Wenquan county in Börtala Mongol autonomous prefecture 博尔塔拉蒙古自治州, Xinjiang"
+"Arishang Nahiyisi or Wenquan county in Börtala Mongol autonomous prefecture 博尔塔拉蒙古自治州, Xinjiang",
+"hot spring",
+"spa"
 ],
 "levels": {
 "hsk2026": 7,
@@ -101419,7 +102273,8 @@
 "language",
 "culture",
 "writing",
-"formal"
+"formal",
+"surname Wen"
 ],
 "levels": {
 "hsk2026": 7,
@@ -101619,7 +102474,8 @@
 "to hear",
 "news",
 "well-known",
-"famous"
+"famous",
+"surname Wen"
 ],
 "levels": {
 "hsk2026": 4,
@@ -103465,7 +104321,8 @@
 "woven mat",
 "seat",
 "banquet",
-"place in a democratic assembly"
+"place in a democratic assembly",
+"surname Xi"
 ],
 "levels": {
 "hsk2026": 7,
@@ -103775,7 +104632,9 @@
 "meanings": [
 "system",
 "department",
-"faculty"
+"faculty",
+"to tie",
+"to fasten"
 ],
 "levels": {
 "hsk2026": 5,
@@ -103917,7 +104776,8 @@
 "meanings": [
 "the West",
 "abbr. for Spain 牙",
-"Spanish"
+"Spanish",
+"west"
 ],
 "levels": {
 "hsk2026": 3,
@@ -103937,7 +104797,8 @@
 "西北": {
 "pinyin": "Xī běi",
 "meanings": [
-"Northwest China (Shaanxi, Gansu, Qinghai, Ningxia, Xinjiang)"
+"Northwest China (Shaanxi, Gansu, Qinghai, Ningxia, Xinjiang)",
+"northwest"
 ],
 "levels": {
 "hsk2026": 3,
@@ -104055,7 +104916,8 @@
 "pinyin": "xiā",
 "meanings": [
 "shrimp",
-"prawn"
+"prawn",
+"used in 虾蟆"
 ],
 "levels": {
 "hsk2026": 7,
@@ -104181,11 +105043,12 @@
 }
 },
 "下场": {
-"pinyin": "xià chǎng",
+"pinyin": "xià chang",
 "meanings": [
+"the end",
+"to conclude",
 "to leave (the stage, an exam room, the playing field etc)",
-"to take part in some activity",
-"to take an examination (in the imperial examination system)"
+"to take part in some activity"
 ],
 "levels": {
 "hsk2026": 7,
@@ -104214,7 +105077,9 @@
 "pinyin": "xià diào",
 "meanings": [
 "to demote",
-"to pass down to a lower unit"
+"to pass down to a lower unit",
+"to adjust downwards",
+"to lower (prices, wages etc)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -104372,7 +105237,8 @@
 "below",
 "under",
 "next",
-"the following"
+"the following",
+"to boil noodles"
 ],
 "levels": {
 "hsk2026": 2,
@@ -104581,7 +105447,8 @@
 "to scare",
 "to intimidate",
 "to threaten",
-"(interjection showing disapproval) tut-tut"
+"(interjection showing disapproval) tut-tut",
+"to frighten"
 ],
 "levels": {
 "hsk2026": 6,
@@ -104615,7 +105482,9 @@
 "夏": {
 "pinyin": "xià",
 "meanings": [
-"summer"
+"summer",
+"the Xia or Hsia dynasty c. 2000 BC",
+"Xia of the Sixteen Kingdoms (407-432)"
 ],
 "levels": {
 "hsk2": 3
@@ -104793,7 +105662,9 @@
 "fresh",
 "bright (in color)",
 "delicious",
-"tasty"
+"tasty",
+"few",
+"rare"
 ],
 "levels": {
 "hsk2026": 4,
@@ -104873,7 +105744,8 @@
 "meanings": [
 "idle",
 "unoccupied",
-"leisure"
+"leisure",
+"enclosure"
 ],
 "levels": {
 "hsk2026": 5,
@@ -104922,7 +105794,9 @@
 "all",
 "everyone",
 "each",
-"widespread"
+"widespread",
+"salted",
+"salty"
 ],
 "levels": {
 "hsk2026": 4,
@@ -105160,7 +106034,9 @@
 "现代": {
 "pinyin": "Xiàn dài",
 "meanings": [
-"Hyundai, South Korean company"
+"Hyundai, South Korean company",
+"modern times",
+"modern age"
 ],
 "levels": {
 "hsk2026": 5,
@@ -106306,7 +107182,8 @@
 "towards",
 "to face",
 "to turn towards",
-"direction"
+"direction",
+"orientation"
 ],
 "levels": {
 "hsk2026": 3,
@@ -106400,7 +107277,8 @@
 "back of neck",
 "item",
 "thing",
-"term (in a mathematical formula)"
+"term (in a mathematical formula)",
+"surname Xiang"
 ],
 "levels": {
 "hsk2026": 4,
@@ -106853,7 +107731,9 @@
 "小康": {
 "pinyin": "Xiǎo kāng",
 "meanings": [
-"Xiaokang, a Confucian near-ideal state of society, second only to Datong 同"
+"Xiaokang, a Confucian near-ideal state of society, second only to Datong 同",
+"moderately affluent",
+"well-off"
 ],
 "levels": {
 "hsk2026": 7,
@@ -108180,7 +109060,9 @@
 "meanings": [
 "new",
 "newly",
-"meso- (chemistry)"
+"meso- (chemistry)",
+"abbr. for Xinjiang 疆 or Singapore 坡",
+"surname Xin"
 ],
 "levels": {
 "hsk2026": 1,
@@ -108364,7 +109246,9 @@
 "pinyin": "Xīn xīng",
 "meanings": [
 "Xinxing county in Yunfu 云浮, Guangdong",
-"Xinxing or Hsinhsing district of Kaohsiung city 市, south Taiwan"
+"Xinxing or Hsinhsing district of Kaohsiung city 市, south Taiwan",
+"(of markets, industries, infectious diseases etc) rising",
+"emerging"
 ],
 "levels": {
 "hsk2026": 6,
@@ -108678,7 +109562,9 @@
 "row",
 "line",
 "commercial firm",
-"line of business"
+"line of business",
+"to walk",
+"to go"
 ],
 "levels": {
 "hsk2026": 3,
@@ -109098,7 +109984,9 @@
 "兴隆": {
 "pinyin": "Xīng lóng",
 "meanings": [
-"Xinglong county in Chengde 德, Hebei"
+"Xinglong county in Chengde 德, Hebei",
+"prosperous",
+"thriving"
 ],
 "levels": {
 "hsk2026": 7,
@@ -109382,7 +110270,9 @@
 "pinyin": "xiōng",
 "meanings": [
 "terrible",
-"fearful"
+"fearful",
+"vicious",
+"fierce"
 ],
 "levels": {
 "hsk2026": 7,
@@ -109565,7 +110455,8 @@
 "bear",
 "(coll.) to scold",
 "to rebuke",
-"(coll.) weak"
+"(coll.) weak",
+"surname Xiong"
 ],
 "levels": {
 "hsk2026": 4,
@@ -109670,7 +110561,8 @@
 "to decorate",
 "to embellish",
 "to repair",
-"to build"
+"to build",
+"surname Xiu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -109901,7 +110793,9 @@
 "meanings": [
 "must",
 "to have to",
-"to wait"
+"to wait",
+"beard",
+"mustache"
 ],
 "levels": {
 "hsk2026": 7,
@@ -110085,7 +110979,8 @@
 "to allow",
 "to permit",
 "to promise",
-"to praise"
+"to praise",
+"surname Xu"
 ],
 "levels": {
 "hsk2026": 7,
@@ -110606,7 +111501,8 @@
 "meanings": [
 "to peel with a knife",
 "to pare",
-"to cut (a ball at tennis etc)"
+"to cut (a ball at tennis etc)",
+"to reduce"
 ],
 "levels": {
 "hsk2026": 7,
@@ -110926,7 +111822,8 @@
 "pinyin": "xuě",
 "meanings": [
 "snow",
-"(literary) to wipe away (a humiliation etc)"
+"(literary) to wipe away (a humiliation etc)",
+"surname Xue"
 ],
 "levels": {
 "hsk2026": 1,
@@ -111047,7 +111944,9 @@
 "to smoke",
 "to fumigate",
 "to assail the nostrils",
-"to perfume"
+"to perfume",
+"fragrance",
+"warm"
 ],
 "levels": {
 "hsk2026": 7,
@@ -111250,7 +112149,8 @@
 "to press",
 "to push down",
 "to keep under (control)",
-"pressure"
+"pressure",
+"used in 压根儿 and 压马路 and 压板"
 ],
 "levels": {
 "hsk2026": 4,
@@ -111461,7 +112361,9 @@
 "meanings": [
 "mute; dumb; incapable of speech",
 "(of a voice) hoarse; husky",
-"(of a bullet, bomb etc) dud"
+"(of a bullet, bomb etc) dud",
+"(onom.) sound of cawing",
+"sound of infant learning to talk"
 ],
 "levels": {
 "hsk2026": 7,
@@ -111587,7 +112489,8 @@
 "meanings": [
 "to prolong",
 "to extend",
-"to delay"
+"to delay",
+"surname Yan"
 ],
 "levels": {
 "hsk2026": 7,
@@ -111662,7 +112565,9 @@
 "延长": {
 "pinyin": "Yán cháng",
 "meanings": [
-"Yanchang county in Yan'an 安, Shaanxi"
+"Yanchang county in Yan'an 安, Shaanxi",
+"to prolong",
+"to extend"
 ],
 "levels": {
 "hsk2026": 5,
@@ -111676,7 +112581,8 @@
 "tight (closely sealed)",
 "stern",
 "strict",
-"rigorous"
+"rigorous",
+"surname Yan"
 ],
 "levels": {
 "hsk2026": 6,
@@ -111833,11 +112739,12 @@
 }
 },
 "言语": {
-"pinyin": "yán yǔ",
+"pinyin": "yán yu",
 "meanings": [
+"to speak",
+"to tell",
 "words",
-"speech",
-"(spoken) language"
+"speech"
 ],
 "levels": {
 "hsk2026": 6,
@@ -112497,7 +113404,9 @@
 "pinyin": "yān",
 "meanings": [
 "throat; pharynx",
-"narrow pass"
+"narrow pass",
+"to choke (in crying)",
+"to swallow"
 ],
 "levels": {
 "hsk2026": 7,
@@ -112611,7 +113520,9 @@
 "to raise",
 "to hoist",
 "the action of tossing or winnowing",
-"scattering (in the wind)"
+"scattering (in the wind)",
+"abbr. for 扬州",
+"surname Yang"
 ],
 "levels": {
 "hsk2026": 7,
@@ -112621,7 +113532,8 @@
 "羊": {
 "pinyin": "yáng",
 "meanings": [
-"sheep; goat"
+"sheep; goat",
+"surname Yang"
 ],
 "levels": {
 "hsk2026": 3,
@@ -112714,7 +113626,8 @@
 "to face upward",
 "to look up",
 "to admire",
-"to rely on"
+"to rely on",
+"surname Yang"
 ],
 "levels": {
 "hsk2026": 6,
@@ -112987,7 +113900,8 @@
 "to shake",
 "to rock",
 "to row",
-"to crank"
+"to crank",
+"surname Yao"
 ],
 "levels": {
 "hsk2026": 5,
@@ -113112,7 +114026,8 @@
 "medicine",
 "drug",
 "substance used for a specific purpose (e.g. poisoning, explosion, fermenting)",
-"to poison"
+"to poison",
+"leaf of the iris"
 ],
 "levels": {
 "hsk2026": 2,
@@ -113174,7 +114089,9 @@
 "药水": {
 "pinyin": "Yào shuǐ",
 "meanings": [
-"Yaksu in North Korea, near the border with Liaoning and Jiling province"
+"Yaksu in North Korea, near the border with Liaoning and Jiling province",
+"medicine in liquid form",
+"bottled medicine"
 ],
 "levels": {
 "hsk30": 2
@@ -113196,7 +114113,9 @@
 "要": {
 "pinyin": "yāo",
 "meanings": [
-"(bound form) to demand; to coerce"
+"(bound form) to demand; to coerce",
+"to want; to need; to ask for",
+"will; shall; about to"
 ],
 "levels": {
 "hsk2026": 1,
@@ -113411,7 +114330,8 @@
 "pinyin": "yě",
 "meanings": [
 "(adverb) also; both ... and ... (before predicates only)",
-"(literary) particle having functions similar to 啊"
+"(literary) particle having functions similar to 啊",
+"surname Ye"
 ],
 "levels": {
 "hsk2026": 1,
@@ -113563,7 +114483,8 @@
 "line of business",
 "industry",
 "occupation",
-"job"
+"job",
+"surname Ye"
 ],
 "levels": {
 "hsk2026": 6,
@@ -113624,7 +114545,9 @@
 "页": {
 "pinyin": "xié",
 "meanings": [
-"head"
+"head",
+"page",
+"leaf"
 ],
 "levels": {
 "hsk2026": 3,
@@ -115480,7 +116403,8 @@
 "second of the ten Heavenly Stems 干",
 "second in order",
 "letter \"B\" or Roman \"II\" in list \"A, B, C\", or \"I, II, III\" etc",
-"second party (in legal contract, usually 方, as opposed to 方)"
+"second party (in legal contract, usually 方, as opposed to 方)",
+"turning stroke (in Chinese characters), aka 折"
 ],
 "levels": {
 "hsk2026": 5,
@@ -115515,7 +116439,9 @@
 "以": {
 "pinyin": "Yǐ",
 "meanings": [
-"abbr. for Israel 列"
+"abbr. for Israel 列",
+"to use",
+"by means of"
 ],
 "levels": {
 "hsk2026": 5,
@@ -116250,7 +117176,9 @@
 "wing",
 "area surrounding the bullseye of a target",
 "to assist",
-"one of the 28 constellations of Chinese astronomy"
+"one of the 28 constellations of Chinese astronomy",
+"surname Yi",
+"alternative name for 绛 capital of the Jin State during the Spring and Autumn Period (770-475 BC)"
 ],
 "levels": {
 "hsk2": 6
@@ -116334,7 +117262,8 @@
 "overcast (weather)",
 "cloudy",
 "shady",
-"Yin (the negative principle of Yin and Yang)"
+"Yin (the negative principle of Yin and Yang)",
+"surname Yin"
 ],
 "levels": {
 "hsk2026": 2,
@@ -116871,7 +117800,9 @@
 "to print",
 "to mark",
 "to engrave",
-"a seal"
+"a seal",
+"surname Yin",
+"abbr. for 度"
 ],
 "levels": {
 "hsk2026": 6,
@@ -116942,7 +117873,9 @@
 "to agree (to do sth)",
 "should",
 "ought to",
-"must"
+"must",
+"to answer",
+"to respond"
 ],
 "levels": {
 "hsk2026": 7,
@@ -117648,7 +118581,8 @@
 "pinyin": "yǒng",
 "meanings": [
 "to bubble up",
-"to rush forth"
+"to rush forth",
+"(used in place names)"
 ],
 "levels": {
 "hsk2026": 7,
@@ -118369,7 +119303,9 @@
 "to walk",
 "to tour",
 "to roam",
-"to travel"
+"to travel",
+"to swim",
+"surname You"
 ],
 "levels": {
 "hsk2026": 2,
@@ -119083,7 +120019,9 @@
 "友好": {
 "pinyin": "Yǒu hǎo",
 "meanings": [
-"Youhao district of Yichun city 市, Heilongjiang"
+"Youhao district of Yichun city 市, Heilongjiang",
+"friendly; amicable",
+"close friend"
 ],
 "levels": {
 "hsk2026": 4,
@@ -119141,7 +120079,9 @@
 "to go",
 "to take",
 "sentence-final interrogative particle",
-"variant of 于"
+"variant of 于",
+"(of time or place) in; at; on",
+"(indicating any indirect relation) to; toward; vis-à-vis; with regard to; for"
 ],
 "levels": {
 "hsk2026": 6,
@@ -119165,7 +120105,9 @@
 "extra",
 "surplus",
 "remaining",
-"remainder after division"
+"remainder after division",
+"surname Yu",
+"(literary) I; me"
 ],
 "levels": {
 "hsk2026": 7,
@@ -119198,7 +120140,8 @@
 "鱼": {
 "pinyin": "yú",
 "meanings": [
-"fish"
+"fish",
+"surname Yu"
 ],
 "levels": {
 "hsk2026": 2,
@@ -119317,7 +120260,8 @@
 "meanings": [
 "and",
 "to give",
-"together with"
+"together with",
+"to take part in"
 ],
 "levels": {
 "hsk2026": 4,
@@ -119451,7 +120395,9 @@
 "雨": {
 "pinyin": "yǔ",
 "meanings": [
-"rain"
+"rain",
+"(literary) to rain",
+"(of rain, snow etc) to fall"
 ],
 "levels": {
 "hsk2026": 1,
@@ -119461,7 +120407,8 @@
 "雨水": {
 "pinyin": "Yǔ shuǐ",
 "meanings": [
-"Yushui or Rain Water, 2nd of the 24 solar terms 二十四节气 19th February-5th March"
+"Yushui or Rain Water, 2nd of the 24 solar terms 二十四节气 19th February-5th March",
+"rainwater; rainfall; rain"
 ],
 "levels": {
 "hsk2026": 5,
@@ -119851,7 +120798,8 @@
 "to meet",
 "to encounter",
 "to treat",
-"to receive"
+"to receive",
+"surname Yu"
 ],
 "levels": {
 "hsk30": 4
@@ -119997,7 +120945,9 @@
 "currency unit (esp. Chinese yuan)",
 "first",
 "original",
-"primary"
+"primary",
+"surname Yuan",
+"the Yuan or Mongol dynasty (1279-1368)"
 ],
 "levels": {
 "hsk2026": 1,
@@ -120091,7 +121041,8 @@
 "meanings": [
 "land used for growing plants",
 "site used for public recreation",
-"abbr. for a place ending in 园, such as a botanical garden 植物园, kindergarten 幼儿园 etc"
+"abbr. for a place ending in 园, such as a botanical garden 植物园, kindergarten 幼儿园 etc",
+"surname Yuan"
 ],
 "levels": {
 "hsk2026": 3,
@@ -120124,7 +121075,9 @@
 "former",
 "original",
 "primary",
-"raw"
+"raw",
+"surname Yuan",
+"(Japanese surname) Hara"
 ],
 "levels": {
 "hsk2026": 5,
@@ -120471,7 +121424,8 @@
 "far",
 "distant",
 "remote",
-"(intensifier in a comparison) by far"
+"(intensifier in a comparison) by far",
+"to distance oneself from (classical)"
 ],
 "levels": {
 "hsk2026": 2,
@@ -120655,7 +121609,9 @@
 "to hope",
 "to wish",
 "to desire",
-"hoped-for"
+"hoped-for",
+"honest",
+"prudent"
 ],
 "levels": {
 "hsk2026": 5,
@@ -120702,7 +121658,9 @@
 "约": {
 "pinyin": "yāo",
 "meanings": [
-"to weigh in a balance or on a scale"
+"to weigh in a balance or on a scale",
+"to make an appointment",
+"to invite"
 ],
 "levels": {
 "hsk2026": 4,
@@ -120911,7 +121869,9 @@
 "pinyin": "Yuè",
 "meanings": [
 "generic word for peoples or states of south China or south Asia at different historical periods",
-"abbr. for Vietnam 越南"
+"abbr. for Vietnam 越南",
+"to exceed",
+"to climb over"
 ],
 "levels": {
 "hsk2026": 3,
@@ -120960,7 +121920,8 @@
 "confused",
 "dizzy",
 "giddy",
-"to faint"
+"to faint",
+"halo"
 ],
 "levels": {
 "hsk2026": 6,
@@ -120993,7 +121954,9 @@
 "云": {
 "pinyin": "yún",
 "meanings": [
-"cloud"
+"cloud",
+"surname Yun",
+"abbr. for Yunnan Province 云南省"
 ],
 "levels": {
 "hsk2026": 4,
@@ -121246,7 +122209,9 @@
 "pinyin": "yù",
 "meanings": [
 "reconciled",
-"smooth"
+"smooth",
+"an iron",
+"to iron"
 ],
 "levels": {
 "hsk2026": 7,
@@ -121352,7 +122317,9 @@
 "咋": {
 "pinyin": "zǎ",
 "meanings": [
-"dialectal equivalent of 怎么"
+"dialectal equivalent of 怎么",
+"gnaw",
+"loud noise"
 ],
 "levels": {
 "hsk2": 6
@@ -121682,7 +122649,9 @@
 "咱": {
 "pinyin": "zá",
 "meanings": [
-"see 咱"
+"see 咱",
+"I or me",
+"we (including both the speaker and the person spoken to)"
 ],
 "levels": {
 "hsk30": 2
@@ -121705,7 +122674,9 @@
 "攒": {
 "pinyin": "cuán",
 "meanings": [
-"to bring together"
+"to bring together",
+"to collect",
+"to hoard"
 ],
 "levels": {
 "hsk2026": 7,
@@ -121717,7 +122688,8 @@
 "pinyin": "zàn",
 "meanings": [
 "temporary",
-"Taiwan pr. [zhàn]"
+"Taiwan pr. [zhàn]",
+"to scurry"
 ],
 "levels": {
 "hsk2026": 7,
@@ -121884,7 +122856,9 @@
 "pinyin": "zàng",
 "meanings": [
 "viscera",
-"(anatomy) organ"
+"(anatomy) organ",
+"dirty",
+"filthy"
 ],
 "levels": {
 "hsk2026": 3,
@@ -122544,7 +123518,9 @@
 "meanings": [
 "to prick",
 "to run or stick (a needle etc) into",
-"mug or jug used for serving beer (loanword from \"jar\")"
+"mug or jug used for serving beer (loanword from \"jar\")",
+"to tie",
+"to bind"
 ],
 "levels": {
 "hsk2026": 6,
@@ -122650,7 +123626,9 @@
 "pinyin": "zhá",
 "meanings": [
 "to deep fry",
-"Taiwan pr. [zhà]"
+"Taiwan pr. [zhà]",
+"to burst",
+"to explode"
 ],
 "levels": {
 "hsk2026": 5,
@@ -122967,7 +123945,9 @@
 "pinyin": "zhān",
 "meanings": [
 "to observe",
-"to divine"
+"to divine",
+"to take possession of",
+"to occupy"
 ],
 "levels": {
 "hsk2026": 5,
@@ -123217,7 +124197,8 @@
 "to open up",
 "to spread",
 "sheet of paper",
-"classifier for flat objects, sheet"
+"classifier for flat objects, sheet",
+"surname Zhang"
 ],
 "levels": {
 "hsk2026": 3,
@@ -123249,7 +124230,9 @@
 "张扬": {
 "pinyin": "Zhāng Yáng",
 "meanings": [
-"Zhang Yang (1967-), PRC film director and screenwriter"
+"Zhang Yang (1967-), PRC film director and screenwriter",
+"to display ostentatiously",
+"to bring out into the open"
 ],
 "levels": {
 "hsk2026": 7,
@@ -123262,7 +124245,8 @@
 "chapter",
 "section",
 "clause",
-"movement (of symphony)"
+"movement (of symphony)",
+"surname Zhang"
 ],
 "levels": {
 "hsk2026": 6,
@@ -123288,7 +124272,9 @@
 "length",
 "long",
 "forever",
-"always"
+"always",
+"chief",
+"head"
 ],
 "levels": {
 "hsk2026": 2,
@@ -123432,7 +124418,9 @@
 "长寿": {
 "pinyin": "Cháng shòu",
 "meanings": [
-"Changshou suburban district of Chongqing municipality, formerly in Sichuan"
+"Changshou suburban district of Chongqing municipality, formerly in Sichuan",
+"longevity",
+"long-lived"
 ],
 "levels": {
 "hsk2026": 6,
@@ -123487,7 +124475,9 @@
 "长征": {
 "pinyin": "Cháng zhēng",
 "meanings": [
-"Long March (retreat of the Red Army 1934-1935)"
+"Long March (retreat of the Red Army 1934-1935)",
+"expedition",
+"long journey"
 ],
 "levels": {
 "hsk2026": 7,
@@ -123507,7 +124497,9 @@
 "涨": {
 "pinyin": "zhǎng",
 "meanings": [
-"to rise (of prices, rivers)"
+"to rise (of prices, rivers)",
+"to swell",
+"to distend"
 ],
 "levels": {
 "hsk2026": 5,
@@ -124057,8 +125049,11 @@
 }
 },
 "照应": {
-"pinyin": "zhào yìng",
+"pinyin": "zhào ying",
 "meanings": [
+"to look after",
+"to take care of",
+"to attend to",
 "to correlate with",
 "to correspond to"
 ],
@@ -124130,7 +125125,9 @@
 "meanings": [
 "to snap",
 "to break (a stick, a bone etc)",
-"(bound form) to sustain a loss (in business)"
+"(bound form) to sustain a loss (in business)",
+"to turn sth over",
+"to turn upside down"
 ],
 "levels": {
 "hsk2026": 6,
@@ -124369,7 +125366,9 @@
 "to touch",
 "to come in contact with",
 "to feel",
-"to be affected by"
+"to be affected by",
+"aspect particle indicating action in progress or ongoing state",
+"to wear (clothes)"
 ],
 "levels": {
 "hsk2026": 2,
@@ -124963,7 +125962,8 @@
 "振兴": {
 "pinyin": "Zhèn xīng",
 "meanings": [
-"Zhengxing district of Dandong city 丹东市, Liaoning"
+"Zhengxing district of Dandong city 丹东市, Liaoning",
+"to revive; to revitalize; to invigorate; to re-energize"
 ],
 "levels": {
 "hsk2026": 7,
@@ -125239,7 +126239,9 @@
 "journey",
 "trip",
 "expedition",
-"to go on long campaign"
+"to go on long campaign",
+"to invite",
+"to recruit"
 ],
 "levels": {
 "hsk2026": 7,
@@ -125301,7 +126303,8 @@
 "meanings": [
 "to struggle to get free",
 "to strive to acquire",
-"to make (money)"
+"to make (money)",
+"used in 挣扎"
 ],
 "levels": {
 "hsk2026": 5,
@@ -125527,7 +126530,9 @@
 "正": {
 "pinyin": "zhēng",
 "meanings": [
-"first month of the lunar year"
+"first month of the lunar year",
+"straight",
+"upright"
 ],
 "levels": {
 "hsk2026": 2,
@@ -125564,7 +126569,9 @@
 "pinyin": "zhèng dāng",
 "meanings": [
 "timely",
-"just (when needed)"
+"just (when needed)",
+"honest",
+"reasonable"
 ],
 "levels": {
 "hsk2026": 7,
@@ -125776,7 +126783,8 @@
 "certificate",
 "proof",
 "to prove",
-"to demonstrate"
+"to demonstrate",
+"to admonish"
 ],
 "levels": {
 "hsk2026": 4,
@@ -126080,7 +127088,8 @@
 "to support",
 "to sustain",
 "to erect",
-"to raise"
+"to raise",
+"surname Zhi"
 ],
 "levels": {
 "hsk2026": 5,
@@ -126442,7 +127451,9 @@
 "straight",
 "to straighten",
 "fair and reasonable",
-"frank"
+"frank",
+"surname Zhi",
+"Zhi (c. 2000 BC), fifth of the legendary Flame Emperors 帝 descended from Shennong 神农 Farmer God"
 ],
 "levels": {
 "hsk2026": 5,
@@ -126805,7 +127816,9 @@
 "only",
 "merely",
 "just",
-"but"
+"but",
+"grain that has begun to ripen",
+"classifier for birds and certain animals, one of a pair, some utensils, vessels etc"
 ],
 "levels": {
 "hsk2026": 1,
@@ -127327,7 +128340,9 @@
 "pinyin": "zhì",
 "meanings": [
 "to manufacture",
-"to make"
+"to make",
+"system",
+"to control"
 ],
 "levels": {
 "hsk2026": 6,
@@ -127628,7 +128643,9 @@
 "致": {
 "pinyin": "zhì",
 "meanings": [
-"(bound form) fine; delicate; exquisite"
+"(bound form) fine; delicate; exquisite",
+"to send",
+"to devote"
 ],
 "levels": {
 "hsk2026": 7,
@@ -127811,7 +128828,9 @@
 "to hit (the mark)",
 "to be hit by",
 "to suffer",
-"to win (a prize, a lottery)"
+"to win (a prize, a lottery)",
+"within; among; in",
+"middle; center"
 ],
 "levels": {
 "hsk2026": 3,
@@ -128160,7 +129179,9 @@
 "中庸": {
 "pinyin": "Zhōng yōng",
 "meanings": [
-"the Doctrine of the Mean, one of the Four Books 四书"
+"the Doctrine of the Mean, one of the Four Books 四书",
+"golden mean (Confucianism)",
+"(literary) (of person) mediocre"
 ],
 "levels": {
 "hsk2026": 7,
@@ -128341,7 +129362,9 @@
 "clock",
 "o'clock",
 "time as measured in hours and minutes",
-"bell"
+"bell",
+"handleless cup",
+"goblet"
 ],
 "levels": {
 "hsk2026": 7,
@@ -128401,7 +129424,9 @@
 "seed",
 "species",
 "kind",
-"type"
+"type",
+"to plant",
+"to grow"
 ],
 "levels": {
 "hsk2026": 3,
@@ -128497,7 +129522,8 @@
 "众所周知": {
 "pinyin": "zhòng suǒ zhōu zhī",
 "meanings": [
-"as everyone knows (idiom)"
+"as everyone knows (idiom)",
+"see 众所周知"
 ],
 "levels": {
 "hsk2026": 6,
@@ -128521,7 +129547,9 @@
 "to repeat",
 "repetition",
 "again",
-"re-"
+"re-",
+"heavy",
+"serious"
 ],
 "levels": {
 "hsk2026": 4,
@@ -128569,7 +129597,9 @@
 "pinyin": "chóng diǎn",
 "meanings": [
 "to recount (e.g. results of election)",
-"to re-evaluate"
+"to re-evaluate",
+"important point; main point; focus",
+"key (project etc)"
 ],
 "levels": {
 "hsk2026": 4,
@@ -128818,7 +129848,9 @@
 "to make a circuit",
 "to circle",
 "circle",
-"circumference"
+"circumference",
+"week",
+"weekly"
 ],
 "levels": {
 "hsk2026": 2,
@@ -128957,7 +129989,8 @@
 "meanings": [
 "congee",
 "gruel",
-"porridge"
+"porridge",
+"used in 荤粥"
 ],
 "levels": {
 "hsk2026": 6,
@@ -129679,7 +130712,9 @@
 "to register",
 "to annotate",
 "note",
-"comment"
+"comment",
+"to inject",
+"to pour into"
 ],
 "levels": {
 "hsk2026": 7,
@@ -129828,7 +130863,8 @@
 "meanings": [
 "to pray for",
 "to wish (sb bon voyage, happy birthday etc)",
-"person who invokes the spirits during sacrificial ceremonies"
+"person who invokes the spirits during sacrificial ceremonies",
+"surname Zhu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -129873,7 +130909,9 @@
 "筑": {
 "pinyin": "Zhù",
 "meanings": [
-"short name for Guiyang 贵阳"
+"short name for Guiyang 贵阳",
+"five-string lute",
+"Taiwan pr. [zhú]"
 ],
 "levels": {
 "hsk2026": 7,
@@ -129930,7 +130968,9 @@
 "pinyin": "yè",
 "meanings": [
 "to drag",
-"to haul"
+"to haul",
+"to throw",
+"to fling"
 ],
 "levels": {
 "hsk2026": 7,
@@ -130176,7 +131216,9 @@
 "转": {
 "pinyin": "zhuǎi",
 "meanings": [
-"see 转文"
+"see 转文",
+"to turn",
+"to change direction"
 ],
 "levels": {
 "hsk2026": 4,
@@ -130225,7 +131267,9 @@
 "pinyin": "zhuǎn dòng",
 "meanings": [
 "to turn sth around",
-"to swivel"
+"to swivel",
+"to rotate (about an axis)",
+"to revolve"
 ],
 "levels": {
 "hsk2026": 6,
@@ -130329,7 +131373,9 @@
 "pinyin": "zhuǎn xiàng",
 "meanings": [
 "to change direction",
-"fig. to change one's stance"
+"fig. to change one's stance",
+"to get lost",
+"to lose one's way"
 ],
 "levels": {
 "hsk30": 5
@@ -130434,7 +131480,9 @@
 "pinyin": "zhuàn",
 "meanings": [
 "to earn",
-"to make a profit"
+"to make a profit",
+"to cheat",
+"to swindle"
 ],
 "levels": {
 "hsk2026": 4,
@@ -130615,7 +131663,9 @@
 "壮": {
 "pinyin": "Zhuàng",
 "meanings": [
-"Zhuang ethnic group of Guangxi, the PRC's second most numerous ethnic group"
+"Zhuang ethnic group of Guangxi, the PRC's second most numerous ethnic group",
+"to strengthen",
+"strong"
 ],
 "levels": {
 "hsk2026": 7,
@@ -130757,7 +131807,9 @@
 "to chase",
 "to pursue",
 "to look into",
-"to investigate"
+"to investigate",
+"to sculpt",
+"to carve"
 ],
 "levels": {
 "hsk2026": 5,
@@ -130910,7 +131962,9 @@
 "to allow",
 "to grant",
 "in accordance with",
-"in the light of"
+"in the light of",
+"accurate",
+"standard"
 ],
 "levels": {
 "hsk2026": 4,
@@ -131221,7 +132275,9 @@
 "资源": {
 "pinyin": "Zī yuán",
 "meanings": [
-"Ziyuan county in Guilin 林, Guangxi"
+"Ziyuan county in Guilin 林, Guangxi",
+"natural resource (such as water or minerals)",
+"resource (such as manpower or tourism)"
 ],
 "levels": {
 "hsk2026": 5,
@@ -131909,7 +132965,8 @@
 "son",
 "child",
 "seed",
-"egg"
+"egg",
+"(noun suffix)"
 ],
 "levels": {
 "hsk2026": 3,
@@ -131965,7 +133022,8 @@
 "school",
 "sect",
 "purpose",
-"model"
+"model",
+"surname Zong"
 ],
 "levels": {
 "hsk2026": 7,
@@ -132573,7 +133631,9 @@
 "足": {
 "pinyin": "jù",
 "meanings": [
-"excessive"
+"excessive",
+"foot",
+"to be sufficient"
 ],
 "levels": {
 "hsk2026": 6,
@@ -132732,7 +133792,8 @@
 "to form",
 "to organize",
 "group",
-"team"
+"team",
+"surname Zu"
 ],
 "levels": {
 "hsk2026": 4,
@@ -132897,7 +133958,9 @@
 "to drill",
 "to bore",
 "to get into",
-"to make one's way into"
+"to make one's way into",
+"an auger",
+"diamond"
 ],
 "levels": {
 "hsk2026": 6,
@@ -133216,8 +134279,12 @@
 }
 },
 "琢磨": {
-"pinyin": "zhuó mó",
+"pinyin": "zuó mo",
 "meanings": [
+"to ponder",
+"to mull over",
+"to think through",
+"Taiwan pr. [zhuó mó]",
 "to carve and polish (jade)",
 "to polish and refine a literary work"
 ],
@@ -133233,7 +134300,8 @@
 "left",
 "the Left (politics)",
 "east",
-"unorthodox"
+"unorthodox",
+"surname Zuo"
 ],
 "levels": {
 "hsk2026": 2,
@@ -133293,7 +134361,9 @@
 "worker",
 "workshop",
 "(slang) troublesome",
-"high-maintenance (person)"
+"high-maintenance (person)",
+"to do; to engage in",
+"to write; to compose"
 ],
 "levels": {
 "hsk30": 6
@@ -133498,7 +134568,8 @@
 "to sit",
 "to take a seat",
 "to take (a bus, airplane etc)",
-"to bear fruit"
+"to bear fruit",
+"surname Zuo"
 ],
 "levels": {
 "hsk2026": 1,

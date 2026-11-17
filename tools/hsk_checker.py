@@ -119,6 +119,10 @@ def classify(word: str, scheme: str = "hsk30") -> tuple[int | None, str]:
     entry = hsk.get(word)
     if entry and scheme in entry["levels"]:
         return entry["levels"][scheme], "hsk"
+    # The official list writes some words with 儿 (玩儿, 一点儿): 玩 = 玩儿.
+    erhua = hsk.get(word + "儿")
+    if erhua and scheme in erhua["levels"]:
+        return erhua["levels"][scheme], "hsk"
     if _is_name(word):
         return None, "name"
     parts = _split_into_hsk(word, hsk, scheme)
@@ -127,22 +131,37 @@ def classify(word: str, scheme: str = "hsk30") -> tuple[int | None, str]:
     return BEYOND, "beyond"
 
 
-def check_text(text: str, target_level: int = 4, scheme: str = "hsk30") -> dict:
-    """Analyse a Chinese text against a target HSK level. Returns plain data."""
+def check_text(text: str, target_level: int = 4, scheme: str = "hsk30",
+               names: list[str] | tuple = (), keywords: list[str] | tuple = ()) -> dict:
+    """Analyse a Chinese text against a target HSK level. Returns plain data.
+
+    names:    proper nouns to ignore (逄蒙, 邓林), like a graded reader would.
+    keywords: a few essential story words taught up front (粽子 in a 端午 story);
+              not counted as difficult, but listed in the result.
+    """
     _load()
+    extra = set(names) | set(keywords)
+    for w in extra:  # make sure jieba keeps these words whole
+        # Only multi-character words: boosting a single character like 射
+        # would make jieba split longer words that contain it (射箭 -> 射|箭).
+        if len(w) > 1:
+            jieba.add_word(w, freq=50000)
     words = [w for w in jieba.lcut(text) if HAS_CHINESE.search(w)]
 
     counted: list[int] = []
-    names: set[str] = set()
+    names_found: set[str] = set()
     hard: dict[str, dict] = {}
     for w in words:
+        if w in extra:
+            names_found.add(w)
+            continue
         level, kind = classify(w, scheme)
         # A name above the target (嫦娥 is officially HSK 7-9) is explained,
         # not learned, so don't let it count against the text.
         if level is not None and level > target_level and _is_name(w):
             level = None
         if level is None:
-            names.add(w)
+            names_found.add(w)
             continue
         counted.append(level)
         if level > target_level:
@@ -171,7 +190,8 @@ def check_text(text: str, target_level: int = 4, scheme: str = "hsk30") -> dict:
         "estimated_level": estimated,
         "coverage_by_level": coverage,
         "above_target": sorted(hard.values(), key=lambda h: (-h["count"], h["word"])),
-        "names_ignored": sorted(names),
+        "names_ignored": sorted(names_found - set(keywords)),
+        "keywords": [k for k in keywords if k in names_found],
     }
 
 

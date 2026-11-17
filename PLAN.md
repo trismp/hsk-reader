@@ -70,13 +70,19 @@ Lessons: feeds give summaries, not articles; BBC's "simp" feed is traditional;
 free APIs rate-limit (429), so honour Retry-After; char-level trad→simp needs word fixes (著/着).
 
 ## Phase 4: Website (free). *Static sites, pre-processing*
-- [ ] 4.1 Library page (filter by level and category)
-- [ ] 4.2 Reader page
-- [ ] 4.3 Tap-a-word popup (text split into words ahead of time)
-- [ ] 4.4 Pinyin toggle
-- [ ] 4.5 Saved words (browser storage + export)
-- [ ] 4.6 Starter library of 20–30 stories made in Claude Code
+- [x] 4.1 Library page (filter by level and category): `site/`
+- [x] 4.2 Reader page (key words box, names in blue, sources credited)
+- [x] 4.3 Tap-a-word popup; text pre-split by `tools/build_site.py`
+- [x] 4.4 Pinyin: off / only words above my level / all, plus "underline words above my level"
+- [x] 4.5 Saved words (browser storage) + CSV export for Anki
+- [x] 4.6 Starter library: 10 stories (HSK 3–6, all categories) in `content/stories/`,
+      grounded in search results and checked: every one ≥ 99% within level
 - [ ] 4.7 Publish on GitHub Pages → **shareable link**
+
+Lessons: first drafts were ALL too hard (that's the loop the harness will automate);
+graded readers exclude names and pre-teach key words; neutral-tone readings are usually
+the everyday ones (东西 dōng xi "thing"); boosting a 1-char word in jieba splits longer words.
+Preview locally: `python -m http.server 8321 --directory site` → http://127.0.0.1:8321
 
 ## Phase 5: Your own harness (~$5 API credit). *Harness*
 - [ ] 5.1 API key in `.env`, spending limit set in Console
