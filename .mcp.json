@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hsk-reader": {
+      "command": "C:/Users/user/Downloads/hsk-reader/.venv/Scripts/python.exe",
+      "args": ["C:/Users/user/Downloads/hsk-reader/mcp_server/server.py"]
+    }
+  }
+}

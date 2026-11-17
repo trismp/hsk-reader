@@ -49,9 +49,9 @@ Lessons: re-adding known words to jieba breaks it (以后 → 以|后); rare rea
 must be ranked down (抢 qiǎng, not qiāng); names are explained, not counted.
 
 ## Phase 2: MCP server (free with Pro). *MCP*
-- [ ] 2.1 Tools: `check_hsk_level`, `lookup_word`, `get_hsk_vocab`
-- [ ] 2.2 Inspect raw messages with MCP Inspector
-- [ ] 2.3 Connect to Claude Code
+- [x] 2.1 Tools: `check_hsk_level`, `lookup_word`, `get_hsk_vocab` (`mcp_server/server.py`)
+- [x] 2.2 See the raw discovery and call messages with our own client (`mcp_server/peek.py`)
+- [x] 2.3 Connect to Claude Code (`.mcp.json`; approve the server when a new session starts)
 - [ ] 2.4 Ask Claude to write and check a story with your tools
 
 ## Phase 3: Content library and search (free). *RAG*

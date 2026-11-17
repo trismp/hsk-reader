@@ -78,6 +78,19 @@ def lookup_word(word: str, scheme: str = "hsk30") -> dict:
     return {"word": word, "pinyin": None, "meanings": [], "level": "unknown", "source": None}
 
 
+def vocab_for_level(level: int, scheme: str = "hsk30", exclusive: bool = True) -> list[dict]:
+    """Words at a level (exclusive) or at and below it (inclusive), most frequent first."""
+    hsk, _ = _load()
+    out = []
+    for word, e in hsk.items():
+        lvl = e["levels"].get(scheme)
+        if lvl is None or (lvl != level if exclusive else lvl > level):
+            continue
+        out.append({"word": word, "pinyin": e["pinyin"], "meaning": e["meanings"][0],
+                    "level": level_name(lvl)})
+    return out
+
+
 def _split_into_hsk(word: str, hsk: dict, scheme: str) -> list[str] | None:
     """Greedy longest-match split into HSK words, e.g. 飞到 -> [飞, 到]."""
     parts, i = [], 0
