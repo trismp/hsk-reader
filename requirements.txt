@@ -1,0 +1,2 @@
+jieba==0.42.1   # splits Chinese text into words
+mcp>=2.3,<3     # official Model Context Protocol library (v2: server class is MCPServer, not FastMCP)

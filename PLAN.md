@@ -1,0 +1,99 @@
+# HSK Reader: Project Plan
+
+A website (later an Android app) for reading Chinese at your HSK level:
+stories from news, history, folklore and general knowledge, plus daily news
+rewritten to a chosen HSK 3.0 level.
+
+**Main goal:** learn **MCP**, **RAG** and **harness** by building it, one concept per phase.
+
+| Concept | One-line meaning | Where it lives in this project |
+|---|---|---|
+| **RAG** | Give Claude the right *information* before it writes | `tools/` fetchers + search over `data/` |
+| **MCP** | Give Claude *abilities* (tools) through a standard plug | `mcp_server/` |
+| **Harness** | The program that runs the loop: request, tools, check, repeat | Claude Code (Phases 2–4), then your own in `harness/` (Phase 5) |
+
+## Folder layout
+
+```
+hsk-reader/
+  data/        word lists, dictionary, content library
+  tools/       level checker, fetchers (plain Python, no AI)
+  mcp_server/  your MCP server (not named "mcp", which would hide the mcp package)
+  harness/     your own Claude loop (Phase 5)
+  site/        the public website
+```
+
+## Decisions
+- HSK **3.0** (levels 1, 2, 3, 4, 5, 6, 7–9). Reader level: HSK 5+.
+- Reading aids: tap a word for pinyin, meaning and level; pinyin toggle; saved words.
+- Story sources: current news, general knowledge, Chinese history,
+  Chinese/East Asian stories, folklore and myths.
+- Website first, shared publicly; Android later (PWA first, then maybe Expo).
+- Cost model: a pre-generated library (readers are free) plus an optional
+  "create your own" that uses each visitor's own Claude account or API key.
+
+---
+
+## Phase 0: Setup (free)
+- [ ] 0.1 Project folder + git
+- [ ] 0.2 Python environment; install `jieba`, `mcp`
+- [ ] 0.3 Folder layout
+
+## Phase 1: Data foundation (free). *Not everything needs AI*
+- [ ] 1.1 HSK 3.0 word list → `data/hsk_words.json` (word, pinyin, level)
+- [ ] 1.2 CC-CEDICT → `data/dictionary.json`
+- [ ] 1.3 Level checker: % per level, words above target, estimated level
+- [ ] 1.4 Test on real news text and simple sentences
+
+## Phase 2: MCP server (free with Pro). *MCP*
+- [ ] 2.1 Tools: `check_hsk_level`, `lookup_word`, `get_hsk_vocab`
+- [ ] 2.2 Inspect raw messages with MCP Inspector
+- [ ] 2.3 Connect to Claude Code
+- [ ] 2.4 Ask Claude to write and check a story with your tools
+
+## Phase 3: Content library and search (free). *RAG*
+- [ ] 3.1 News fetcher (RSS: BBC 中文, DW 中文, RFI 中文 …)
+- [ ] 3.2 Source fetchers: Chinese Wikipedia, 维基文库 (Wikisource)
+- [ ] 3.3 Chunking
+- [ ] 3.4 Keyword search vs semantic search (local embeddings)
+- [ ] 3.5 MCP tools: `search_news`, `search_sources`
+- [ ] 3.6 Compare stories with and without RAG (grounding)
+
+## Phase 4: Website (free). *Static sites, pre-processing*
+- [ ] 4.1 Library page (filter by level and category)
+- [ ] 4.2 Reader page
+- [ ] 4.3 Tap-a-word popup (text split into words ahead of time)
+- [ ] 4.4 Pinyin toggle
+- [ ] 4.5 Saved words (browser storage + export)
+- [ ] 4.6 Starter library of 20–30 stories made in Claude Code
+- [ ] 4.7 Publish on GitHub Pages → **shareable link**
+
+## Phase 5: Your own harness (~$5 API credit). *Harness*
+- [ ] 5.1 API key in `.env`, spending limit set in Console
+- [ ] 5.2 Simplest single call; inspect the response and tokens
+- [ ] 5.3 Tool-use loop written by hand
+- [ ] 5.4 Harness as an MCP client of your own server
+- [ ] 5.5 Generate → check → simplify loop with a retry limit
+- [ ] 5.6 Cost logging; compare Haiku / Sonnet / Opus
+
+## Phase 6: Automation (a few $/month). *Pipelines*
+- [ ] 6.1 Daily pipeline: fetch → rewrite per level → split into words → save
+- [ ] 6.2 GitHub Actions daily schedule, API key stored as a secret
+- [ ] 6.3 Safeguards: daily cap, duplicate detection, spending limit
+
+## Phase 7: Extensions (optional)
+- [ ] "Create your own story" (visitor's own Claude account or key)
+- [ ] PWA (installable on Android) → later Expo app
+- [ ] Audio, flashcards, quizzes
+
+## Cost summary
+| Phases | Cost |
+|---|---|
+| 0–4 | $0 (covered by Claude Pro) |
+| 5 | ~$5 prepaid API credit |
+| 6 | ~$3–20/month, depending on the model and number of levels |
+
+## Safety rules
+- The API key lives only in `.env` (ignored by git) or GitHub Secrets, **never in the website**.
+- Always keep a spending limit set in the Anthropic Console.
+- News: show a retelling or summary plus a link to the original; don't republish full articles.

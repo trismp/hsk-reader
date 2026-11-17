@@ -1,0 +1,17 @@
+# Secrets: never commit
+.env
+.env.*
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Large raw downloads (we keep the processed versions instead)
+data/raw/
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
