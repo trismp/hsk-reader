@@ -25,6 +25,7 @@ RAW = ROOT / "data" / "raw" / "cedict_ts.u8"
 HSK = ROOT / "data" / "hsk_words.json"
 OUT_DICT = ROOT / "data" / "dictionary.json"
 OUT_JIEBA = ROOT / "data" / "jieba_words.txt"
+OUT_T2S = ROOT / "data" / "trad_to_simp.json"
 
 LINE = re.compile(r"^(\S+) (\S+) \[([^\]]*)\] /(.*)/$")
 TONE_MARKS = {
@@ -69,15 +70,30 @@ def main() -> None:
     # A word can have several lines (several readings). Collect them all,
     # then put the most everyday reading first (绿 lǜ "green", not lù).
     readings: dict[str, list[tuple[str, list[str]]]] = {}
+    t2s_candidates: dict[str, list[str]] = {}
     for line in RAW.read_text(encoding="utf-8").splitlines():
         if line.startswith("#"):
             continue
         m = LINE.match(line)
         if not m:
             continue
-        _trad, simp, pinyin, meanings = m.groups()
+        trad, simp, pinyin, meanings = m.groups()
+        # Single characters give us a traditional -> simplified table (訪 -> 访).
+        # One traditional character can have several candidates (麼 -> 么 or 幺),
+        # so collect them all and choose below.
+        if len(trad) == 1 and trad != simp and "variant of" not in meanings:
+            t2s_candidates.setdefault(trad, []).append(simp)
         meanings = [x for x in meanings.split("/") if x]
         readings.setdefault(simp, []).append((to_tone_marks(pinyin), meanings))
+
+    # Pick the everyday simplified form: one that appears in HSK vocabulary
+    # (么 is in 什么; 幺 is not), else one in the main CJK block (宁, not 㝉).
+    hsk_chars = set("".join(json.loads(HSK.read_text(encoding="utf-8"))))
+
+    def best(cands: list[str]) -> str:
+        return min(cands, key=lambda c: (c not in hsk_chars, not "一" <= c <= "鿿"))
+
+    trad_to_simp = {t: best(c) for t, c in t2s_candidates.items()}
 
     dictionary: dict[str, dict] = {}
     for simp, options in readings.items():
@@ -92,6 +108,8 @@ def main() -> None:
             dictionary[simp] = {"pinyin": pinyin, "meanings": merged[:5]}
 
     OUT_DICT.write_text(json.dumps(dictionary, ensure_ascii=False, indent=0), encoding="utf-8")
+    OUT_T2S.write_text(json.dumps(trad_to_simp, ensure_ascii=False), encoding="utf-8")
+    print(f"Trad->simp: {len(trad_to_simp)} characters -> {OUT_T2S.relative_to(ROOT)}")
 
     # jieba user dictionary: one word per line ("word frequency").
     # Only add words jieba does NOT already know. Re-adding a known word like

@@ -32,7 +32,10 @@ from mcp.server.mcpserver import MCPServer
 
 # Let us import tools/hsk_checker.py from the sibling folder.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+import article  # noqa: E402
 import hsk_checker  # noqa: E402
+import search as library  # noqa: E402
+import semantic  # noqa: E402
 
 Scheme = Literal["hsk30", "hsk2026", "hsk2"]
 Level = Annotated[int, Field(ge=1, le=7, description="HSK level 1-7, where 7 means the combined 7-9 band")]
@@ -43,7 +46,10 @@ server = MCPServer(
         "Tools for writing and checking Chinese texts at a target HSK level. "
         "Typical flow: draft a text, call check_hsk_level, then replace the words in "
         "'above_target' with simpler ones and check again until meets_target is true. "
-        "Default scheme is hsk30 (HSK 3.0, 2021 standard)."
+        "Default scheme is hsk30 (HSK 3.0, 2021 standard). "
+        "For stories about myths, history, festivals or news, FIRST call search_library "
+        "and base the story on what it returns, so facts are not invented. "
+        "For a news article, read it with read_news_article before rewriting it."
     ),
 )
 
@@ -101,6 +107,76 @@ def get_hsk_vocab(
     }
 
 
+@server.tool()
+def search_library(
+    query: Annotated[str, Field(description="Chinese keywords, e.g. '嫦娥 不死药' or '端午节 屈原'")],
+    collection: Annotated[Literal["news", "wikipedia", "wikisource"] | None, Field(
+        description="news = recent headlines; wikipedia = modern articles (facts); "
+                    "wikisource = original classical texts. Omit to search all.")] = None,
+    category: Annotated[Literal["folklore", "history", "east_asia", "culture", "classics"] | None,
+                        Field(description="optional story category filter")] = None,
+    k: Annotated[int, Field(ge=1, le=10, description="number of passages to return")] = 4,
+    mode: Annotated[Literal["hybrid", "keyword", "semantic"], Field(
+        description="hybrid (default) = best overall; keyword = exact words, best for rare "
+                    "names; semantic = meaning, best for questions and paraphrases")] = "hybrid",
+) -> dict:
+    """Search the reading library and return the most relevant passages (RAG retrieval).
+
+    Use this BEFORE writing a story about a myth, historical event, festival,
+    East Asian tale or news topic, and base the story on the passages returned.
+    Query in Chinese: keywords (嫦娥 不死药) or a question (为什么端午节要吃粽子)
+    both work in hybrid mode. Each passage includes its title, section and
+    source URL for attribution.
+    """
+    hits = semantic.MODES[mode](query, k, collection, category)
+    return {
+        "query": query,
+        "results": [
+            {k_: h.get(k_) for k_ in ("title", "section", "collection", "category",
+                                      "source", "date", "url", "score", "text")}
+            for h in hits
+        ],
+        "note": None if hits else "No matches. Try other or fewer Chinese keywords.",
+    }
+
+
+@server.tool()
+def latest_news(
+    limit: Annotated[int, Field(ge=1, le=30, description="how many headlines")] = 10,
+    source: Annotated[Literal["BBC 中文", "DW 中文", "RFI 中文", "中新网"] | None,
+                      Field(description="only this news source")] = None,
+) -> dict:
+    """List the newest Chinese news headlines with summaries, newest first.
+
+    Headlines come from RSS feeds collected by tools/fetch_news.py. Use
+    read_news_article with an item's url to get the full text.
+    """
+    items = library._read_jsonl(library.NEWS)
+    if source:
+        items = [i for i in items if i["source"] == source]
+    return {"count": len(items), "items": items[:limit]}
+
+
+@server.tool()
+def read_news_article(
+    url: Annotated[str, Field(description="article url, as returned by latest_news or search_library")],
+) -> dict:
+    """Fetch the full text of one news article (simplified Chinese), cached after first use.
+
+    For personal study: use it to rewrite or summarise at an HSK level, and
+    always credit the source and link to the original.
+    """
+    try:
+        text = article.fetch_article(url)
+    except Exception as e:
+        return {"url": url, "error": f"could not fetch article: {e}"}
+    return {"url": url, "characters": len(text), "text": text or None,
+            "note": None if text else "No article text found on this page."}
+
+
 if __name__ == "__main__":
     hsk_checker._load()  # load the data once at startup, not on the first call
+    library._index()     # build the keyword index once at startup too
+    semantic._vectors()  # load (or build) chunk embeddings
+    semantic._model()    # load the embedding model for queries
     server.run()         # default transport: stdio

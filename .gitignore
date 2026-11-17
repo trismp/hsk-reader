@@ -15,3 +15,11 @@ data/raw/
 .idea/
 Thumbs.db
 .DS_Store
+
+# News text: other people's journalism, kept locally for personal study only
+data/library/news.jsonl
+data/library/articles/
+data/library/index/
+
+# Downloaded AI models (re-downloadable, large)
+data/models/

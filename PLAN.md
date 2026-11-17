@@ -55,12 +55,19 @@ must be ranked down (抢 qiǎng, not qiāng); names are explained, not counted.
 - [ ] 2.4 Ask Claude to write and check a story with your tools
 
 ## Phase 3: Content library and search (free). *RAG*
-- [ ] 3.1 News fetcher (RSS: BBC 中文, DW 中文, RFI 中文 …)
-- [ ] 3.2 Source fetchers: Chinese Wikipedia, 维基文库 (Wikisource)
-- [ ] 3.3 Chunking
-- [ ] 3.4 Keyword search vs semantic search (local embeddings)
-- [ ] 3.5 MCP tools: `search_news`, `search_sources`
+- [x] 3.1 News fetcher `tools/fetch_news.py` (BBC 中文, DW 中文, RFI 中文, 中新网: summaries only)
+      + on-demand full article `tools/article.py` (link-density filter, cached, git-ignored)
+- [x] 3.2 Sources `tools/fetch_sources.py`: 81 docs from Wikipedia + 维基文库 (山海经, 搜神记), polite backoff on 429
+- [x] 3.3 Chunking: whole paragraphs, ~400 chars, keeps title + section (1,785 chunks)
+- [x] 3.4a Keyword search (BM25) `tools/search.py`
+- [x] 3.4b Semantic search `tools/semantic.py` (bge-small-zh, 512-number vectors, cached) + hybrid (RRF)
+      Result: semantic wins on paraphrases (飞到月亮上的女人 → 嫦娥), keyword wins on rare
+      names (逄蒙), hybrid is good on all → default in `search_library`
+- [x] 3.5 MCP tools: `search_library` (hybrid/keyword/semantic), `latest_news`, `read_news_article`
 - [ ] 3.6 Compare stories with and without RAG (grounding)
+
+Lessons: feeds give summaries, not articles; BBC's "simp" feed is traditional;
+free APIs rate-limit (429), so honour Retry-After; char-level trad→simp needs word fixes (著/着).
 
 ## Phase 4: Website (free). *Static sites, pre-processing*
 - [ ] 4.1 Library page (filter by level and category)
