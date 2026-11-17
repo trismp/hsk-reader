@@ -35,15 +35,18 @@ hsk-reader/
 ---
 
 ## Phase 0: Setup (free)
-- [ ] 0.1 Project folder + git
-- [ ] 0.2 Python environment; install `jieba`, `mcp`
-- [ ] 0.3 Folder layout
+- [x] 0.1 Project folder + git
+- [x] 0.2 Python environment; install `jieba`, `mcp` (v2: `MCPServer`, not `FastMCP`)
+- [x] 0.3 Folder layout
 
 ## Phase 1: Data foundation (free). *Not everything needs AI*
-- [ ] 1.1 HSK 3.0 word list → `data/hsk_words.json` (word, pinyin, level)
-- [ ] 1.2 CC-CEDICT → `data/dictionary.json`
-- [ ] 1.3 Level checker: % per level, words above target, estimated level
-- [ ] 1.4 Test on real news text and simple sentences
+- [x] 1.1 HSK word list → `data/hsk_words.json` (11,470 words; schemes hsk30 / hsk2026 / hsk2)
+- [x] 1.2 CC-CEDICT → `data/dictionary.json` (120k words) + `data/jieba_words.txt`
+- [x] 1.3 Level checker `tools/hsk_checker.py`: % per level, words above target, estimated level
+- [x] 1.4 Tested on `data/samples/`: easy → HSK 2, 嫦娥 story → HSK 4, news → HSK 7-9
+
+Lessons: re-adding known words to jieba breaks it (以后 → 以|后); rare readings
+must be ranked down (抢 qiǎng, not qiāng); names are explained, not counted.
 
 ## Phase 2: MCP server (free with Pro). *MCP*
 - [ ] 2.1 Tools: `check_hsk_level`, `lookup_word`, `get_hsk_vocab`
