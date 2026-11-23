@@ -1,0 +1,80 @@
+# Daily tech-news digests for the website.
+#
+# Every day at 09:55 Beijing time GitHub's servers:
+#   1. run the news harness (harness/news.py --publish): Claude picks today's stories,
+#      reads them and writes short HSK 6 digests into content/stories/ (genre: news)
+#   2. rebuild the site data (pinyin, meanings, HSK levels) with tools/build_site.py
+#   3. commit the new digests and start the "Deploy site to GitHub Pages" workflow
+#
+# Needs one repository secret: ANTHROPIC_API_KEY
+#   (GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret).
+# Cost: each run calls the Claude API. Set a monthly spending limit in the Anthropic Console.
+name: Daily news digests
+
+on:
+  schedule:
+    - cron: "55 1 * * *"       # 01:55 UTC = 09:55 Beijing time; digests go live about 10:00
+                                # (GitHub sometimes starts scheduled runs 5-30 minutes late)
+  workflow_dispatch:            # a "Run workflow" button, for testing
+    inputs:
+      count:
+        description: "How many digests"
+        default: "2"
+
+permissions:
+  contents: write               # commit the new digests
+  actions: write                # start the Pages deploy afterwards
+
+concurrency:
+  group: news
+  cancel-in-progress: false
+
+jobs:
+  digests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai         # dates in file names and feeds use Beijing time
+      COUNT: ${{ github.event.inputs.count || '2' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Write today's digests with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python harness/news.py --publish --count "$COUNT" --effort low   # Opus 5.5 on low effort: cheaper and faster
+
+      - name: Rebuild the site data
+        run: python tools/build_site.py
+
+      - name: Commit the new digests
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/stories site/data
+          if git diff --cached --quiet; then
+            echo "Nothing new to publish."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "News digests for $(date +%Y-%m-%d)"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A push made by this workflow does not start other workflows by itself,
+      # so start the Pages deploy explicitly.
+      - name: Deploy the site
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

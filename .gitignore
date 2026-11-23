@@ -23,3 +23,7 @@ data/library/index/
 
 # Downloaded AI models (re-downloadable, large)
 data/models/
+
+# Phase 5 harness: generated stories and the cost log stay local
+harness/output/
+harness/runs.jsonl

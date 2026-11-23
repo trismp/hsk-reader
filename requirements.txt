@@ -2,3 +2,4 @@ jieba==0.42.1        # splits Chinese text into words
 mcp>=2.3,<3          # official Model Context Protocol library (v2: server class is MCPServer, not FastMCP)
 fastembed>=0.9,<1    # runs the local embedding model (BAAI/bge-small-zh-v1.5, ~90 MB, downloaded on first use)
 numpy                # vector maths for semantic search
+anthropic>=2.12,<3   # official Claude API SDK, used by the Phase 5 harness (harness/run.py)
