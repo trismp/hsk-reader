@@ -13,7 +13,7 @@
   --hard: #d8506b;
   --shadow: 0 12px 32px rgba(70, 50, 170, .14);
   --radius: 18px;
-  --read-font: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;   /* fonts already on the phone/PC: no download, works in China */
+  --read-font: "Songti SC", "STSong", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", serif;   /* fonts already on the phone/PC: no download, works in China */
   --ui-font: ui-rounded, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   color-scheme: light;
 }
@@ -166,7 +166,7 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
 
 /* Reader */
 .back { display: inline-block; margin: 16px 0 4px; color: var(--ink-soft); text-decoration: none; font-size: 15px; }
-.story-head h1 { margin: 8px 0 6px; font: 700 clamp(28px, 7vw, 38px)/1.25 var(--read-font); }
+.story-head h1 { margin: 8px 0 6px; font: 700 clamp(26px, 6.5vw, 34px)/1.3 var(--read-font); }
 .story-head p { margin: 0; color: var(--ink-soft); }
 .story {
   font: 400 clamp(20px, 5vw, 23px)/2 var(--read-font); letter-spacing: .02em; margin-top: 18px;
@@ -319,7 +319,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 }
 .seg button:first-child { border-left: 0; }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); font-weight: 600; }
-.story-head h1.pinyin, .chapter-title.pinyin { line-height: 1.9; }
+.story-head h1.pinyin, .chapter-title.pinyin { line-height: 1.6; }
 .story-head h1 .w, .chapter-title .w { border-radius: 6px; }
 :root[data-theme="dark"] .g-myths { --tint: #b6a4ff; }
 :root[data-theme="dark"] .g-history { --tint: #f2c661; }
