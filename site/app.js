@@ -34,8 +34,14 @@
       try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
     },
   };
-  const settings = Object.assign({ pinyin: "hard", markHard: true, size: "m" }, store.get("hsk.settings", {}));
+  const settings = Object.assign({ pinyin: "hard", size: "m", theme: "auto" }, store.get("hsk.settings", {}));
   if (!["off", "hard", "all"].includes(settings.pinyin)) settings.pinyin = "hard";
+  if (!["auto", "light", "dark"].includes(settings.theme)) settings.theme = "auto";
+  const applyTheme = () => {
+    if (settings.theme === "auto") delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = settings.theme;
+  };
+  applyTheme();
   let saved = store.get("hsk.saved", {});        // word -> {pinyin, level, meaning, sentence, story, added, box}
   let shelf = store.get("hsk.shelf", {});        // story id -> {added}
   let progress = store.get("hsk.progress", {});  // story id -> {chapter, done: [chapter numbers]}
@@ -47,8 +53,6 @@
   // ---------- helpers ----------
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const levelLabel = (l) =>
-    l === -1 ? "Key word" : l === 0 ? "Name" : l === 10 ? "Beyond HSK" : l === 7 ? "HSK 7–9" : `HSK ${l}`;
   const isNew = (l) => l === 10 || l > READER_LEVEL;
   const fmt = (n) => n.toLocaleString("en-US");
   const CN_NUM = "零一二三四五六七八九十";
@@ -189,9 +193,7 @@
   function renderToken(t, i) {
     const [word, pinyin, level] = t;
     const cls = ["w"];
-    if (level === -1) cls.push("k");
     if (level === 0) cls.push("n");
-    if (level > 0 && isNew(level)) cls.push("h");
     if (saved[word]) cls.push("saved");
     const showPinyin = pinyin && (settings.pinyin === "all" ||
       (settings.pinyin === "hard" && (level <= 0 || isNew(level))));
@@ -248,11 +250,12 @@
     saveProgress();
 
     currentTokens = []; tokenSentence = [];
+    // titles are tappable too: render them like a one-line paragraph
+    const inline = (tokens) => renderParagraph(tokens || []).replace(/^<p>|<\/p>$/g, "");
+    const titleHtml = s.title_tokens ? inline(s.title_tokens) : esc(s.title);
+    const chapterTitleHtml = ch.title_tokens ? inline(ch.title_tokens) : esc(ch.title);
     const paras = ch.paragraphs.map(renderParagraph).join("");
-
-    const kws = n === 1 ? (s.keywords || []).map((k) => `
-      <li><span class="kw" lang="zh-CN">${esc(k.word)}</span><span class="py">${esc(k.pinyin)}</span>
-      <span class="en">${esc((k.meanings || []).slice(0, 2).join("; "))}</span></li>`).join("") : "";
+    const pinyinTitles = settings.pinyin !== "off" ? "pinyin" : "";
 
     const chapterNav = total > 1 ? `
       <nav class="chapter-nav" aria-label="Chapters">
@@ -278,18 +281,17 @@
           <span class="meta">${fmt(s.characters)} 字${total > 1 ? ` · this chapter ${fmt(ch.characters)} 字` : ""}</span>
         </div>
         <div class="title-row">
-          <h1 lang="zh-CN">${esc(s.title)}</h1>
-          ${saveStoryBtn(id)}
+          <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
+          <div class="title-actions">
+            <button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>
+            ${saveStoryBtn(id)}
+          </div>
         </div>
         <p class="title-en">${esc(s.title_en)}</p>
       </header>
-      ${kws ? `<section class="keywords"><h3>Key words</h3><ul>${kws}</ul></section>` : ""}
-      <div class="legend">
-        <span class="lk">key word</span><span class="ln">name</span>
-        ${settings.markHard ? `<span class="lh">new word (above HSK 5)</span>` : ""}
-      </div>
-      ${ch.title ? `<h2 class="chapter-title" lang="zh-CN">${esc(ch.title)}</h2>` : ""}
-      <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""} ${settings.markHard ? "mark-hard" : ""}" lang="zh-CN">${paras}</article>
+      ${readSettingsPanel()}
+      ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
+      <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
       ${chapterNav}
       ${finished ? `<div class="the-end"><span lang="zh-CN">全文完</span> · The end
         <a class="btn ghost" href="#/words">Review my words →</a></div>` : ""}
@@ -305,6 +307,50 @@
     if (finished) markDone(n);
     const sel = $("chapter-select");
     if (sel) sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; });
+    wireReadSettings();
+  }
+
+  // ---------- reading settings (only on the story page, in Chinese) ----------
+  const SETTING_GROUPS = [
+    { key: "pinyin", label: "拼音", options: [["off", "关闭"], ["all", "全部"], ["hard", "仅生词"]] },
+    { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
+    { key: "theme", label: "主题", options: [["light", "浅色"], ["dark", "深色"], ["auto", "跟随系统"]] },
+  ];
+  let settingsOpen = false;
+  function readSettingsPanel() {
+    return `
+      <section class="read-settings" id="read-settings" ${settingsOpen ? "" : "hidden"} lang="zh-CN">
+        ${SETTING_GROUPS.map((g) => `
+          <div class="rs-row">
+            <span class="rs-label">${g.label}</span>
+            <div class="seg" role="group" aria-label="${g.label}">
+              ${g.options.map(([v, text]) => `<button data-set="${g.key}" data-val="${v}" aria-pressed="${settings[g.key] === v}">${text}</button>`).join("")}
+            </div>
+          </div>`).join("")}
+      </section>`;
+  }
+  function wireReadSettings() {
+    const btn = $("aa-btn"), panel = $("read-settings");
+    if (!btn || !panel) return;
+    btn.setAttribute("aria-expanded", String(settingsOpen));
+    btn.addEventListener("click", () => {
+      settingsOpen = panel.hidden;
+      panel.hidden = !settingsOpen;
+      btn.setAttribute("aria-expanded", String(settingsOpen));
+    });
+    panel.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-set]");
+      if (!b) return;
+      settings[b.dataset.set] = b.dataset.val;
+      saveSettings();
+      if (b.dataset.set === "theme") {
+        applyTheme();
+        panel.querySelectorAll('[data-set="theme"]').forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        return;
+      }
+      const y = window.scrollY;
+      Promise.resolve(route()).then(() => window.scrollTo(0, y));
+    });
   }
 
   // ---------- word popup ----------
@@ -317,7 +363,6 @@
     popupToken = currentTokens[i];
     const [word, pinyin, level, meaning] = popupToken;
     $("popup-word").textContent = word;
-    $("popup-level").textContent = levelLabel(level);
     $("popup-pinyin").textContent = pinyin || "";
     $("popup-meaning").textContent = meaning || "No dictionary entry.";
     updateSaveButton();
@@ -333,7 +378,7 @@
   function updateSaveButton() {
     const isSaved = popupToken && saved[popupToken[0]];
     const btn = $("popup-save");
-    btn.textContent = isSaved ? "✓ In My Words · tap to remove" : "+ Save to My Words";
+    btn.textContent = isSaved ? "✓ 已加入生词本 · 点击移除" : "＋ 加入生词本";
     btn.classList.toggle("ghost", Boolean(isSaved));
   }
 
@@ -347,6 +392,12 @@
     if (el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); el.click(); }
   });
   $("popup-close").addEventListener("click", closePopup);
+  // Tap anywhere outside the popup (and not on another word) to close it.
+  document.addEventListener("click", (e) => {
+    if ($("popup").hidden) return;
+    if (e.target.closest("#popup") || e.target.closest(".w")) return;
+    closePopup();
+  });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePopup(); });
   $("popup-save").addEventListener("click", () => {
     if (!popupToken) return;
@@ -409,7 +460,7 @@
       <ul class="word-list">${entries.map(([w, e]) => `
         <li>
           <span class="zh" lang="zh-CN">${esc(w)}</span>
-          <span class="py">${esc(e.pinyin)} <span class="lvl">${levelLabel(e.level)}</span>${e.box >= 3 ? ` <span class="known">✓ known</span>` : ""}</span>
+          <span class="py">${esc(e.pinyin)}${e.box >= 3 ? ` <span class="known">✓ known</span>` : ""}</span>
           <button class="small-btn rm" data-word="${esc(w)}" aria-label="Remove ${esc(w)}">Remove</button>
           <span class="en">${esc(e.meaning)}</span>
           ${e.sentence ? `<span class="ex" lang="zh-CN">${esc(e.sentence)}</span>` : ""}
@@ -422,7 +473,7 @@
     const exp = $("export");
     if (exp) exp.addEventListener("click", () => {
       const q = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
-      const csv = entries.map(([w, e]) => [w, e.pinyin, e.meaning, e.sentence, levelLabel(e.level)].map(q).join(",")).join("\n");
+      const csv = entries.map(([w, e]) => [w, e.pinyin, e.meaning, e.sentence].map(q).join(",")).join("\n");
       const url = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
       const a = Object.assign(document.createElement("a"), { href: url, download: "hsk-reader-words.csv" });
       document.body.append(a); a.click(); a.remove();
@@ -561,25 +612,6 @@
     };
     draw();
   }
-
-  // ---------- settings ----------
-  $("pinyin-mode").value = settings.pinyin;
-  $("mark-hard").checked = settings.markHard;
-  $("text-size").value = settings.size;
-  $("settings-btn").addEventListener("click", () => {
-    const panel = $("settings");
-    panel.hidden = !panel.hidden;
-    $("settings-btn").setAttribute("aria-expanded", String(!panel.hidden));
-  });
-  const onSetting = () => {
-    settings.pinyin = $("pinyin-mode").value;
-    settings.markHard = $("mark-hard").checked;
-    settings.size = $("text-size").value;
-    saveSettings();
-    const y = window.scrollY;
-    Promise.resolve(route()).then(() => window.scrollTo(0, y));
-  };
-  ["pinyin-mode", "mark-hard", "text-size"].forEach((id) => $(id).addEventListener("change", onSetting));
 
   // ---------- router ----------
   function route() {

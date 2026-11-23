@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>HSK Reader</title>
   <meta name="description" content="Fun Chinese stories for HSK 5–6 readers: myths, history, mystery and life in China, with tap-to-translate, pinyin, flashcards and quizzes.">
-  <meta name="theme-color" content="#f7f3ec" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1b1916" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f0fd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1640" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -14,8 +14,8 @@
   <meta name="apple-mobile-web-app-title" content="HSK Reader">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <header class="topbar">
@@ -31,28 +31,7 @@
         <svg viewBox="0 0 24 24"><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h12V5zm2 3h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
       </span><span class="tab-label"><span lang="zh-CN">生词本</span> My Words</span><span class="count" id="saved-count"></span></a>
     </nav>
-    <button class="icon-btn" id="settings-btn" aria-label="Reading settings" aria-expanded="false">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 6h11v2H3zm0 10h7v2H3zm14-10h4v2h-4zm-4-2h2v6h-2zm-2 12h10v2H11zm-4-2h2v6H7z"/></svg>
-    </button>
   </header>
-
-  <div class="settings" id="settings" hidden>
-    <label>Pinyin
-      <select id="pinyin-mode">
-        <option value="off">Off</option>
-        <option value="hard">Only new words (above HSK 5)</option>
-        <option value="all">All words</option>
-      </select>
-    </label>
-    <label>Text size
-      <select id="text-size">
-        <option value="s">Small</option>
-        <option value="m">Medium</option>
-        <option value="l">Large</option>
-      </select>
-    </label>
-    <label class="check"><input type="checkbox" id="mark-hard"> Underline new words</label>
-  </div>
 
   <main id="app" tabindex="-1"></main>
 
@@ -60,7 +39,6 @@
     <button class="popup-close" id="popup-close" aria-label="Close">×</button>
     <div class="popup-head">
       <span class="popup-word" id="popup-word" lang="zh-CN"></span>
-      <span class="badge" id="popup-level"></span>
     </div>
     <div class="popup-pinyin" id="popup-pinyin"></div>
     <div class="popup-meaning" id="popup-meaning"></div>
@@ -74,6 +52,6 @@
       HSK lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

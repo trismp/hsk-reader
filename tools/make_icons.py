@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 from common import ROOT
 
 OUT = ROOT / "site" / "icons"
-RED = (180, 67, 47)
+RED = (91, 79, 233)  # violet #5b4fe9
 FONTS = [r"C:\Windows\Fonts\NotoSerifSC-VF.ttf", r"C:\Windows\Fonts\msyhbd.ttc", r"C:\Windows\Fonts\msyh.ttc"]
 
 

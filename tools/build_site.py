@@ -199,6 +199,7 @@ def build() -> None:
         for ch in s["chapters"]:
             chapters.append({
                 "title": ch["title"],
+                "title_tokens": [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(ch["title"])],
                 "characters": len(HAS_CHINESE.findall("".join(ch["paragraphs"]))),
                 "paragraphs": [[token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(p)]
                                for p in ch["paragraphs"]],
@@ -206,6 +207,7 @@ def build() -> None:
 
         story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh")}
         story["sources"] = s["sources"]
+        story["title_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s["title"])]
         story["keywords"] = [
             dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
             for k in s["keywords"]
@@ -216,7 +218,7 @@ def build() -> None:
         (OUT / "stories" / f"{s['id']}.json").write_text(
             json.dumps({**story, "chapters": chapters}, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8")
-        stories.append({**{k: v for k, v in story.items() if k not in ("keywords", "sources")},
+        stories.append({**{k: v for k, v in story.items() if k not in ("keywords", "sources", "title_tokens")},
                         "chapter_titles": [c["title"] for c in chapters]})
 
         short = [c["characters"] for c in chapters if c["characters"] < 700]
