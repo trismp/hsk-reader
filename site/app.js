@@ -197,8 +197,11 @@
       </section>
       ${newsGenre ? newsSection(newsGenre, news) : ""}
       <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
-      <div class="tiles">
-        ${genres.filter((g) => g.id !== "news").map((g) => genreTile(g, count(g))).join("")}
+      <div class="tiles bento">
+        ${genres.filter((g) => g.id !== "news")
+          .map((g) => ({ g, n: count(g) }))
+          .sort((a, b) => (a.g.soon || !a.n) - (b.g.soon || !b.n) || b.n - a.n)   // most stories first, "soon" last
+          .map(({ g, n }, i) => genreTile(g, n, i < 2 ? "big" : "")).join("")}
       </div>`);
   }
 
