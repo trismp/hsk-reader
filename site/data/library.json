@@ -1,135 +1,226 @@
-[
- {
-  "id": "01-change-moon",
-  "title": "嫦娥奔月",
-  "level": 3,
-  "category": "folklore",
-  "summary": "Why the archer's wife lives on the moon, and where the Mid-Autumn Festival comes from.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E5%AB%A6%E5%A8%A5%E5%A5%94%E6%9C%88"
-  ],
-  "estimated_level": "3",
-  "within_target": 0.995,
-  "characters": 338
- },
- {
-  "id": "06-momotaro",
-  "title": "桃太郎",
-  "level": 3,
-  "category": "east_asia",
-  "summary": "Japan's best-known folk tale: a boy born from a peach sets off for Demon Island.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E6%A1%83%E5%A4%AA%E9%83%8E"
-  ],
-  "estimated_level": "3",
-  "within_target": 0.995,
-  "characters": 349
- },
- {
-  "id": "02-jingwei",
-  "title": "精卫填海",
-  "level": 3,
-  "category": "folklore",
-  "summary": "A little bird that never gives up trying to fill the sea. From the Classic of Mountains and Seas.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E7%B2%BE%E5%8D%AB"
-  ],
-  "estimated_level": "3",
-  "within_target": 0.987,
-  "characters": 263
- },
- {
-  "id": "03-kuafu",
-  "title": "夸父追日",
-  "level": 4,
-  "category": "folklore",
-  "summary": "A giant chases the sun across the world. Foolish, or brave?",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E5%A4%B8%E7%88%B6"
-  ],
-  "estimated_level": "3",
-  "within_target": 0.99,
-  "characters": 343
- },
- {
-  "id": "05-niulang-zhinu",
-  "title": "牛郎织女",
-  "level": 4,
-  "category": "folklore",
-  "summary": "A cowherd, a heavenly weaver and a bridge of magpies: the story behind Qixi.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E7%89%9B%E9%83%8E%E7%B9%94%E5%A5%B3"
-  ],
-  "estimated_level": "3",
-  "within_target": 1.0,
-  "characters": 377
- },
- {
-  "id": "04-duanwu",
-  "title": "端午节的故事",
-  "level": 4,
-  "category": "culture",
-  "summary": "Zongzi, dragon boats and the poet Qu Yuan, plus the other stories behind the festival.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%8D%88%E8%8A%82"
-  ],
-  "estimated_level": "4",
-  "within_target": 1.0,
-  "characters": 347
- },
- {
-  "id": "07-mengjiangnu",
-  "title": "孟姜女哭长城",
-  "level": 5,
-  "category": "history",
-  "summary": "A wife's grief brings down a stretch of the Great Wall, and how the legend grew over 2,000 years.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E5%AD%9F%E5%A7%9C%E5%A5%B3",
-   "https://zh.wikipedia.org/wiki/%E9%95%BF%E5%9F%8E"
-  ],
-  "estimated_level": "4",
-  "within_target": 1.0,
-  "characters": 452
- },
- {
-  "id": "10-shanhaijing-lands",
-  "title": "山海经里的奇怪国家",
-  "level": 5,
-  "category": "classics",
-  "summary": "Giants who carve boats sitting down, polite gentlemen with pet tigers: travel notes from a 2,000-year-old book.",
-  "sources": [
-   "https://zh.wikisource.org/wiki/%E5%B1%B1%E6%B5%B7%E7%B6%93/%E6%B5%B7%E5%A4%96%E6%9D%B1%E7%B6%93"
-  ],
-  "estimated_level": "4",
-  "within_target": 0.996,
-  "characters": 431
- },
- {
-  "id": "08-qinshihuang",
-  "title": "秦始皇：第一个皇帝",
-  "level": 5,
-  "category": "history",
-  "summary": "The ruler who unified China in 221 BC, and the clay army that guards his tomb.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E7%A7%A6%E5%A7%8B%E7%9A%87",
-   "https://zh.wikipedia.org/wiki/%E7%A7%A6%E5%A7%8B%E7%9A%87%E5%85%B5%E9%A9%AC%E4%BF%91"
-  ],
-  "estimated_level": "4",
-  "within_target": 1.0,
-  "characters": 453
- },
- {
-  "id": "09-xuanzang",
-  "title": "玄奘西行",
-  "level": 6,
-  "category": "history",
-  "summary": "The real monk behind Journey to the West, who walked to India and back in the 7th century.",
-  "sources": [
-   "https://zh.wikipedia.org/wiki/%E7%8E%84%E5%A5%98",
-   "https://zh.wikipedia.org/wiki/%E4%B8%9D%E7%BB%B8%E4%B9%8B%E8%B7%AF"
-  ],
-  "estimated_level": "5",
-  "within_target": 0.996,
-  "characters": 472
- }
-]
+{
+ "genres": [
+  {
+   "id": "myths",
+   "zh": "神话传说",
+   "en": "Myths & Legends",
+   "mark": "神",
+   "tagline": "Gods, monsters and heroes from ancient China and East Asia"
+  },
+  {
+   "id": "history",
+   "zh": "历史风云",
+   "en": "History",
+   "mark": "史",
+   "tagline": "Real people who changed China, told as stories"
+  },
+  {
+   "id": "mystery",
+   "zh": "悬疑",
+   "en": "Mystery",
+   "mark": "谜",
+   "tagline": "Crimes, clues and a detective to follow"
+  },
+  {
+   "id": "work",
+   "zh": "职场人生",
+   "en": "Life & Work in China",
+   "mark": "职",
+   "tagline": "Offices, colleagues and everyday city life"
+  },
+  {
+   "id": "romance",
+   "zh": "言情",
+   "en": "Romance",
+   "mark": "情",
+   "tagline": "Love stories, light and serialised",
+   "soon": true
+  },
+  {
+   "id": "news",
+   "zh": "时事财经",
+   "en": "News & Markets",
+   "mark": "财",
+   "tagline": "This week's news and market moves, made readable",
+   "soon": true
+  }
+ ],
+ "stories": [
+  {
+   "id": "anna-first-week",
+   "title": "安娜的第一周",
+   "title_en": "Anna's First Week in Shanghai",
+   "genre": "work",
+   "blurb_en": "A foreign newcomer at a Shanghai company learns what \"收到\", \"辛苦了\" and \"改天请你吃饭\" really mean.",
+   "blurb_zh": "外国新人安娜来到上海一家公司，学会了“收到”“辛苦了”和“改天请你吃饭”的真正意思。",
+   "characters": 1514,
+   "chapter_count": 2,
+   "within_hsk6": 0.956,
+   "chapter_titles": [
+    "第一章 “收到”和“改天”",
+    "第二章 第一次饭局"
+   ]
+  },
+  {
+   "id": "change-moon",
+   "title": "嫦娥奔月",
+   "title_en": "Chang'e Flies to the Moon",
+   "genre": "myths",
+   "blurb_en": "One dose of magic medicine, two people who love each other, and a thief at the door.",
+   "blurb_zh": "一颗仙药，两个相爱的人，还有一个想偷药的小人。",
+   "characters": 787,
+   "chapter_count": 1,
+   "within_hsk6": 0.954,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "jingwei",
+   "title": "精卫填海",
+   "title_en": "The Little Bird Who Fought the Sea",
+   "genre": "myths",
+   "blurb_en": "A small bird decides to fill the whole ocean, one stone at a time.",
+   "blurb_zh": "一只小鸟决定把大海填平，一次只带一块石头。",
+   "characters": 704,
+   "chapter_count": 1,
+   "within_hsk6": 0.964,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "kuafu",
+   "title": "夸父追日",
+   "title_en": "The Giant Who Chased the Sun",
+   "genre": "myths",
+   "blurb_en": "A giant tries to catch the sun so his people will never be cold again.",
+   "blurb_zh": "一个巨人想抓住太阳，让族人不再挨冻。",
+   "characters": 745,
+   "chapter_count": 1,
+   "within_hsk6": 0.962,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "mengjiangnu",
+   "title": "孟姜女哭长城",
+   "title_en": "Lady Meng Jiang's Tears",
+   "genre": "myths",
+   "blurb_en": "A wife's grief brings down the Great Wall, and a legend that took 2,000 years to grow.",
+   "blurb_zh": "一个妻子的眼泪哭倒了长城，这个传说用了两千年才长成今天的样子。",
+   "characters": 1434,
+   "chapter_count": 2,
+   "within_hsk6": 0.911,
+   "chapter_titles": [
+    "第一章 葫芦里的女孩",
+    "第二章 哭倒长城"
+   ]
+  },
+  {
+   "id": "momotaro",
+   "title": "桃太郎",
+   "title_en": "Momotaro, the Peach Boy",
+   "genre": "myths",
+   "blurb_en": "Japan's favourite folk tale: a boy born from a peach sets out to beat the demons.",
+   "blurb_zh": "日本最有名的民间故事：从桃子里出生的男孩去鬼岛打鬼。",
+   "characters": 865,
+   "chapter_count": 1,
+   "within_hsk6": 0.955,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "niulang-zhinu",
+   "title": "牛郎织女",
+   "title_en": "The Cowherd and the Weaver Girl",
+   "genre": "myths",
+   "blurb_en": "A poor cowherd, a weaver from heaven, and a bridge of birds that appears once a year.",
+   "blurb_zh": "穷苦的放牛郎爱上天上的织女，每年只能在鹊桥上见一次面。",
+   "characters": 1454,
+   "chapter_count": 2,
+   "within_hsk6": 0.942,
+   "chapter_titles": [
+    "第一章 会说话的老牛",
+    "第二章 一条银河，一座鹊桥"
+   ]
+  },
+  {
+   "id": "qinshihuang",
+   "title": "秦始皇：第一个皇帝",
+   "title_en": "The First Emperor",
+   "genre": "history",
+   "blurb_en": "A hostage boy becomes king at 13, unites China, and then tries to live forever.",
+   "blurb_zh": "做过人质的男孩，十三岁当上国王，统一了中国，又想长生不老。",
+   "characters": 2210,
+   "chapter_count": 3,
+   "within_hsk6": 0.913,
+   "chapter_titles": [
+    "第一章 人质的儿子",
+    "第二章 荆轲的匕首",
+    "第三章 寻找仙药"
+   ]
+  },
+  {
+   "id": "quyuan-duanwu",
+   "title": "屈原与端午节",
+   "title_en": "Qu Yuan and the Dragon Boat Festival",
+   "genre": "history",
+   "blurb_en": "Why do people eat zongzi and race dragon boats? Meet the poet nobody listened to.",
+   "blurb_zh": "为什么端午节要吃粽子、划龙舟？认识一位没人听他劝的诗人。",
+   "characters": 815,
+   "chapter_count": 1,
+   "within_hsk6": 0.954,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "shanhaijing-lands",
+   "title": "山海经里的奇怪国家",
+   "title_en": "Strange Lands in the Classic of Mountains and Seas",
+   "genre": "myths",
+   "blurb_en": "Giants, polite gentlemen with pet tigers, and people who never die: a 2,000-year-old travel guide.",
+   "blurb_zh": "巨人、带着老虎的君子、永远不死的人：一本两千多年前的“旅游指南”。",
+   "characters": 795,
+   "chapter_count": 1,
+   "within_hsk6": 0.958,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "xuanzang",
+   "title": "玄奘西行",
+   "title_en": "The Monk Who Walked West",
+   "genre": "history",
+   "blurb_en": "The real monk behind Journey to the West: no monkey king, just a desert, a horse and 17 years.",
+   "blurb_zh": "《西游记》里唐僧的原型：没有孙悟空，只有沙漠、一匹老马和十七年。",
+   "characters": 2187,
+   "chapter_count": 3,
+   "within_hsk6": 0.945,
+   "chapter_titles": [
+    "第一章 偷偷出关",
+    "第二章 沙漠里的五天",
+    "第三章 十七年，五万里"
+   ]
+  },
+  {
+   "id": "zhangju-fire",
+   "title": "张县令烧猪破案",
+   "title_en": "The Magistrate Who Burned Two Pigs",
+   "genre": "mystery",
+   "blurb_en": "A husband dies in a house fire. Accident or murder? A clever magistrate finds the clue nobody else saw.",
+   "blurb_zh": "丈夫死在一场大火里，是意外还是谋杀？县令发现了一个别人都没注意到的线索。",
+   "characters": 1550,
+   "chapter_count": 2,
+   "within_hsk6": 0.95,
+   "chapter_titles": [
+    "第一章 一场深夜的大火",
+    "第二章 两头猪的实验"
+   ]
+  }
+ ]
+}

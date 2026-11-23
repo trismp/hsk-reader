@@ -24,10 +24,17 @@ hsk-reader/
 ```
 
 ## Decisions
-- HSK **3.0** (levels 1, 2, 3, 4, 5, 6, 7–9). Reader level: HSK 5+.
-- Reading aids: tap a word for pinyin, meaning and level; pinyin toggle; saved words.
-- Story sources: current news, general knowledge, Chinese history,
-  Chinese/East Asian stories, folklore and myths.
+- **Audience (since 2026-11-23):** people who have finished HSK 5, are preparing for HSK 6
+  and work in China. Goal: ease them into reading Chinese *often*, with fun stories,
+  because real novels are still too hard. No level picker; words beyond the HSK list are fine.
+- Stories: every chapter (or one-shot) has **700+ Chinese characters** (~700–1,000 per chapter),
+  a coherent plot (no logic holes), an English + Chinese blurb.
+- Genres (Discover tiles): 神话传说 Myths & Legends · 历史风云 History · 悬疑 Mystery ·
+  职场人生 Life & Work in China · 言情 Romance (soon) · 时事财经 News & Markets (soon).
+- Tabs: 发现 Discover → genre → story list · 书架 Library (saved stories + progress) ·
+  生词本 My Words (saved words with their sentence → flashcards + quiz).
+- Reading aids: tap a word for pinyin, meaning and level; pinyin for new words (above HSK 5); saved words.
+- Installable on phones (PWA: manifest + service worker; works offline for stories already opened).
 - Website first, shared publicly; Android later (PWA first, then maybe Expo).
 - Cost model: a pre-generated library (readers are free) plus an optional
   "create your own" that uses each visitor's own Claude account or API key.
@@ -77,12 +84,24 @@ free APIs rate-limit (429), so honour Retry-After; char-level trad→simp needs 
 - [x] 4.5 Saved words (browser storage) + CSV export for Anki
 - [x] 4.6 Starter library: 10 stories (HSK 3–6, all categories) in `content/stories/`,
       grounded in search results and checked: every one ≥ 99% within level
-- [ ] 4.7 Publish on GitHub Pages → **shareable link**
+- [x] 4.7 Published on GitHub Pages → **https://trismp.github.io/hsk-reader/**
+      (repo github.com/trismp/hsk-reader; `.github/workflows/pages.yml` redeploys `site/` on every push)
 
 Lessons: first drafts were ALL too hard (that's the loop the harness will automate);
 graded readers exclude names and pre-teach key words; neutral-tone readings are usually
 the everyday ones (东西 dōng xi "thing"); boosting a 1-char word in jieba splits longer words.
 Preview locally: `python -m http.server 8321 --directory site` → http://127.0.0.1:8321
+
+## Phase 4b: Product redesign (free). *Product thinking*
+- [x] Repositioned for HSK 5 → 6 readers working in China; dropped level filters
+- [x] Story format with genres, chapters (`## ` headings), EN + ZH blurbs, own key-word glosses
+- [x] 12 stories: 10 old ones rewritten (plots fixed, 700+ chars/chapter, facts re-checked; old
+      versions in `content/archive/`) + first Mystery (张县令烧猪破案) and Life & Work (安娜的第一周)
+- [x] Tabs: Discover (genre tiles → stories) · Library (save stories, progress) · My Words
+- [x] Flashcards (tiny spaced repetition) and multiple-choice quiz from saved words
+- [x] Installable on phones: `manifest.webmanifest`, `sw.js`, icons from `tools/make_icons.py`
+- [ ] Romance + News & Markets genres (News can come from the Phase 6 pipeline)
+- [ ] Publish (push to GitHub → Pages redeploys)
 
 ## Phase 5: Your own harness (~$5 API credit). *Harness*
 - [ ] 5.1 API key in `.env`, spending limit set in Console

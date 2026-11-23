@@ -4,10 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>HSK Reader</title>
-  <meta name="description" content="Free graded Chinese stories (HSK 3.0): myths, history and culture, with tap-to-translate and pinyin.">
+  <meta name="description" content="Fun Chinese stories for HSK 5–6 readers: myths, history, mystery and life in China, with tap-to-translate, pinyin, flashcards and quizzes.">
   <meta name="theme-color" content="#f7f3ec" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1b1916" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23b4432f'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='white' font-family='serif'>读</text></svg>">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="HSK Reader">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,31 +20,38 @@
 <body>
   <header class="topbar">
     <a href="#/" class="brand"><span class="brand-mark">读</span> HSK Reader</a>
-    <nav class="topnav">
-      <a href="#/" data-nav="library">Library</a>
-      <a href="#/words" data-nav="words">My words <span class="count" id="saved-count"></span></a>
-      <button class="icon-btn" id="settings-btn" aria-label="Reading settings" aria-expanded="false">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 6h11v2H3zm0 10h7v2H3zm14-10h4v2h-4zm-4-2h2v6h-2zm-2 12h10v2H11zm-4-2h2v6H7z"/></svg>
-      </button>
+    <nav class="tabs" aria-label="Main">
+      <a href="#/" data-tab="discover"><span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm4.2 3.8-6 2.4-2.4 6 6-2.4 2.4-6zM12 10.8a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+      </span><span class="tab-label"><span lang="zh-CN">发现</span> Discover</span></a>
+      <a href="#/library" data-tab="library"><span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 3h4v18H4zm6 0h4v18h-4zm5.4 1.2 3.9-1 4.5 17.4-3.9 1z"/></svg>
+      </span><span class="tab-label"><span lang="zh-CN">书架</span> Library</span></a>
+      <a href="#/words" data-tab="words"><span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h12V5zm2 3h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
+      </span><span class="tab-label"><span lang="zh-CN">生词本</span> My Words</span><span class="count" id="saved-count"></span></a>
     </nav>
+    <button class="icon-btn" id="settings-btn" aria-label="Reading settings" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 6h11v2H3zm0 10h7v2H3zm14-10h4v2h-4zm-4-2h2v6h-2zm-2 12h10v2H11zm-4-2h2v6H7z"/></svg>
+    </button>
   </header>
 
   <div class="settings" id="settings" hidden>
-    <label>My level
-      <select id="my-level">
-        <option value="1">HSK 1</option><option value="2">HSK 2</option><option value="3">HSK 3</option>
-        <option value="4">HSK 4</option><option value="5">HSK 5</option><option value="6">HSK 6</option>
-        <option value="7">HSK 7–9</option>
-      </select>
-    </label>
     <label>Pinyin
       <select id="pinyin-mode">
         <option value="off">Off</option>
-        <option value="hard">Only words above my level</option>
+        <option value="hard">Only new words (above HSK 5)</option>
         <option value="all">All words</option>
       </select>
     </label>
-    <label class="check"><input type="checkbox" id="mark-hard"> Underline words above my level</label>
+    <label>Text size
+      <select id="text-size">
+        <option value="s">Small</option>
+        <option value="m">Medium</option>
+        <option value="l">Large</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="mark-hard"> Underline new words</label>
   </div>
 
   <main id="app" tabindex="-1"></main>
@@ -48,7 +59,7 @@
   <div class="popup" id="popup" role="dialog" aria-modal="false" aria-labelledby="popup-word" hidden>
     <button class="popup-close" id="popup-close" aria-label="Close">×</button>
     <div class="popup-head">
-      <span class="popup-word" id="popup-word"></span>
+      <span class="popup-word" id="popup-word" lang="zh-CN"></span>
       <span class="badge" id="popup-level"></span>
     </div>
     <div class="popup-pinyin" id="popup-pinyin"></div>
@@ -57,10 +68,10 @@
   </div>
 
   <footer class="footer">
-    <p>Stories are retold from <a href="https://zh.wikipedia.org" rel="noopener">Wikipedia</a> (CC BY-SA 4.0) and
-      <a href="https://zh.wikisource.org" rel="noopener">Wikisource</a> (public domain); sources are linked under each story.</p>
-    <p>Dictionary: <a href="https://www.mdbg.net/chinese/dictionary?page=cc-cedict" rel="noopener">CC-CEDICT</a> (CC BY-SA 4.0).
-      HSK word lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
+    <p>Myth and history stories are retold from <a href="https://zh.wikipedia.org" rel="noopener">Wikipedia</a> (CC BY-SA 4.0) and
+      <a href="https://zh.wikisource.org" rel="noopener">Wikisource</a>; sources are linked under each story.
+      Dictionary: <a href="https://www.mdbg.net/chinese/dictionary?page=cc-cedict" rel="noopener">CC-CEDICT</a> (CC BY-SA 4.0).
+      HSK lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
   </footer>
 
   <script src="app.js"></script>
