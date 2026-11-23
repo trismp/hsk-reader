@@ -314,15 +314,15 @@
       </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
-      <a class="back" href="${genre ? `#/genre/${esc(genre.id)}` : "#/"}">← ${esc(genre ? genre.en : "Discover")}</a>
-      <header class="story-head">
-        <div class="title-row">
-          <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
-          <div class="title-actions">
-            <button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>
-            ${saveStoryBtn(id)}
-          </div>
+      <div class="read-bar">
+        <a class="back" href="${genre ? `#/genre/${esc(genre.id)}` : "#/"}">← ${esc(genre ? genre.en : "Discover")}</a>
+        <div class="title-actions">
+          <button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>
+          ${saveStoryBtn(id)}
         </div>
+      </div>
+      <header class="story-head">
+        <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
       </header>
       ${readSettingsPanel()}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
