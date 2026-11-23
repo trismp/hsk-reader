@@ -1,6 +1,6 @@
 {
-  "name": "HSK Reader",
-  "short_name": "HSK Reader",
+  "name": "字游 Ziyou: Chinese stories",
+  "short_name": "字游 Ziyou",
   "description": "Fun Chinese stories for HSK 5–6 readers, with tap-to-translate, flashcards and quizzes.",
   "start_url": "./",
   "scope": "./",

@@ -1,4 +1,4 @@
-"""Draw the app icons (the red 读 tile) for phones' home screens.
+"""Draw the app icons (the 字 tile) for phones' home screens.
 
 Run once:  python tools/make_icons.py   -> site/icons/*.png
 Needs Pillow and a Chinese font (Windows: Microsoft YaHei / Noto Serif SC).
@@ -36,7 +36,7 @@ def draw(size: int, *, maskable: bool) -> Image.Image:
     else:
         d.rounded_rectangle([0, 0, size - 1, size - 1], radius=int(size * 0.22), fill=RED)
         glyph = int(size * 0.62)
-    d.text((size / 2, size / 2), "读", font=font(glyph), fill="white", anchor="mm")
+    d.text((size / 2, size / 2), "字", font=font(glyph), fill="white", anchor="mm")
     return img
 
 

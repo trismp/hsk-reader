@@ -1,4 +1,4 @@
-/* HSK Reader: a tiny static app. No framework, no server.
+/* 字游 Ziyou (formerly HSK Reader): a tiny static app. No framework, no server.
  *
  * Data comes pre-processed by tools/build_site.py:
  *   data/library.json         { genres: [...], stories: [...] }
@@ -126,10 +126,9 @@
             ${showGenre && genre ? `<span class="badge cat">${esc(genre.en)}</span>` : ""}
             ${status ? `<span class="meta status">${status}</span>` : ""}
           </div>
-          <h2 lang="zh-CN">${esc(s.title)}</h2>
-          <p class="title-en">${esc(s.title_en)}</p>
-          <p class="blurb">${esc(s.blurb_en)}</p>
+          <h2><span class="zh-title" lang="zh-CN">${esc(s.title)}</span><span class="title-en">${esc(s.title_en)}</span></h2>
           <p class="blurb zh" lang="zh-CN">${esc(s.blurb_zh)}</p>
+          <p class="blurb">${esc(s.blurb_en)}</p>
         </a>
         ${saveStoryBtn(s.id)}
       </article>`;
@@ -142,8 +141,9 @@
     const count = (g) => stories.filter((s) => s.genre === g.id).length;
     show(`
       <section class="hero">
-        <h1>What do you feel like reading?</h1>
-        <p>Short stories and serials for readers who've finished HSK 5. Tap any word for its meaning.</p>
+        <h1><span lang="zh-CN">再读一章</span> · Just one more chapter</h1>
+        <p>Short stories and serials for advanced Chinese learners: myths, history, mysteries and
+          everyday life in China, in chapters you can finish on your commute. Tap any word for its meaning.</p>
       </section>
       <div class="tiles">
         ${genres.map((g) => {
@@ -271,7 +271,7 @@
       <section class="sources">
         <strong>Sources</strong> (retold for learners):<br>
         ${s.sources.map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(decodeURIComponent(u))}</a>`).join("<br>")}
-      </section>` : `<section class="sources">An original story written for HSK Reader.</section>`;
+      </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
       <a class="back" href="${genre ? `#/genre/${esc(genre.id)}` : "#/"}">← ${esc(genre ? genre.en : "Discover")}</a>
@@ -475,7 +475,7 @@
       const q = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
       const csv = entries.map(([w, e]) => [w, e.pinyin, e.meaning, e.sentence].map(q).join(",")).join("\n");
       const url = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
-      const a = Object.assign(document.createElement("a"), { href: url, download: "hsk-reader-words.csv" });
+      const a = Object.assign(document.createElement("a"), { href: url, download: "ziyou-words.csv" });
       document.body.append(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
