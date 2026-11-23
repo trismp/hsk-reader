@@ -91,12 +91,14 @@ def parse_story(path: Path) -> dict:
         meta[field] = [x.strip() for x in re.split(r"[,，、]", meta.get(field, "")) if x.strip()]
     # A key word may carry its own gloss when the dictionary has none or a poor one:
     #   烽火台|fēng huǒ tái|beacon tower
+    # Names can too, when the dictionary would split them up:  来酷|lái kù|Lecoo, a Lenovo brand
     meta["glosses"] = {}
-    for i, kw in enumerate(meta["keywords"]):
-        if "|" in kw:
-            word, pinyin, meaning = (kw.split("|") + ["", ""])[:3]
-            meta["keywords"][i] = word.strip()
-            meta["glosses"][word.strip()] = (pinyin.strip(), meaning.strip())
+    for field in ("keywords", "names"):
+        for i, kw in enumerate(meta[field]):
+            if "|" in kw:
+                word, pinyin, meaning = (kw.split("|") + ["", ""])[:3]
+                meta[field][i] = word.strip()
+                meta["glosses"][word.strip()] = (pinyin.strip(), meaning.strip())
 
     # Split the body into chapters at "## " headings (none = a one-shot).
     chapters, current = [], {"title": "", "paragraphs": []}
@@ -142,7 +144,7 @@ def keyword_gloss(word: str, keywords: dict) -> tuple[str, list[str]]:
     return info["pinyin"] or "", clean_meanings(info["meanings"])
 
 
-def token(word: str, target: int, names: set, keywords: dict) -> list | str:
+def token(word: str, target: int, names: dict, keywords: dict) -> list | str:
     """['嫦娥', 'Cháng é', 0, "Chang'e …"]  or plain '，' for punctuation.
 
     Level codes: 1-7 HSK level (7 = 7-9), 10 beyond HSK, 0 name, -1 key word.
@@ -152,6 +154,9 @@ def token(word: str, target: int, names: set, keywords: dict) -> list | str:
     if word in keywords:
         pinyin, meanings = keyword_gloss(word, keywords)
         return [word, pinyin, KEYWORD, "; ".join(meanings)]
+    if names.get(word):
+        pinyin, meaning = names[word]
+        return [word, pinyin, NAME, meaning]
     level, kind = hsk.classify(word)
     if word in names or kind == "name" or (level and level > target and hsk._is_name(word)):
         level = NAME
@@ -190,7 +195,7 @@ def build() -> None:
     stories = []
     for path in sorted(STORIES.glob("*.md")):
         s = parse_story(path)
-        names = set(s["names"])
+        names = {n: s["glosses"].get(n) for n in s["names"]}  # name -> own gloss or None
         keywords = {k: s["glosses"].get(k) for k in s["keywords"]}  # word -> own gloss or None
         full_text = "\n".join(p for ch in s["chapters"] for p in ch["paragraphs"])
         report = hsk.check_text(full_text, CHECK_LEVEL, names=s["names"], keywords=s["keywords"])
