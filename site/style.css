@@ -13,8 +13,8 @@
   --hard: #d8506b;
   --shadow: 0 12px 32px rgba(70, 50, 170, .14);
   --radius: 18px;
-  --read-font: "Noto Serif SC", "Songti SC", "SimSun", serif;
-  --ui-font: "Nunito", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --read-font: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;   /* fonts already on the phone/PC: no download, works in China */
+  --ui-font: ui-rounded, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -327,3 +327,33 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 :root[data-theme="dark"] .g-work { --tint: #6fd6ad; }
 :root[data-theme="dark"] .g-romance { --tint: #ff93b8; }
 :root[data-theme="dark"] .g-news { --tint: #8fd0f0; }
+
+/* Discover: News & Markets on top */
+.section-title { margin: 26px 0 0; font-size: 18px; }
+.tiles.news-only { grid-template-columns: 1fr; }
+.tile.wide { min-height: 120px; }
+.tile.wide .tile-mark { font-size: 130px; right: 6px; bottom: -30px; }
+.news {
+  margin-top: 18px; padding: 16px 16px 6px; border-radius: 18px;
+  background: color-mix(in srgb, var(--tint) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--tint) 25%, var(--line));
+}
+.news-head { display: flex; align-items: center; gap: 10px; }
+.news-mark {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; flex: none;
+  font: 700 20px/1 var(--read-font); color: var(--surface); background: var(--tint);
+}
+.news-head h2 { margin: 0; flex: 1; display: grid; line-height: 1.2; }
+.news-head h2 .zh { font: 700 19px/1.25 var(--read-font); }
+.news-head h2 .en { font-size: 13px; font-weight: 700; color: var(--tint); }
+.news-all { color: var(--tint); font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.news-all:hover { text-decoration: underline; }
+.news-list { list-style: none; margin: 10px 0 0; padding: 0; }
+.news-list li + li { border-top: 1px solid color-mix(in srgb, var(--tint) 20%, var(--line)); }
+.news-list a { display: grid; gap: 3px; padding: 12px 2px; color: var(--ink); text-decoration: none; }
+.news-list a:hover .zh-title { color: var(--tint); }
+.news-date { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--tint); }
+.news-title { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; }
+.news-title .zh-title { font: 700 20px/1.4 var(--read-font); }
+.news-title .title-en { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+.news-blurb { font: 16px/1.6 var(--read-font); color: var(--ink-soft); }

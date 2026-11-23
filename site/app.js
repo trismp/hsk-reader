@@ -122,7 +122,7 @@
       <article class="card">
         <a class="card-link" href="#/read/${encodeURIComponent(s.id)}/${start}">
           <div class="card-top">
-            <span class="badge">${lengthLabel(s)}</span>
+            ${s.date ? `<span class="badge">${esc(newsDate(s.date))}</span>` : `<span class="badge">${lengthLabel(s)}</span>`}
             <span class="meta">${fmt(s.characters)} 字</span>
             ${showGenre && genre ? `<span class="badge cat">${esc(genre.en)}</span>` : ""}
             ${status ? `<span class="meta status">${status}</span>` : ""}
@@ -135,31 +135,61 @@
       </article>`;
   }
 
-  // ---------- Discover: genre tiles ----------
+  // ---------- Discover: news on top, then genre tiles ----------
+  const newsDate = (d) => {
+    const t = d ? new Date(d + "T00:00:00") : null;
+    return t && !isNaN(t) ? t.toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "";
+  };
+  const byDate = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
+
+  function genreTile(g, n, extra = "") {
+    const soon = g.soon || n === 0;
+    const inner = `
+      <span class="tile-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
+      <span class="tile-zh" lang="zh-CN">${esc(g.zh)}</span>
+      <span class="tile-en">${esc(g.en)}</span>
+      <span class="tile-tag">${esc(g.tagline)}</span>
+      <span class="tile-count">${soon ? "Coming soon" : `${n} ${n === 1 ? "story" : "stories"}`}</span>`;
+    return soon
+      ? `<div class="tile soon g-${esc(g.id)} ${extra}" aria-disabled="true">${inner}</div>`
+      : `<a class="tile g-${esc(g.id)} ${extra}" href="#/genre/${esc(g.id)}">${inner}</a>`;
+  }
+
+  function newsSection(g, items) {
+    if (!items.length) return `<div class="tiles news-only">${genreTile(g, 0, "wide")}</div>`;
+    return `
+      <section class="news g-news" aria-label="${esc(g.en)}">
+        <header class="news-head">
+          <span class="news-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
+          <h2><span class="zh" lang="zh-CN">${esc(g.zh)}</span><span class="en">${esc(g.en)}</span></h2>
+          <a class="news-all" href="#/genre/${esc(g.id)}">See all →</a>
+        </header>
+        <ol class="news-list">
+          ${items.slice(0, 3).map((s) => `
+            <li><a href="#/read/${encodeURIComponent(s.id)}/1">
+              <span class="news-date">${esc(newsDate(s.date))}</span>
+              <span class="news-title"><span class="zh-title" lang="zh-CN">${esc(s.title)}</span>
+                <span class="title-en">${esc(s.title_en)}</span></span>
+              <span class="news-blurb" lang="zh-CN">${esc(s.blurb_zh)}</span>
+            </a></li>`).join("")}
+        </ol>
+      </section>`;
+  }
+
   async function renderDiscover() {
     setTab("discover");
     const { genres, stories } = await getLibrary();
     const count = (g) => stories.filter((s) => s.genre === g.id).length;
+    const newsGenre = genres.find((g) => g.id === "news");
+    const news = stories.filter((s) => s.genre === "news").sort(byDate);
     show(`
       <section class="hero">
-        <h1><span lang="zh-CN">再读一章</span> · Just one more chapter</h1>
-        <p>Short stories and serials for advanced Chinese learners: myths, history, mysteries and
-          everyday life. Tap any word for its meaning.</p>
+        <h1>What do you feel like reading?</h1>
       </section>
+      ${newsGenre ? newsSection(newsGenre, news) : ""}
+      <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
       <div class="tiles">
-        ${genres.map((g) => {
-          const n = count(g);
-          const soon = g.soon || n === 0;
-          const inner = `
-            <span class="tile-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
-            <span class="tile-zh" lang="zh-CN">${esc(g.zh)}</span>
-            <span class="tile-en">${esc(g.en)}</span>
-            <span class="tile-tag">${esc(g.tagline)}</span>
-            <span class="tile-count">${soon ? "Coming soon" : `${n} ${n === 1 ? "story" : "stories"}`}</span>`;
-          return soon
-            ? `<div class="tile soon g-${esc(g.id)}" aria-disabled="true">${inner}</div>`
-            : `<a class="tile g-${esc(g.id)}" href="#/genre/${esc(g.id)}">${inner}</a>`;
-        }).join("")}
+        ${genres.filter((g) => g.id !== "news").map((g) => genreTile(g, count(g))).join("")}
       </div>`);
   }
 
@@ -170,7 +200,7 @@
     const g = genres.find((x) => x.id === id);
     if (!g) return show(`<a class="back" href="#/">← All genres</a><p class="empty">Genre not found.</p>`);
     const list = stories.filter((s) => s.genre === id)
-      .sort((a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
+      .sort(id === "news" ? byDate : (a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
     show(`
       <a class="back" href="#/">← All genres</a>
       <header class="genre-head g-${esc(g.id)}">
