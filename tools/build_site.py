@@ -205,7 +205,7 @@ def build() -> None:
                                for p in ch["paragraphs"]],
             })
 
-        story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date")}
+        story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date", "source")}
         story["sources"] = s["sources"]
         story["title_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s["title"])]
         story["keywords"] = [

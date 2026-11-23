@@ -136,9 +136,10 @@
   }
 
   // ---------- Discover: news on top, then genre tiles ----------
-  const newsDate = (d) => {
+  const newsDate = (d, withYear = false) => {
     const t = d ? new Date(d + "T00:00:00") : null;
-    return t && !isNaN(t) ? t.toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "";
+    return t && !isNaN(t)
+      ? t.toLocaleDateString("en-GB", { day: "numeric", month: "short", ...(withYear && { year: "numeric" }) }) : "";
   };
   const byDate = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
 
@@ -155,24 +156,32 @@
       : `<a class="tile g-${esc(g.id)} ${extra}" href="#/genre/${esc(g.id)}">${inner}</a>`;
   }
 
+  // News source: its own field, or the "（IT之家）" an older digest put at the end of its blurb.
+  function newsParts(s) {
+    const m = String(s.blurb_zh || "").match(/^(.*?)（([^（）]+)）\s*$/);
+    return { source: s.source || (m ? m[2] : ""), blurb: m && !s.source ? m[1] : s.blurb_zh || "" };
+  }
+
+  function newsItem(s) {
+    const { source, blurb } = newsParts(s);
+    return `
+      <a class="news-item" href="#/read/${encodeURIComponent(s.id)}/1">
+        <span class="news-date">${esc(newsDate(s.date, true))}</span>
+        ${source ? `<span class="news-source" lang="zh-CN">${esc(source)}</span>` : ""}
+        <span class="news-headline" lang="zh-CN">${esc(s.title)}</span>
+        <span class="news-blurb" lang="zh-CN">${esc(blurb)}</span>
+      </a>`;
+  }
+
   function newsSection(g, items) {
     if (!items.length) return `<div class="tiles news-only">${genreTile(g, 0, "wide")}</div>`;
     return `
       <section class="news g-news" aria-label="${esc(g.en)}">
-        <header class="news-head">
-          <span class="news-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
-          <h2><span class="zh" lang="zh-CN">${esc(g.zh)}</span><span class="en">${esc(g.en)}</span></h2>
+        <div class="section-row">
+          <h2 class="section-title"><span lang="zh-CN">${esc(g.zh)}</span> · ${esc(g.en)}</h2>
           <a class="news-all" href="#/genre/${esc(g.id)}">See all →</a>
-        </header>
-        <ol class="news-list">
-          ${items.slice(0, 3).map((s) => `
-            <li><a href="#/read/${encodeURIComponent(s.id)}/1">
-              <span class="news-date">${esc(newsDate(s.date))}</span>
-              <span class="news-title"><span class="zh-title" lang="zh-CN">${esc(s.title)}</span>
-                <span class="title-en">${esc(s.title_en)}</span></span>
-              <span class="news-blurb" lang="zh-CN">${esc(s.blurb_zh)}</span>
-            </a></li>`).join("")}
-        </ol>
+        </div>
+        <div class="news-list">${items.slice(0, 3).map(newsItem).join("")}</div>
       </section>`;
   }
 
