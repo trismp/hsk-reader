@@ -66,7 +66,8 @@
   const cache = new Map();
   async function getJSON(url) {
     if (!cache.has(url)) {
-      cache.set(url, fetch(url).then((r) => {
+      // "no-cache" = always ask the server if there's a newer version (new stories show up at once)
+      cache.set(url, fetch(url, { cache: "no-cache" }).then((r) => {
         if (!r.ok) throw new Error(`${r.status} ${url}`);
         return r.json();
       }).catch((e) => { cache.delete(url); throw e; }));
@@ -143,7 +144,7 @@
       <section class="hero">
         <h1><span lang="zh-CN">再读一章</span> · Just one more chapter</h1>
         <p>Short stories and serials for advanced Chinese learners: myths, history, mysteries and
-          everyday life in China, in chapters you can finish on your commute. Tap any word for its meaning.</p>
+          everyday life. Tap any word for its meaning.</p>
       </section>
       <div class="tiles">
         ${genres.map((g) => {
@@ -276,10 +277,6 @@
     show(`
       <a class="back" href="${genre ? `#/genre/${esc(genre.id)}` : "#/"}">← ${esc(genre ? genre.en : "Discover")}</a>
       <header class="story-head">
-        <div class="card-top">
-          <span class="badge">${lengthLabel(s)}</span>
-          <span class="meta">${fmt(s.characters)} 字${total > 1 ? ` · this chapter ${fmt(ch.characters)} 字` : ""}</span>
-        </div>
         <div class="title-row">
           <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
           <div class="title-actions">
@@ -287,7 +284,6 @@
             ${saveStoryBtn(id)}
           </div>
         </div>
-        <p class="title-en">${esc(s.title_en)}</p>
       </header>
       ${readSettingsPanel()}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}

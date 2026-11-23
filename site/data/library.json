@@ -62,6 +62,20 @@
    ]
   },
   {
+   "id": "baozheng-ox",
+   "title": "包公与牛舌头",
+   "title_en": "Judge Bao and the Ox's Tongue",
+   "genre": "mystery",
+   "blurb_en": "Someone cut out a farmer's ox's tongue. Judge Bao catches the culprit without asking a single question.",
+   "blurb_zh": "有人割了农民的牛舌头。包公一个问题都没问，就让坏人自己跳了出来。",
+   "characters": 865,
+   "chapter_count": 1,
+   "within_hsk6": 0.94,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
    "id": "change-moon",
    "title": "嫦娥奔月",
    "title_en": "Chang'e Flies to the Moon",
@@ -189,6 +203,35 @@
    "within_hsk6": 0.958,
    "chapter_titles": [
     ""
+   ]
+  },
+  {
+   "id": "sickles-flies",
+   "title": "苍蝇找到的凶手",
+   "title_en": "The Flies That Found the Killer",
+   "genre": "mystery",
+   "blurb_en": "A man is murdered on a country road. Seventy villagers, seventy sickles, and one clue that only flies can see.",
+   "blurb_zh": "一个人死在乡间小路上。七十个村民，七十把镰刀，还有一个只有苍蝇看得见的线索。",
+   "characters": 1070,
+   "chapter_count": 1,
+   "within_hsk6": 0.939,
+   "chapter_titles": [
+    ""
+   ]
+  },
+  {
+   "id": "two-am-lights",
+   "title": "半夜两点的灯",
+   "title_en": "The Lights at 2 a.m.",
+   "genre": "mystery",
+   "blurb_en": "Every night at 2 a.m., the lights come on in an empty office. Is the 13th floor haunted? Anna investigates.",
+   "blurb_zh": "每天半夜两点，空无一人的办公室总会亮起灯。十三楼闹鬼了吗？安娜决定查个清楚。",
+   "characters": 1566,
+   "chapter_count": 2,
+   "within_hsk6": 0.962,
+   "chapter_titles": [
+    "第一章 十三楼闹鬼了？",
+    "第二章 “鬼”的真面目"
    ]
   },
   {
