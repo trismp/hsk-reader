@@ -23,6 +23,19 @@ FEEDS = {
     "雷峰网": "https://www.leiphone.com/feed",                      # AI, robots, cars
 }
 
+# How each outlet's name is shown on the website (pinyin + English), used in the digest's credit line.
+SOURCE_GLOSSES = {
+    "IT之家": {"name": "IT之家", "pinyin": "IT zhī jiā", "meaning": "IT Home (a Chinese tech news site)"},
+    "界面新闻": {"name": "界面新闻", "pinyin": "jiè miàn xīn wén", "meaning": "Jiemian News (a Chinese business news site)"},
+    "钛媒体": {"name": "钛媒体", "pinyin": "tài méi tǐ", "meaning": "TMTPost (a Chinese tech media site)"},
+    "量子位": {"name": "量子位", "pinyin": "liàng zǐ wèi", "meaning": "QbitAI (a Chinese AI news site)"},
+    "InfoQ": {"name": "InfoQ", "pinyin": "", "meaning": "InfoQ (a tech news site for developers)"},
+    "人人都是产品经理": {"name": "人人都是产品经理", "pinyin": "rén rén dōu shì chǎn pǐn jīng lǐ",
+                    "meaning": "Woshipm (a Chinese product-management community)"},
+    "极客公园": {"name": "极客公园", "pinyin": "jí kè gōng yuán", "meaning": "GeekPark (a Chinese tech media site)"},
+    "雷峰网": {"name": "雷峰网", "pinyin": "léi fēng wǎng", "meaning": "Leiphone (a Chinese AI and tech news site)"},
+}
+
 # What we care about. Each word found in a title scores 2, in the summary 1.
 # Edit freely: this list decides which news Claude gets to choose from.
 COMPANIES = ["腾讯", "阿里", "蚂蚁", "小米", "华为", "字节", "抖音", "百度", "京东", "美团", "拼多多",

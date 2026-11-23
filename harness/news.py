@@ -57,7 +57,12 @@ SAVE_DIGEST = {
             "source": {"type": "string", "description": "outlet name, e.g. IT之家"},
             "source_url": {"type": "string", "description": "the original article URL"},
             "published": {"type": "string", "description": "date from the headline list"},
-            "companies": {"type": "array", "items": {"type": "string"}, "description": "companies and product names"},
+            "companies": {"type": "array", "description": "every company, brand and product name in the digest, "
+                          "each with pinyin and a short English gloss so learners see the name, not its characters",
+                          "items": {"type": "object", "required": ["name", "pinyin", "meaning"], "properties": {
+                              "name": {"type": "string", "description": "exactly as written in the digest, e.g. 来酷"},
+                              "pinyin": {"type": "string", "description": "with tone marks, e.g. lái kù (empty for Latin names)"},
+                              "meaning": {"type": "string", "description": "short English gloss, e.g. Lecoo (a Lenovo brand)"}}}},
             "topics": {"type": "array", "items": {"type": "string"}, "description": "1-3 of: AI, robots, phones, "
                        "cars, chips, funding, product, overseas, other"},
             "summary_en": {"type": "string", "description": "one-sentence English summary"},
@@ -96,6 +101,28 @@ def prune_old_news(keep_days: int) -> None:
             print(f"Removed old digest {path.name}")
 
 
+def company_names(d: dict) -> list[str]:
+    """Company/brand names from save_digest (objects with name/pinyin/meaning; plain strings also accepted)."""
+    return [c["name"] if isinstance(c, dict) else str(c) for c in d.get("companies", [])]
+
+
+def glossed_names(d: dict) -> list[str]:
+    """Names for the story header as 'name|pinyin|meaning', so the site shows 'Lecoo (a Lenovo brand)'
+    instead of splitting 来酷 into 来 + 酷. The header list is split on commas, so commas and bars
+    inside a gloss are replaced."""
+    clean = lambda v: re.sub(r"\s*[,，、|]+\s*", "; ", str(v or "")).strip(" ;")
+    entries = {}
+    for c in d.get("companies", []) + [news_feeds.SOURCE_GLOSSES.get(d["source"], d["source"])]:
+        if isinstance(c, dict):
+            c = {"name": c.get("name", ""), "pinyin": c.get("pinyin", ""), "meaning": c.get("meaning", "")}
+        else:
+            c = {"name": str(c), "pinyin": "", "meaning": ""}
+        name = clean(c["name"])
+        if name and name not in entries:
+            entries[name] = f"{name}|{clean(c['pinyin'])}|{clean(c['meaning'])}" if c["meaning"] else name
+    return list(entries.values())
+
+
 def publish_story(d: dict) -> Path:
     """Write one digest as a website story (genre: news) in content/stories/. Then
     tools/build_site.py adds pinyin, meanings and HSK levels like for any other story."""
@@ -106,7 +133,7 @@ def publish_story(d: dict) -> Path:
     header = {"title": d["title"], "title_en": d.get("title_en") or d["summary_en"], "genre": "news",
               "blurb_en": d["summary_en"], "blurb_zh": d.get("summary_zh") or d["title"], "source": d["source"],
               "date": str(d["published"])[:10], "sources": d["source_url"],
-              "names": ", ".join(dict.fromkeys(d.get("companies", []) + [d["source"]])),   # names are never "hard"
+              "names": ", ".join(glossed_names(d)),   # names are never "hard"; each carries its own gloss
               "keywords": ", ".join(d.get("keywords", []))}
     front = "\n".join(f"{k}: {one_line(v)}" for k, v in header.items())
     credit = f"来源：{d['source']}（本文为学习用摘要，原文链接见下方）"
@@ -135,7 +162,7 @@ async def handle_save(mcp, d: dict, args, run: dict) -> tuple[str, bool]:
     tries = run["retries"].setdefault(d["source_url"], 0)
     chars = len(re.findall(r"[一-鿿]", d["digest"]))   # count Chinese characters only
     text = d["digest"]
-    for word in d.get("companies", []) + d.get("keywords", []):   # names and taught words don't count
+    for word in company_names(d) + d.get("keywords", []):   # names and taught words don't count
         text = text.replace(word, "，")
     check = json.loads((await mcp.call_tool("check_hsk_level", {"text": text, "target_level": 6})).content[0].text)
     within = check["within_target"]
