@@ -57,7 +57,7 @@ GENRES = [
      "tagline": "Real people who changed China, told as stories"},
     {"id": "mystery", "zh": "悬疑", "en": "Mystery", "mark": "谜",
      "tagline": "Crimes, clues and a detective to follow"},
-    {"id": "work",    "zh": "职场人生", "en": "Life & Work in China", "mark": "职",
+    {"id": "work",    "zh": "职场人生", "en": "Life & Work", "mark": "职",
      "tagline": "Offices, colleagues and everyday city life"},
     {"id": "romance", "zh": "言情", "en": "Romance", "mark": "情",
      "tagline": "Love stories, light and serialised", "soon": True},
@@ -213,6 +213,7 @@ def build() -> None:
         story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date", "source")}
         story["sources"] = s["sources"]
         story["title_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s["title"])]
+        story["blurb_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s.get("blurb_zh", ""))]
         story["keywords"] = [
             dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
             for k in s["keywords"]
@@ -223,7 +224,10 @@ def build() -> None:
         (OUT / "stories" / f"{s['id']}.json").write_text(
             json.dumps({**story, "chapters": chapters}, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8")
-        stories.append({**{k: v for k, v in story.items() if k not in ("keywords", "sources", "title_tokens")},
+        # Cards only need pinyin, not meanings: [word, pinyin, level]
+        brief = lambda tokens: [t if isinstance(t, str) else t[:3] for t in tokens]
+        stories.append({**{k: v for k, v in story.items() if k not in ("keywords", "sources")},
+                        "title_tokens": brief(story["title_tokens"]), "blurb_tokens": brief(story["blurb_tokens"]),
                         "chapter_titles": [c["title"] for c in chapters]})
 
         short = [c["characters"] for c in chapters if c["characters"] < 700]
@@ -235,7 +239,7 @@ def build() -> None:
             print("      above HSK 6:", "、".join(hard[:40]))
 
     library = {"genres": GENRES, "stories": stories}
-    (OUT / "library.json").write_text(json.dumps(library, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT / "library.json").write_text(json.dumps(library, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"\n{len(stories)} stories -> {OUT.relative_to(ROOT)}")
 
 

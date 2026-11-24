@@ -89,9 +89,17 @@
   }
   function show(html) {
     app.innerHTML = html;
+    wireReadSettings();
     app.focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
+
+  // Round back arrow on the left, page actions (Aa, Save) on the right.
+  const backBtn = (href, label) => `<a class="back" href="${href}" aria-label="Back to ${esc(label)}" title="${esc(label)}">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m6-6-6 6 6 6"/></svg></a>`;
+  const pageBar = (href, label, actions = "") =>
+    `<div class="read-bar">${backBtn(href, label)}<div class="title-actions">${actions}</div></div>`;
+  const aaBtn = `<button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>`;
 
   const bookmarkIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h12v18l-6-4.5L6 21z"/></svg>`;
   const saveStoryBtn = (id) => {
@@ -113,6 +121,15 @@
     if (location.hash === "#/library") route();
   });
 
+  // Chinese text on a card: pinyin follows the Aa settings, but words are not tappable (the card is a link).
+  const showsPinyin = ([, pinyin, level]) => pinyin && (settings.pinyin === "all" ||
+    (settings.pinyin === "hard" && (level <= 0 || isNew(level))));
+  const cardText = (tokens, text) => (tokens && tokens.length
+    ? tokens.map((t) => (typeof t === "string" ? esc(t)
+      : showsPinyin(t) ? `<ruby>${rubyFor(t[0], t[1])}</ruby>` : esc(t[0]))).join("")
+    : esc(text));
+  const listClass = () => `size-${esc(settings.size)}${settings.pinyin !== "off" ? " pinyin" : ""}`;
+
   function storyCard(s, { showGenre = false, genres = [] } = {}) {
     const p = progress[s.id];
     const genre = genres.find((g) => g.id === s.genre);
@@ -127,9 +144,8 @@
             ${showGenre && genre ? `<span class="badge cat">${esc(genre.en)}</span>` : ""}
             ${status ? `<span class="meta status">${status}</span>` : ""}
           </div>
-          <h2><span class="zh-title" lang="zh-CN">${esc(s.title)}</span><span class="title-en">${esc(s.title_en)}</span></h2>
-          <p class="blurb zh" lang="zh-CN">${esc(s.blurb_zh)}</p>
-          <p class="blurb">${esc(s.blurb_en)}</p>
+          <h2><span class="zh-title" lang="zh-CN">${cardText(s.title_tokens, s.title)}</span><span class="title-en">${esc(s.title_en)}</span></h2>
+          <p class="blurb zh" lang="zh-CN">${cardText(s.blurb_tokens, s.blurb_zh)}</p>
         </a>
         ${saveStoryBtn(s.id)}
       </article>`;
@@ -168,8 +184,8 @@
       <a class="news-item" href="#/read/${encodeURIComponent(s.id)}/1">
         <span class="news-date">${esc(newsDate(s.date, true))}</span>
         ${source ? `<span class="news-source" lang="zh-CN">${esc(source)}</span>` : ""}
-        <span class="news-headline" lang="zh-CN">${esc(s.title)}</span>
-        <span class="news-blurb" lang="zh-CN">${esc(blurb)}</span>
+        <span class="news-headline" lang="zh-CN">${cardText(s.title_tokens, s.title)}</span>
+        <span class="news-blurb" lang="zh-CN">${s.source ? cardText(s.blurb_tokens, blurb) : esc(blurb)}</span>
       </a>`;
   }
 
@@ -181,7 +197,7 @@
           <h2 class="section-title"><span lang="zh-CN">${esc(g.zh)}</span> · ${esc(g.en)}</h2>
           <a class="news-all" href="#/genre/${esc(g.id)}">See all →</a>
         </div>
-        <div class="news-list">${items.slice(0, 3).map(newsItem).join("")}</div>
+        <div class="news-list ${listClass()}">${items.slice(0, 3).map(newsItem).join("")}</div>
       </section>`;
   }
 
@@ -193,8 +209,10 @@
     const news = stories.filter((s) => s.genre === "news").sort(byDate);
     show(`
       <section class="hero">
-        <h1>What do you feel like reading?</h1>
+        <h1 lang="zh-CN">今天想读什么？</h1>
+        ${aaBtn}
       </section>
+      ${readSettingsPanel()}
       ${newsGenre ? newsSection(newsGenre, news) : ""}
       <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
       <div class="tiles bento">
@@ -210,19 +228,17 @@
     setTab("discover");
     const { genres, stories } = await getLibrary();
     const g = genres.find((x) => x.id === id);
-    if (!g) return show(`<a class="back" href="#/">← All genres</a><p class="empty">Genre not found.</p>`);
+    if (!g) return show(`${pageBar("#/", "All genres")}<p class="empty">Genre not found.</p>`);
     const list = stories.filter((s) => s.genre === id)
       .sort(id === "news" ? byDate : (a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
     show(`
-      <a class="back" href="#/">← All genres</a>
+      ${pageBar("#/", "All genres", aaBtn)}
+      ${readSettingsPanel()}
       <header class="genre-head g-${esc(g.id)}">
         <span class="tile-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
-        <div>
-          <h1><span lang="zh-CN">${esc(g.zh)}</span> · ${esc(g.en)}</h1>
-          <p>${esc(g.tagline)}</p>
-        </div>
+        <h1><span lang="zh-CN">${esc(g.zh)}</span> <span class="en">· ${esc(g.en)}</span></h1>
       </header>
-      <div class="cards">${list.map((s) => storyCard(s)).join("") || `<p class="empty">Stories coming soon.</p>`}</div>`);
+      <div class="cards ${listClass()}">${list.map((s) => storyCard(s)).join("") || `<p class="empty">Stories coming soon.</p>`}</div>`);
   }
 
   // ---------- reader ----------
@@ -238,9 +254,7 @@
     const cls = ["w"];
     if (level === 0) cls.push("n");
     if (saved[word]) cls.push("saved");
-    const showPinyin = pinyin && (settings.pinyin === "all" ||
-      (settings.pinyin === "hard" && (level <= 0 || isNew(level))));
-    const inner = showPinyin ? `<ruby>${rubyFor(word, pinyin)}</ruby>` : esc(word);
+    const inner = showsPinyin(t) ? `<ruby>${rubyFor(word, pinyin)}</ruby>` : esc(word);
     return `<span class="${cls.join(" ")}" data-i="${i}" role="button" tabindex="0">${inner}</span>`;
   }
 
@@ -279,7 +293,7 @@
     setTab(shelf[id] ? "library" : "discover");
     let s, lib;
     try { [s, lib] = await Promise.all([getJSON(`data/stories/${encodeURIComponent(id)}.json`), getLibrary()]); }
-    catch { return show(`<a class="back" href="#/">← Discover</a><p class="empty">Story not found.</p>`); }
+    catch { return show(`${pageBar("#/", "Discover")}<p class="empty">Story not found.</p>`); }
     const total = s.chapters.length;
     n = Math.min(Math.max(1, n || 1), total);
     const ch = s.chapters[n - 1];
@@ -296,17 +310,22 @@
     // titles are tappable too: render them like a one-line paragraph
     const inline = (tokens) => renderParagraph(tokens || []).replace(/^<p>|<\/p>$/g, "");
     const titleHtml = s.title_tokens ? inline(s.title_tokens) : esc(s.title);
+    const blurbHtml = s.blurb_tokens ? inline(s.blurb_tokens) : esc(s.blurb_zh);
+    // news: date and a link to the original article
+    const link = (s.sources || [])[0];
+    const byline = s.date ? `<p class="byline">${esc(newsDate(s.date, true))}${link
+      ? ` · <a href="${esc(link)}" rel="noopener" target="_blank" lang="zh-CN">${esc(newsParts(s).source || "原文")} ↗</a>` : ""}</p>` : "";
     const chapterTitleHtml = ch.title_tokens ? inline(ch.title_tokens) : esc(ch.title);
     const paras = ch.paragraphs.map(renderParagraph).join("");
     const pinyinTitles = settings.pinyin !== "off" ? "pinyin" : "";
 
     const chapterNav = total > 1 ? `
       <nav class="chapter-nav" aria-label="Chapters">
-        ${n > 1 ? `<a class="btn ghost" href="#/read/${encodeURIComponent(id)}/${n - 1}">← ${chapterLabel(n - 1)}</a>` : "<span></span>"}
+        ${n > 1 ? `<a class="btn ghost" href="#/read/${encodeURIComponent(id)}/${n - 1}">← ${chapterLabel(n - 1)}</a>` : ""}
         <select id="chapter-select" aria-label="Go to chapter">
           ${s.chapters.map((c, i) => `<option value="${i + 1}" ${i + 1 === n ? "selected" : ""}>${esc(c.title)}</option>`).join("")}
         </select>
-        ${n < total ? `<a class="btn" id="next-ch" href="#/read/${encodeURIComponent(id)}/${n + 1}">${chapterLabel(n + 1)} →</a>` : "<span></span>"}
+        ${n < total ? `<a class="btn" id="next-ch" href="#/read/${encodeURIComponent(id)}/${n + 1}">${chapterLabel(n + 1)} →</a>` : ""}
       </nav>` : "";
 
     const finished = n === total;
@@ -317,17 +336,13 @@
       </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
-      <div class="read-bar">
-        <a class="back" href="${genre ? `#/genre/${esc(genre.id)}` : "#/"}">← ${esc(genre ? genre.en : "Discover")}</a>
-        <div class="title-actions">
-          <button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>
-          ${saveStoryBtn(id)}
-        </div>
-      </div>
+      ${pageBar(genre ? `#/genre/${esc(genre.id)}` : "#/", genre ? genre.en : "Discover", aaBtn + saveStoryBtn(id))}
+      ${readSettingsPanel()}
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
+        ${byline}
+        ${blurbHtml ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
-      ${readSettingsPanel()}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
       ${chapterNav}
@@ -345,10 +360,9 @@
     if (finished) markDone(n);
     const sel = $("chapter-select");
     if (sel) sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; });
-    wireReadSettings();
   }
 
-  // ---------- reading settings (only on the story page, in Chinese) ----------
+  // ---------- reading settings (Discover, story lists and story pages; in Chinese) ----------
   const SETTING_GROUPS = [
     { key: "pinyin", label: "拼音", options: [["off", "关闭"], ["all", "全部"], ["hard", "仅生词"]] },
     { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
@@ -462,9 +476,11 @@
     show(`
       <div class="page-head">
         <h1><span lang="zh-CN">书架</span> Library</h1>
+        ${aaBtn}
       </div>
+      ${readSettingsPanel()}
       <p class="meta">Stories you saved, with where you left off. Saved in this browser only.</p>
-      <div class="cards">
+      <div class="cards ${listClass()}">
         ${mine.map((s) => storyCard(s, { showGenre: true, genres })).join("") ||
           `<p class="empty">Nothing here yet. Open a story and tap <strong>Save</strong> to keep it on your shelf.<br><br>
            <a class="btn" href="#/">Discover stories</a></p>`}
@@ -534,7 +550,7 @@
     const draw = () => {
       if (i >= deck.length) {
         show(`
-          <a class="back" href="#/words">← My Words</a>
+          ${pageBar("#/words", "My Words")}
           <div class="done-box">
             <div class="done-big" lang="zh-CN">完成！</div>
             <p>You knew <strong>${known}</strong> of ${deck.length} cards.</p>
@@ -549,7 +565,7 @@
       const [w, e] = deck[i];
       flipped = false;
       show(`
-        <a class="back" href="#/words">← My Words</a>
+        ${pageBar("#/words", "My Words")}
         <div class="progress-row"><span>Card ${i + 1} / ${deck.length}</span><span>Known ${known}</span></div>
         <div class="progress-bar"><span style="width:${(i / deck.length) * 100}%"></span></div>
         <button class="flashcard" id="card" aria-live="polite">
@@ -604,7 +620,7 @@
     const draw = () => {
       if (i >= qs.length) {
         show(`
-          <a class="back" href="#/words">← My Words</a>
+          ${pageBar("#/words", "My Words")}
           <div class="done-box">
             <div class="done-big">${score} / ${qs.length}</div>
             <p>${score === qs.length ? "Perfect! <span lang=\"zh-CN\">太棒了！</span>" : score >= qs.length * 0.7 ? "Nice work. <span lang=\"zh-CN\">不错！</span>" : "Keep reading, they'll stick. <span lang=\"zh-CN\">加油！</span>"}</p>
@@ -622,7 +638,7 @@
         ? `<div class="q-prompt-en">${esc(q.e.meaning)}</div><div class="q-sub">Which word means this?</div>`
         : `<div class="q-prompt" lang="zh-CN">${esc(q.w)}</div><div class="q-sub">What does it mean?</div>`;
       show(`
-        <a class="back" href="#/words">← My Words</a>
+        ${pageBar("#/words", "My Words")}
         <div class="progress-row"><span>Question ${i + 1} / ${qs.length}</span><span>Score ${score}</span></div>
         <div class="progress-bar"><span style="width:${(i / qs.length) * 100}%"></span></div>
         <div class="quiz-card">${prompt}</div>
@@ -666,6 +682,7 @@
     return renderDiscover();
   }
   window.addEventListener("hashchange", () => {
+    settingsOpen = false;
     Promise.resolve(route()).catch((err) => show(`<p class="empty">Could not load (${esc(err.message)}).</p>`));
   });
   updateCount();

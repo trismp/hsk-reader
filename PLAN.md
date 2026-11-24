@@ -30,7 +30,7 @@ hsk-reader/
 - Stories: every chapter (or one-shot) has **700+ Chinese characters** (~700–1,000 per chapter),
   a coherent plot (no logic holes), an English + Chinese blurb.
 - Genres (Discover tiles): 神话传说 Myths & Legends · 历史风云 History · 悬疑 Mystery ·
-  职场人生 Life & Work in China · 言情 Romance (soon) · 时事财经 News & Markets (soon).
+  职场人生 Life & Work · 言情 Romance (soon) · 时事财经 News & Markets (soon).
 - Tabs: 发现 Discover → genre → story list · 书架 Library (saved stories + progress) ·
   生词本 My Words (saved words with their sentence → flashcards + quiz).
 - Reading aids: tap a word for pinyin, meaning and level; pinyin for new words (above HSK 5); saved words.
