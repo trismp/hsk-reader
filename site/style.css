@@ -323,6 +323,13 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   display: grid; place-items: center; width: 34px; height: 34px; padding: 0; flex: none; border-radius: 50%;
   border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer;
 }
+.aa-btn.active { position: relative; }
+.aa-btn.active::after {  /* a filter or sort order is on */
+  content: ""; position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+}
+.filter-note { margin: 8px 2px 0; font-size: 14px; color: var(--ink-soft); }
+.link-btn { padding: 4px 6px; border: 0; background: none; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; }
 .aa-btn[aria-expanded="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
 .read-settings {
   display: grid; gap: 8px; margin: 8px 0 4px; padding: 10px 12px; border-radius: var(--radius);

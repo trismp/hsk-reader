@@ -90,6 +90,8 @@
   function show(html) {
     app.innerHTML = html;
     wireReadSettings();
+    wireSortPanel();
+    syncPanels();
     app.focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
@@ -119,6 +121,7 @@
     toggleShelf(b.dataset.shelf);
     b.outerHTML = saveStoryBtn(b.dataset.shelf);
     if (location.hash === "#/library") route();
+    else refreshGenreList();
   });
 
   // Chinese text on a card: pinyin follows the Aa settings, but words are not tappable (the card is a link).
@@ -228,16 +231,69 @@
     const { genres, stories } = await getLibrary();
     const g = genres.find((x) => x.id === id);
     if (!g) return show(`${pageBar("#/", "All genres")}<p class="empty">Genre not found.</p>`);
-    const list = stories.filter((s) => s.genre === id)
-      .sort(id === "news" ? byDate : (a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
+    genrePage = { id, all: stories.filter((s) => s.genre === id) };
     show(`
-      ${pageBar("#/", "All genres", aaBtn)}
+      ${pageBar("#/", "All genres", (genrePage.all.length ? sortBtn : "") + aaBtn)}
+      ${sortPanel(genreView(id))}
       ${readSettingsPanel()}
       <header class="genre-head g-${esc(g.id)}">
         <span class="tile-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
         <h1><span lang="zh-CN">${esc(g.zh)}</span> <span class="en">· ${esc(g.en)}</span></h1>
       </header>
-      <div class="cards ${listClass()}">${list.map((s) => storyCard(s)).join("") || `<p class="empty">Stories coming soon.</p>`}</div>`);
+      <p class="filter-note" id="filter-note" aria-live="polite" lang="zh-CN" hidden></p>
+      <div class="cards ${listClass()}" id="genre-list"></div>`);
+    refreshGenreList();
+  }
+
+  // Sorting and filters, remembered for each genre until the app is closed or reloaded.
+  const SORT_GROUPS = [
+    { key: "sort", label: "排序", options: [["default", "默认"], ["short", "字数少→多"], ["long", "字数多→少"]] },
+    { key: "done", label: "进度", options: [["all", "全部"], ["no", "未读完"], ["yes", "已读完"]] },
+    { key: "shelf", label: "收藏", options: [["all", "全部"], ["no", "未收藏"], ["yes", "已收藏"]] },
+  ];
+  const SORT_DEFAULT = { sort: "default", done: "all", shelf: "all" };
+  const genreViews = {};
+  let genrePage = null;
+  const genreView = (id) => genreViews[id] || (genreViews[id] = { ...SORT_DEFAULT });
+  const isFinished = (s) => (progress[s.id]?.done?.length || 0) >= s.chapter_count;
+  const sortBtn = `<button class="aa-btn" id="sort-btn" aria-expanded="false" aria-controls="sort-panel" aria-label="排序和筛选 Sort and filter" title="Sort and filter"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M6.5 12h11M10 18h4"/></svg></button>`;
+  const sortPanel = (view) => `
+      <section class="read-settings" id="sort-panel" ${openPanel === "sort-panel" ? "" : "hidden"} lang="zh-CN">${optionRows(SORT_GROUPS, view, "sort")}</section>`;
+
+  function refreshGenreList() {
+    const box = $("genre-list");
+    if (!box || !genrePage) return;
+    const { id, all } = genrePage, v = genreView(id);
+    const list = all
+      .filter((s) => v.done === "all" || isFinished(s) === (v.done === "yes"))
+      .filter((s) => v.shelf === "all" || Boolean(shelf[s.id]) === (v.shelf === "yes"))
+      .sort(v.sort === "short" ? (a, b) => a.characters - b.characters
+        : v.sort === "long" ? (a, b) => b.characters - a.characters
+        : id === "news" ? byDate : (a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
+    const filtered = v.done !== "all" || v.shelf !== "all";
+    box.innerHTML = list.map((s) => storyCard(s)).join("")
+      || `<p class="empty" lang="zh-CN">${all.length ? "没有符合条件的文章。" : "Stories coming soon."}</p>`;
+    const note = $("filter-note");
+    note.hidden = !filtered;
+    note.innerHTML = filtered ? `${list.length} / ${all.length} 篇 <button class="link-btn" id="filter-clear">清除筛选</button>` : "";
+    $("sort-btn")?.classList.toggle("active", filtered || v.sort !== "default");
+    document.querySelectorAll("[data-sort]").forEach((b) => b.setAttribute("aria-pressed", String(v[b.dataset.sort] === b.dataset.val)));
+  }
+  function wireSortPanel() {
+    const btn = $("sort-btn"), panel = $("sort-panel");
+    if (!btn || !panel) return;
+    btn.addEventListener("click", () => showPanel(panel.hidden ? "sort-panel" : ""));
+    panel.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-sort]");
+      if (!b) return;
+      genreView(genrePage.id)[b.dataset.sort] = b.dataset.val;
+      refreshGenreList();
+    });
+    $("filter-note").addEventListener("click", (e) => {
+      if (!e.target.closest("#filter-clear")) return;
+      Object.assign(genreView(genrePage.id), { done: "all", shelf: "all" });
+      refreshGenreList();
+    });
   }
 
   // ---------- reader ----------
@@ -367,41 +423,43 @@
     { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
     { key: "theme", label: "主题", options: [["light", "浅色"], ["dark", "深色"], ["auto", "跟随系统"]] },
   ];
-  let settingsOpen = false;
-  function readSettingsPanel() {
-    return `
-      <section class="read-settings" id="read-settings" ${settingsOpen ? "" : "hidden"} lang="zh-CN">
-        ${SETTING_GROUPS.map((g) => `
+  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn" };  // panel -> its button
+  let openPanel = "";   // at most one is open
+  const optionRows = (groups, values, attr) => groups.map((g) => `
           <div class="rs-row">
             <span class="rs-label">${g.label}</span>
             <div class="seg" role="group" aria-label="${g.label}">
-              ${g.options.map(([v, text]) => `<button data-set="${g.key}" data-val="${v}" aria-pressed="${settings[g.key] === v}">${text}</button>`).join("")}
+              ${g.options.map(([v, text]) => `<button data-${attr}="${g.key}" data-val="${v}" aria-pressed="${values[g.key] === v}">${text}</button>`).join("")}
             </div>
-          </div>`).join("")}
-      </section>`;
+          </div>`).join("");
+  function readSettingsPanel() {
+    return `
+      <section class="read-settings" id="read-settings" ${openPanel === "read-settings" ? "" : "hidden"} lang="zh-CN">${optionRows(SETTING_GROUPS, settings, "set")}</section>`;
   }
-  function showSettings(open) {
-    const btn = $("aa-btn"), panel = $("read-settings");
-    settingsOpen = open;
-    document.body.classList.toggle("settings-open", open && !!panel);
-    if (panel) panel.hidden = !open;
-    if (btn) btn.setAttribute("aria-expanded", String(open));
+  function showPanel(name) {
+    openPanel = name;
+    syncPanels();
   }
-  // A click anywhere outside closes the settings. On the page itself it does only that, so
+  function syncPanels() {
+    document.body.classList.toggle("settings-open", Boolean(openPanel && $(openPanel)));
+    for (const [panel, btn] of Object.entries(PANELS)) {
+      if ($(panel)) $(panel).hidden = panel !== openPanel;
+      if ($(btn)) $(btn).setAttribute("aria-expanded", String(panel === openPanel));
+    }
+  }
+  // A click anywhere outside closes the open panel. On the page itself it does only that, so
   // closing never opens a story or a word by accident; the bars around the page still work.
   document.addEventListener("click", (e) => {
-    if (!settingsOpen || !$("read-settings")) return;
-    if (e.target.closest("#read-settings, #aa-btn")) return;
-    showSettings(false);
+    if (!openPanel || !$(openPanel)) return;
+    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note")) return;
+    showPanel("");
     if (app.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
   function wireReadSettings() {
     const btn = $("aa-btn"), panel = $("read-settings");
-    document.body.classList.toggle("settings-open", settingsOpen && !!panel);
     if (!btn || !panel) return;
-    btn.setAttribute("aria-expanded", String(settingsOpen));
-    btn.addEventListener("click", () => showSettings(panel.hidden));
+    btn.addEventListener("click", () => showPanel(panel.hidden ? "read-settings" : ""));
     panel.addEventListener("click", (e) => {
       const b = e.target.closest("[data-set]");
       if (!b) return;
@@ -462,7 +520,7 @@
     if (e.target.closest("#popup") || e.target.closest(".w")) return;
     closePopup();
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closePopup(); if (settingsOpen) showSettings(false); } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closePopup(); if (openPanel) showPanel(""); } });
   $("popup-save").addEventListener("click", () => {
     if (!popupToken) return;
     const [word, pinyin, level, meaning] = popupToken;
@@ -694,7 +752,7 @@
     return renderDiscover();
   }
   window.addEventListener("hashchange", () => {
-    settingsOpen = false;
+    openPanel = "";
     Promise.resolve(route()).catch((err) => show(`<p class="empty">Could not load (${esc(err.message)}).</p>`));
   });
   updateCount();
