@@ -312,8 +312,8 @@
     const finished = n === total;
     const sources = (s.sources || []).length ? `
       <section class="sources">
-        <strong>Sources</strong> (retold for learners):<br>
-        ${s.sources.map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(decodeURIComponent(u))}</a>`).join("<br>")}
+        <strong>Sources</strong> (retold for learners):
+        ${s.sources.map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(decodeURIComponent(u))}</a>`).join(" · ")}
       </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
@@ -331,8 +331,8 @@
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
       ${chapterNav}
-      ${finished ? `<div class="the-end"><span lang="zh-CN">全文完</span> · The end
-        <a class="btn ghost" href="#/words">Review my words →</a></div>` : ""}
+      ${finished ? `<div class="the-end" lang="zh-CN"><span>全文完</span><span aria-hidden="true">·</span>
+        <a class="btn" href="#/words">复习生词 →</a></div>` : ""}
       ${sources}`);
 
     // chapter counts as read when the reader moves on (or reaches the end)
