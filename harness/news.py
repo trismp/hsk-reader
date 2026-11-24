@@ -22,6 +22,7 @@ import anthropic
 from mcp import Client, StdioServerParameters
 
 import news_feeds
+from style_rules import NEWS_STYLE, ai_phrases
 from run import ROOT, HERE, load_api_key, short, cost_of   # shared helpers from the story harness
 
 SYSTEM = """You are the editor of a daily Chinese tech-news digest for adult learners who have
@@ -37,8 +38,8 @@ save fewer:
 For each story:
 1. Read it with read_news_article. If that fails or the text is empty, pick another headline.
 2. Write a digest IN YOUR OWN WORDS: {min_chars}-{max_chars} Chinese characters, natural modern
-   Chinese, short-to-medium sentences. Say who did what, the key numbers, and why it matters for
-   the industry. Never copy sentences from the article. Use only facts from the article.
+   Chinese, short-to-medium sentences. Say who did what, the key numbers, and, if the article
+   says so, why it matters. Never copy sentences from the article. Use only facts from the article.
 3. Check it with check_hsk_level (target_level=6). Goal: {goal:.0%}-{goal_max:.0%} of words within HSK 6,
    so readers meet some real news vocabulary. Company and product names do not count.
    Below {goal:.0%}: simplify words in above_target. Above {goal_max:.0%}: too easy, keep the real news words.
@@ -175,6 +176,9 @@ async def handle_save(mcp, d: dict, args, run: dict) -> tuple[str, bool]:
     if within > args.max_coverage:
         problems.append(f"{within:.0%} of words are within HSK 6, too easy (aim for {args.coverage:.0%}-"
                         f"{args.max_coverage:.0%}); use the real news vocabulary instead of simpler words")
+    stiff = ai_phrases("\n".join([d["title"], d.get("summary_zh", ""), d["digest"]]))
+    if stiff:
+        problems.append(f"sounds machine-written, say it plainly: {'、'.join(stiff)}")
     if problems and tries < args.max_retries:
         run["retries"][d["source_url"]] += 1
         return f"Not saved: {'; '.join(problems)}. Fix this and call save_digest again.", True
@@ -209,7 +213,7 @@ async def main(args, claude=None) -> dict:
         tools = [{"name": t.name, "description": t.description, "input_schema": t.input_schema}
                  for t in (await mcp.list_tools()).tools if t.name in wanted] + [SAVE_DIGEST]
         print(f"MCP server connected. Tools: {', '.join(t['name'] for t in tools)}")
-        system = SYSTEM.format(today=news_feeds.today_in_china(), count=args.count, min_chars=args.min_chars, max_chars=args.max_chars, goal=args.coverage, goal_max=args.max_coverage)
+        system = SYSTEM.format(today=news_feeds.today_in_china(), count=args.count, min_chars=args.min_chars, max_chars=args.max_chars, goal=args.coverage, goal_max=args.max_coverage) + "\n" + NEWS_STYLE
         messages = [{"role": "user", "content": headline_list(headlines)}]
         if args.dry_run:
             print("\n" + messages[0]["content"][:4000] + "\n...\n\nSYSTEM PROMPT:\n" + system)

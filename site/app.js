@@ -94,12 +94,12 @@
     window.scrollTo(0, 0);
   }
 
-  // Round back arrow on the left, page actions (Aa, Save) on the right.
+  // Round back arrow on the left, page actions (settings, Save) on the right.
   const backBtn = (href, label) => `<a class="back" href="${href}" aria-label="Back to ${esc(label)}" title="${esc(label)}">
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m6-6-6 6 6 6"/></svg></a>`;
   const pageBar = (href, label, actions = "") =>
     `<div class="read-bar">${backBtn(href, label)}<div class="title-actions">${actions}</div></div>`;
-  const aaBtn = `<button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings">Aa</button>`;
+  const aaBtn = `<button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings" title="Reading settings"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 5.2L10.4 2.1L13.6 2.1L13.7 5.2L15.6 6.0L17.9 3.9L20.1 6.1L18.0 8.4L18.8 10.3L21.9 10.4L21.9 13.6L18.8 13.7L18.0 15.6L20.1 17.9L17.9 20.1L15.6 18.0L13.7 18.8L13.6 21.9L10.4 21.9L10.3 18.8L8.4 18.0L6.1 20.1L3.9 17.9L6.0 15.6L5.2 13.7L2.1 13.6L2.1 10.4L5.2 10.3L6.0 8.4L3.9 6.1L6.1 3.9L8.4 6.0z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`;
 
   const bookmarkIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h12v18l-6-4.5L6 21z"/></svg>`;
   const saveStoryBtn = (id) => {

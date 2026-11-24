@@ -110,7 +110,7 @@ def _is_name(word: str) -> bool:
     """CC-CEDICT writes pinyin of names with a capital letter: 嫦娥 = Cháng é."""
     _, dictionary = _load()
     info = dictionary.get(word)
-    return bool(info and info["pinyin"][:1].isupper())
+    return bool(info and info["pinyin"][:1].isupper() and not word.startswith("星期"))  # 星期一 is no name
 
 
 def classify(word: str, scheme: str = "hsk30") -> tuple[int | None, str]:

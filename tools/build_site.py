@@ -59,7 +59,7 @@ GENRES = [
     {"id": "work",    "zh": "职场人生", "en": "Life & Work", "mark": "职",
      "tagline": "Offices, colleagues and everyday city life"},
     {"id": "romance", "zh": "言情", "en": "Romance", "mark": "情",
-     "tagline": "Love stories, light and serialised", "soon": True},
+     "tagline": "Love stories from today's Chinese cities"},
     {"id": "news",    "zh": "时事财经", "en": "News & Markets", "mark": "财",
      "tagline": "This week's news and market moves, made readable", "soon": True},
 ]
@@ -152,7 +152,15 @@ def tokens(text: str, names: dict, keywords: dict) -> list:
                 or w in MEANING_FIXES or not HAS_CHINESE.search(w))
 
     def split(w: str):
-        return hsk._split_into_hsk(w, words, "hsk30")
+        parts = hsk._split_into_hsk(w, words, "hsk30")
+        if parts:
+            return parts
+        parts, i = [], 0     # not all HSK: longest dictionary words instead (桌上 -> 桌 + 上)
+        while i < len(w):
+            j = next((j for j in range(len(w), i, -1) if w[i:j] in words or w[i:j] in dictionary), i + 1)
+            parts.append(w[i:j])
+            i = j
+        return parts
 
     return [token(w, CHECK_LEVEL, names, keywords, heard)
             for w, heard in readings.words(text, known, split)]
@@ -181,7 +189,7 @@ def token(word: str, target: int, names: dict, keywords: dict, heard: str = "") 
     best = readings.pick(entry.get("readings", []), pinyin, heard, word in names)
     if best:
         pinyin, meanings = best
-    elif word in names and info["source"] == "compound":
+    elif word in names and info["source"] in ("compound", None):
         # A name isn't the sum of its characters (大乘天 is not "big + to ride + day")
         pinyin, meanings = heard.capitalize() or pinyin, ["name"]
     # 平平淡淡 (AABB) means the same as 平淡 (AB), only stronger

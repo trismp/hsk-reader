@@ -21,6 +21,8 @@ from pathlib import Path
 import anthropic
 from mcp import Client, StdioServerParameters
 
+from style_rules import STORY_STYLE, ai_phrases
+
 ROOT = Path(__file__).resolve().parent.parent
 HERE = ROOT / "harness"
 
@@ -131,7 +133,7 @@ async def main(args, claude=None) -> dict:
         tools = [{"name": t.name, "description": t.description, "input_schema": t.input_schema}
                  for t in mcp_tools] + [SAVE_STORY]
         print(f"MCP server connected. Tools: {', '.join(t['name'] for t in tools)}")
-        system = SYSTEM.format(genre=args.genre, chapters=args.chapters, goal=args.coverage)
+        system = SYSTEM.format(genre=args.genre, chapters=args.chapters, goal=args.coverage) + "\n" + STORY_STYLE
         if args.dry_run:
             print(json.dumps(tools, ensure_ascii=False, indent=2)[:3000], "\n...\n\nSYSTEM PROMPT:\n" + system)
             return {}
@@ -197,14 +199,19 @@ async def handle_save(mcp, story: dict, args, run: dict) -> tuple[str, bool]:
     """Step 4, the quality gate: save only if HSK 6 coverage meets the goal, or retries ran out."""
     check = await coverage_check(mcp, story)
     run["coverage"] = within = check["within_target"]
-    if within < args.coverage and run["retries"] < args.max_retries:
+    problems = []
+    if within < args.coverage:
+        hard = "、".join(h["word"] for h in check["above_target"][:25])
+        problems.append(f"only {within:.0%} of words are within HSK 6 (goal {args.coverage:.0%}); simplify: {hard}")
+    stiff = ai_phrases(story["story_markdown"])
+    if stiff:
+        problems.append(f"sounds machine-written, say it plainly: {'、'.join(stiff)}")
+    if problems and run["retries"] < args.max_retries:
         run["retries"] += 1
-        hard = [h["word"] for h in check["above_target"][:25]]
-        return (f"Not saved: only {within:.0%} of words are within HSK 6 (goal {args.coverage:.0%}). "
-                f"Simplify these words, keep the plot, then call save_story again "
-                f"(retry {run['retries']} of {args.max_retries}): {'、'.join(hard)}"), True
+        return (f"Not saved: {'; '.join(problems)}. Keep the plot, then call save_story again "
+                f"(retry {run['retries']} of {args.max_retries})."), True
     run["saved"] = str(save_markdown(story, args.genre, within))
-    note = "" if within >= args.coverage else " (below goal, but out of retries)"
+    note = f" (saved anyway, out of retries: {'; '.join(problems)})" if problems else ""
     return f"saved to {run['saved']}, HSK 6 coverage {within:.0%}{note}", False
 
 

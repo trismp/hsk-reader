@@ -319,8 +319,8 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .title-actions { display: flex; gap: 8px; align-items: center; flex: none; }
 .title-actions .shelf-btn { margin-top: 0; }
 .aa-btn {
-  width: 40px; height: 34px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg);
-  color: var(--ink); font: 600 15px var(--read-font); cursor: pointer;
+  display: grid; place-items: center; width: 34px; height: 34px; padding: 0; flex: none; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer;
 }
 .aa-btn[aria-expanded="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
 .read-settings {
@@ -397,7 +397,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   .brand { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; }
 }
 
-/* Story lists follow the Aa settings too */
+/* Story lists follow the reading settings too */
 .cards.size-s h2 .zh-title { font-size: 26px; }
 .cards.size-l h2 .zh-title { font-size: 34px; }
 .cards.size-s .blurb.zh { font-size: 17px; }

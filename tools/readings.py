@@ -22,9 +22,11 @@ PARTICLES = {("着", "uz"): "zhe", ("了", "ul"): "le", ("过", "ug"): "guo",
              ("地", "uv"): "de", ("的", "uj"): "de"}
 # Read this way whenever they stand alone as a word
 ALONE = {"都": "dōu", "没": "méi", "觉": "jiào", "缝": "féng", "划": "huá", "还": "hái", "数": "shǔ", "场": "chǎng",
-         "长": "cháng", "倒": "dǎo", "得": "de", "切": "qiē"}
+         "长": "cháng", "倒": "dǎo", "得": "de", "切": "qiē",
+         "背": "bēi", "种": "zhǒng"}
 # ...unless this comes right after it: 长出来, 倒茶
-BEFORE = {"长": ("出大得成不满高", "zhǎng"), "倒": ("茶水酒", "dào")}
+BEFORE = {"长": ("出大得成不满高", "zhǎng"), "倒": ("茶水酒", "dào"),
+          "背": ("对后上", "bèi"), "种": ("好地了下", "zhòng"), "还": ("伞书钱。，", "huán")}
 NOT_VERBS = {"没", "刚", "只", "都", "又", "也", "再", "已"}  # 没过两天: here 过 is the verb, guò
 
 
@@ -88,6 +90,8 @@ def words(text: str, is_known, split) -> list[tuple[str, str]]:
                 k or flags.get((pos - len(before), before), "").startswith("v"))
             if part == "过" and not after_verb:
                 said = "guò"     # 过了一会儿, 没过两天
+            elif part == "地" and len(before) > 1 and before[-1] == before[-2]:
+                said = "de"      # 慢慢地, 整整齐齐地
             elif part == "着" and before in ("不", "得"):
                 said = "zháo"    # 睡不着, 睡得着
             elif part in ALONE:
