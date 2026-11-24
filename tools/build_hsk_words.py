@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 from common import rarity
+from readings import read_chars, same
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw" / "hsk_complete.json"
@@ -40,13 +41,18 @@ def main() -> None:
     words: dict[str, dict] = {}
     for e in entries:
         word = e["simplified"]
-        # Pick the most everyday reading:
+        # Pick the most everyday reading. The source lists readings alphabetically,
+        # so its order says nothing (看 kān comes before kàn). Instead:
+        #  0. not a surname or place (藏 Zàng), then the reading pypinyin gives the word
         #  1. not a rare/literary one   (抢 qiǎng "grab", not literary qiāng)
         #  2. prefer a neutral-tone ending, which is usually the colloquial word:
         #     东西 dōng xi "thing" (not dōng xī "east and west"),
         #     妻子 qī zi "wife"    (not qī zǐ "wife and children")
         # sorted() is stable, so ties keep the source order.
-        forms = sorted(e["forms"], key=lambda f: (rarity(f["meanings"]),
+        usual = " ".join(read_chars(word))
+        forms = sorted(e["forms"], key=lambda f: (f["transcriptions"]["pinyin"][:1].isupper(),
+                                                  not same(f["transcriptions"]["pinyin"], usual, loose=len(word) > 1),
+                                                  rarity(f["meanings"]),
                                                   not _neutral_ending(f["transcriptions"]["pinyin"])))
         form = forms[0]
         other_meanings = [m for f in forms[1:] for m in f["meanings"]
@@ -71,6 +77,12 @@ def main() -> None:
             "meanings": form["meanings"][:4] + [m for m in other_meanings if m not in form["meanings"]],
             "levels": levels,
         }
+        if len({f["transcriptions"]["pinyin"] for f in forms}) > 1:  # for tools/readings.py
+            by_reading: dict[str, list[str]] = {}
+            for f in forms:
+                known = by_reading.setdefault(f["transcriptions"]["pinyin"], [])
+                known += [m for m in f["meanings"] if m not in known and "variant of" not in m]
+            words[word]["readings"] = [[p, m[:4]] for p, m in by_reading.items() if m]
 
     OUT.write_text(json.dumps(words, ensure_ascii=False, indent=0), encoding="utf-8")
 

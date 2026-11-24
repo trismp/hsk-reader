@@ -5,7 +5,7 @@ genre: mystery
 blurb_en: Someone cut out a farmer's ox's tongue. Judge Bao catches the culprit without asking a single question.
 blurb_zh: 有人割了农民的牛舌头。包公一个问题都没问，就让坏人自己跳了出来。
 sources: https://zh.wikipedia.org/wiki/%E5%8C%85%E6%8B%AF
-names: 包拯, 包公, 包青天, 天长县, 宋朝, 宋史, 刘老汉, 赵四
+names: 包拯, 包公, 包青天, 天长县|Tiān cháng xiàn|Tianchang County (in Anhui), 宋朝, 宋史, 刘老汉, 赵四
 keywords: 知县, 耕牛, 舌头, 告状, 犯法, 圈套
 ---
 说起中国古代最有名的清官，很多人第一个想到的就是包拯。老百姓尊敬地叫他“包公”或者“包青天”。在戏曲和电视剧里，他总是黑脸，额头上有一个月牙，坐在大堂上一拍惊堂木，坏人就吓得跪在地上。

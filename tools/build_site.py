@@ -38,9 +38,8 @@ import re
 import sys
 from pathlib import Path
 
-import jieba
-
 import hsk_checker as hsk
+import readings
 from common import ROOT
 
 STORIES = ROOT / "content" / "stories"
@@ -144,7 +143,22 @@ def keyword_gloss(word: str, keywords: dict) -> tuple[str, list[str]]:
     return info["pinyin"] or "", clean_meanings(info["meanings"])
 
 
-def token(word: str, target: int, names: dict, keywords: dict) -> list | str:
+def tokens(text: str, names: dict, keywords: dict) -> list:
+    """All the tokens of one title, blurb or paragraph."""
+    words, dictionary = hsk._load()
+
+    def known(w: str) -> bool:
+        return (w in names or w in keywords or w in words or w in dictionary
+                or w in MEANING_FIXES or not HAS_CHINESE.search(w))
+
+    def split(w: str):
+        return hsk._split_into_hsk(w, words, "hsk30")
+
+    return [token(w, CHECK_LEVEL, names, keywords, heard)
+            for w, heard in readings.words(text, known, split)]
+
+
+def token(word: str, target: int, names: dict, keywords: dict, heard: str = "") -> list | str:
     """['嫦娥', 'Cháng é', 0, "Chang'e …"]  or plain '，' for punctuation.
 
     Level codes: 1-7 HSK level (7 = 7-9), 10 beyond HSK, 0 name, -1 key word.
@@ -161,14 +175,22 @@ def token(word: str, target: int, names: dict, keywords: dict) -> list | str:
     if word in names or kind == "name" or (level and level > target and hsk._is_name(word)):
         level = NAME
     info = hsk.lookup_word(word)
-    meanings = info["meanings"]
+    meanings, pinyin = info["meanings"], info["pinyin"] or ""
+    words, dictionary = hsk._load()
+    entry = words.get(word) or dictionary.get(word) or {}
+    best = readings.pick(entry.get("readings", []), pinyin, heard, word in names)
+    if best:
+        pinyin, meanings = best
+    elif word in names and info["source"] == "compound":
+        # A name isn't the sum of its characters (大乘天 is not "big + to ride + day")
+        pinyin, meanings = heard.capitalize() or pinyin, ["name"]
     # 平平淡淡 (AABB) means the same as 平淡 (AB), only stronger
     if len(word) == 4 and word[0] == word[1] and word[2] == word[3]:
         base = hsk.lookup_word(word[0] + word[2])
         if base["meanings"] and not any(" + " in m for m in base["meanings"]):
             meanings = base["meanings"]
     meaning = MEANING_FIXES.get(word) or "; ".join(resolve_see(clean_meanings(meanings)))
-    return [word, info["pinyin"] or "", level if level is not None else NAME, meaning]
+    return [word, pinyin, level if level is not None else NAME, meaning]
 
 
 def resolve_see(meanings: list[str]) -> list[str]:
@@ -204,16 +226,15 @@ def build() -> None:
         for ch in s["chapters"]:
             chapters.append({
                 "title": ch["title"],
-                "title_tokens": [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(ch["title"])],
+                "title_tokens": tokens(ch["title"], names, keywords),
                 "characters": len(HAS_CHINESE.findall("".join(ch["paragraphs"]))),
-                "paragraphs": [[token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(p)]
-                               for p in ch["paragraphs"]],
+                "paragraphs": [tokens(p, names, keywords) for p in ch["paragraphs"]],
             })
 
         story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date", "source")}
         story["sources"] = s["sources"]
-        story["title_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s["title"])]
-        story["blurb_tokens"] = [token(w, CHECK_LEVEL, names, keywords) for w in jieba.lcut(s.get("blurb_zh", ""))]
+        story["title_tokens"] = tokens(s["title"], names, keywords)
+        story["blurb_tokens"] = tokens(s.get("blurb_zh", ""), names, keywords)
         story["keywords"] = [
             dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
             for k in s["keywords"]

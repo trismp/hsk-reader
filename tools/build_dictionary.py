@@ -106,6 +106,12 @@ def main() -> None:
                     merged.append(x)
         if merged:
             dictionary[simp] = {"pinyin": pinyin, "meanings": merged[:5]}
+            if len({p for p, _ in options}) > 1:  # for tools/readings.py
+                by_reading: dict[str, list[str]] = {}
+                for p, ms in options:
+                    seen = by_reading.setdefault(p, [])
+                    seen += [x for x in ms if x not in seen and not x.startswith("variant of")]
+                dictionary[simp]["readings"] = [[p, ms[:4]] for p, ms in by_reading.items() if ms]
 
     OUT_DICT.write_text(json.dumps(dictionary, ensure_ascii=False, indent=0), encoding="utf-8")
     OUT_T2S.write_text(json.dumps(trad_to_simp, ensure_ascii=False), encoding="utf-8")
