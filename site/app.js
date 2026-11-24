@@ -197,7 +197,7 @@
           <h2 class="section-title"><span lang="zh-CN">${esc(g.zh)}</span> · ${esc(g.en)}</h2>
           <a class="news-all" href="#/genre/${esc(g.id)}">See all →</a>
         </div>
-        <div class="news-list ${listClass()}">${items.slice(0, 3).map(newsItem).join("")}</div>
+        <div class="news-list ${listClass()}">${items.slice(0, 2).map(newsItem).join("")}</div>
       </section>`;
   }
 
