@@ -32,6 +32,23 @@
     --hero-gradient: linear-gradient(90deg, #a78bfa, #c79bfb 55%, #ecc4ff);
   --shadow: 0 12px 32px rgba(0, 0, 0, .4); color-scheme: dark;
 }
+/* 中级 (HSK 4): green instead of purple. Selectors are longer than the ones above, so they win. */
+:root[data-level="mid"] {
+  --bg: #eef7f1; --ink: #17332a; --ink-soft: #55736a; --line: #d5e9dc;
+  --accent: #187a4f; --accent-soft: #dff1e6;
+  --hero-gradient: linear-gradient(90deg, #0f6b4a, #1c9460 55%, #43ab4c);
+  --shadow: 0 12px 32px rgba(20, 110, 70, .14);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-level="mid"]:not([data-theme="light"]) {
+    --bg: #121214; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+    --accent: #8fe0b4; --accent-soft: #1c3328; --hero-gradient: linear-gradient(90deg, #4fd39a, #8fe0b4 55%, #d2f5c8);
+  }
+}
+:root[data-level="mid"][data-theme="dark"] {
+  --bg: #121214; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+  --accent: #8fe0b4; --accent-soft: #1c3328; --hero-gradient: linear-gradient(90deg, #4fd39a, #8fe0b4 55%, #d2f5c8);
+}
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -414,3 +431,24 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .news-list.size-l .news-headline { font-size: calc(var(--headline) * 1.2); }
 .news-list.pinyin .news-headline { line-height: 1.7; }
 .news-list .news-headline rt { font-size: .6em; }
+
+/* 中级 | 高级 switch on Discover */
+.level-toggle { flex: none; border-radius: 999px; }
+.level-toggle button { padding: 6px 12px; font-size: 14px; line-height: 20px; white-space: nowrap; }
+.only-high { background: none; border: 1px solid var(--line); color: var(--ink-soft); }
+/* the two purple genres turn green-ish with the rest: teal and moss */
+:root[data-level="mid"] .g-myths { --tint: #0d8587; }
+:root[data-level="mid"] .g-mystery { --tint: #5f7d1c; }
+@media (prefers-color-scheme: dark) {
+  :root[data-level="mid"]:not([data-theme="light"]) .g-myths { --tint: #74d8d8; }
+  :root[data-level="mid"]:not([data-theme="light"]) .g-mystery { --tint: #bcd97c; }
+}
+:root[data-level="mid"][data-theme="dark"] .g-myths { --tint: #74d8d8; }
+:root[data-level="mid"][data-theme="dark"] .g-mystery { --tint: #bcd97c; }
+@media (max-width: 400px) {
+  :root { --hero-size: 7.8vw; }   /* room for the switch on the same line */
+  .hero { gap: 6px; }
+  .hero .title-actions { gap: 6px; }
+  .level-toggle button { padding: 6px 7px; font-size: 13px; }
+}
+@media (max-width: 340px) { :root { --hero-size: 6.8vw; } }

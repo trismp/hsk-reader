@@ -47,6 +47,8 @@ OUT = ROOT / "site" / "data"
 HAS_CHINESE = re.compile(r"[一-鿿]")
 READER_LEVEL = 5   # readers have finished HSK 5; anything above it is a "new" word
 CHECK_LEVEL = 6    # stories are written for HSK 6 learners (words beyond are allowed)
+MID = STORIES / "mid"   # 中级: the same story, same file name, rewritten for HSK 4
+MID_LEVEL = 4
 
 # Discover tiles, in display order. "soon": shown as "coming soon", no stories yet.
 GENRES = [
@@ -215,6 +217,52 @@ def resolve_see(meanings: list[str]) -> list[str]:
     return meanings
 
 
+def prepare(path: Path, level: int) -> tuple[dict, list[dict], dict]:
+    """(story fields, chapters as tokens, level report) for one story file."""
+    s = parse_story(path)
+    names = {n: s["glosses"].get(n) for n in s["names"]}  # name -> own gloss or None
+    keywords = {k: s["glosses"].get(k) for k in s["keywords"]}  # word -> own gloss or None
+    full_text = "\n".join(p for ch in s["chapters"] for p in ch["paragraphs"])
+    report = hsk.check_text(full_text, level, names=s["names"], keywords=s["keywords"])
+
+    chapters = []
+    for ch in s["chapters"]:
+        chapters.append({
+            "title": ch["title"],
+            "title_tokens": tokens(ch["title"], names, keywords),
+            "characters": len(HAS_CHINESE.findall("".join(ch["paragraphs"]))),
+            "paragraphs": [tokens(p, names, keywords) for p in ch["paragraphs"]],
+        })
+
+    story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date", "source")}
+    story["sources"] = s["sources"]
+    story["title_tokens"] = tokens(s["title"], names, keywords)
+    story["blurb_tokens"] = tokens(s.get("blurb_zh", ""), names, keywords)
+    story["keywords"] = [
+        dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
+        for k in s["keywords"]
+    ]
+    story |= {"characters": len(HAS_CHINESE.findall(full_text)),
+              "chapter_count": len(chapters),
+              f"within_hsk{level}": report["within_target"]}
+    return story, chapters, report
+
+
+def write_story(name: str, story: dict, chapters: list[dict]) -> None:
+    (OUT / "stories" / f"{name}.json").write_text(
+        json.dumps({**story, "chapters": chapters}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+
+def print_report(story: dict, chapters: list[dict], report: dict, level: int) -> None:
+    short = [c["characters"] for c in chapters if c["characters"] < 700]
+    flag = "✓" if not short else f"✗ SHORT CHAPTER {short}"
+    print(f"  {flag} [{story['genre']}] {story['title']}  {len(chapters)} ch, {story['characters']} chars, "
+          f"{report['within_target']:.0%} within HSK {level}, est. {report['estimated_level']}")
+    hard = [h["word"] for h in report["above_target"]]
+    if hard:
+        print(f"      above HSK {level}:", "、".join(hard[:40]))
+
+
 def build() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     hsk._load()
@@ -222,50 +270,33 @@ def build() -> None:
     for old in (OUT / "stories").glob("*.json"):
         old.unlink()
 
+    # Cards only need pinyin, not meanings: [word, pinyin, level]
+    brief = lambda tokens: [t if isinstance(t, str) else t[:3] for t in tokens]
     stories = []
     for path in sorted(STORIES.glob("*.md")):
-        s = parse_story(path)
-        names = {n: s["glosses"].get(n) for n in s["names"]}  # name -> own gloss or None
-        keywords = {k: s["glosses"].get(k) for k in s["keywords"]}  # word -> own gloss or None
-        full_text = "\n".join(p for ch in s["chapters"] for p in ch["paragraphs"])
-        report = hsk.check_text(full_text, CHECK_LEVEL, names=s["names"], keywords=s["keywords"])
+        story, chapters, report = prepare(path, CHECK_LEVEL)
+        write_story(path.stem, story, chapters)
+        card = {**{k: v for k, v in story.items() if k not in ("keywords", "sources")},
+                "title_tokens": brief(story["title_tokens"]), "blurb_tokens": brief(story["blurb_tokens"]),
+                "chapter_titles": [c["title"] for c in chapters]}
+        print_report(story, chapters, report, CHECK_LEVEL)
 
-        chapters = []
-        for ch in s["chapters"]:
-            chapters.append({
-                "title": ch["title"],
-                "title_tokens": tokens(ch["title"], names, keywords),
-                "characters": len(HAS_CHINESE.findall("".join(ch["paragraphs"]))),
-                "paragraphs": [tokens(p, names, keywords) for p in ch["paragraphs"]],
-            })
+        stories.append(card)
 
-        story = {k: s.get(k, "") for k in ("id", "title", "title_en", "genre", "blurb_en", "blurb_zh", "date", "source")}
-        story["sources"] = s["sources"]
-        story["title_tokens"] = tokens(s["title"], names, keywords)
-        story["blurb_tokens"] = tokens(s.get("blurb_zh", ""), names, keywords)
-        story["keywords"] = [
-            dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
-            for k in s["keywords"]
-        ]
-        story |= {"characters": len(HAS_CHINESE.findall(full_text)),
-                  "chapter_count": len(chapters),
-                  "within_hsk6": report["within_target"]}
-        (OUT / "stories" / f"{s['id']}.json").write_text(
-            json.dumps({**story, "chapters": chapters}, ensure_ascii=False, separators=(",", ":")),
-            encoding="utf-8")
-        # Cards only need pinyin, not meanings: [word, pinyin, level]
-        brief = lambda tokens: [t if isinstance(t, str) else t[:3] for t in tokens]
-        stories.append({**{k: v for k, v in story.items() if k not in ("keywords", "sources")},
-                        "title_tokens": brief(story["title_tokens"]), "blurb_tokens": brief(story["blurb_tokens"]),
-                        "chapter_titles": [c["title"] for c in chapters]})
-
-        short = [c["characters"] for c in chapters if c["characters"] < 700]
-        flag = "✓" if not short else f"✗ SHORT CHAPTER {short}"
-        print(f"  {flag} [{s['genre']}] {s['title']}  {len(chapters)} ch, {story['characters']} chars, "
-              f"{report['within_target']:.0%} within HSK 6, est. {report['estimated_level']}")
-        hard = [h["word"] for h in report["above_target"]]
-        if hard:
-            print("      above HSK 6:", "、".join(hard[:40]))
+    # The 中级 versions come last: the word splitter learns names as it goes, so doing them in
+    # between would change how the originals are split. "mid" holds what differs on the card.
+    for card in stories:
+        path = MID / f"{card['id']}.md"
+        if not path.exists():
+            continue
+        mid, mid_chapters, mid_report = prepare(path, MID_LEVEL)
+        if len(mid_chapters) != card["chapter_count"]:
+            raise ValueError(f"mid/{path.name}: {len(mid_chapters)} chapters, the original has {card['chapter_count']}")
+        write_story(path.stem + ".mid", mid, mid_chapters)
+        card["mid"] = {"title": mid["title"], "title_tokens": brief(mid["title_tokens"]),
+                       "blurb_zh": mid["blurb_zh"], "blurb_tokens": brief(mid["blurb_tokens"]),
+                       "characters": mid["characters"], "within_hsk4": mid["within_hsk4"]}
+        print_report({**mid, "title": mid["title"] + "（中级）"}, mid_chapters, mid_report, MID_LEVEL)
 
     library = {"genres": GENRES, "stories": stories}
     (OUT / "library.json").write_text(json.dumps(library, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

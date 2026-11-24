@@ -5,8 +5,8 @@
  * so it still opens on the metro with no signal.
  * Bump VERSION when the app shell changes to clear old caches.
  */
-const VERSION = "hsk-reader-v29";
-const SHELL = ["./", "index.html", "style.css?v=26", "app.js?v=22", "manifest.webmanifest",
+const VERSION = "hsk-reader-v30";
+const SHELL = ["./", "index.html", "style.css?v=27", "app.js?v=23", "manifest.webmanifest",
   "data/library.json", "icons/icon-192.png"];
 
 self.addEventListener("install", (e) => {

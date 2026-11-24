@@ -7,7 +7,7 @@
  *       ["嫦娥", "Cháng é", 0, "Chang'e"]    [word, pinyin, level, meaning]
  *   level: 1-7 = HSK level (7 = 7-9), 10 = beyond HSK, 0 = name, -1 = key word
  *
- * Readers have finished HSK 5, so a "new word" is anything above HSK 5.
+ * In 高级 a "new word" is anything above HSK 5, in 中级 anything above HSK 4.
  * Settings, the bookshelf and saved words live in this browser only (localStorage).
  *
  * Pages (hash routes):
@@ -20,7 +20,6 @@
 (() => {
   "use strict";
 
-  const READER_LEVEL = 5;
   const app = document.getElementById("app");
   const $ = (id) => document.getElementById(id);
 
@@ -34,9 +33,18 @@
       try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
     },
   };
-  const settings = Object.assign({ pinyin: "hard", size: "m", theme: "auto" }, store.get("hsk.settings", {}));
+  const settings = Object.assign({ pinyin: "hard", size: "m", theme: "auto", level: "high" }, store.get("hsk.settings", {}));
   if (!["off", "hard", "all"].includes(settings.pinyin)) settings.pinyin = "hard";
   if (!["auto", "light", "dark"].includes(settings.theme)) settings.theme = "auto";
+  if (!["mid", "high"].includes(settings.level)) settings.level = "high";
+  const isMid = () => settings.level === "mid";          // 中级 (HSK 4) or 高级 (HSK 6)
+  const readerLevel = () => (isMid() ? 4 : 5);           // a word above this is a "new word"
+  const applyLevel = () => {                             // 中级 turns the app green (style.css)
+    document.documentElement.dataset.level = settings.level;
+    const bar = document.querySelector('meta[name="theme-color"][media*="light"]');
+    if (bar) bar.content = isMid() ? "#eef7f1" : "#f4f0fd";
+  };
+  applyLevel();
   const applyTheme = () => {
     if (settings.theme === "auto") delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = settings.theme;
@@ -53,7 +61,7 @@
   // ---------- helpers ----------
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const isNew = (l) => l === 10 || l > READER_LEVEL;
+  const isNew = (l) => l === 10 || l > readerLevel();
   const fmt = (n) => n.toLocaleString("en-US");
   const CN_NUM = "零一二三四五六七八九十";
   const chapterLabel = (n) => (n <= 10 ? `第${CN_NUM[n]}章` : `第${n}章`);
@@ -74,7 +82,13 @@
     }
     return cache.get(url);
   }
-  const getLibrary = () => getJSON("data/library.json");
+  // In 中级, stories show their easier version (title, summary, length) where there is one.
+  async function getLibrary() {
+    const lib = await getJSON("data/library.json");
+    if (!isMid()) return lib;
+    return { ...lib, stories: lib.stories.map((s) => (s.mid ? { ...s, ...s.mid } : { ...s, onlyHigh: true })) };
+  }
+  const onlyHighBadge = (s) => (s.onlyHigh ? `<span class="badge only-high" lang="zh-CN">仅高级</span>` : "");
 
   function updateCount() {
     const n = Object.keys(saved).length;
@@ -144,6 +158,7 @@
           <div class="card-top">
             ${s.date ? `<span class="badge">${esc(newsDate(s.date))}</span>` : `<span class="badge">${lengthLabel(s)}</span>`}
             <span class="meta">${fmt(s.characters)} 字</span>
+            ${onlyHighBadge(s)}
             ${showGenre && genre ? `<span class="badge cat">${esc(genre.en)}</span>` : ""}
             ${status ? `<span class="meta status">${status}</span>` : ""}
           </div>
@@ -212,10 +227,15 @@
     show(`
       <section class="hero">
         <h1 lang="zh-CN">今天想读什么？</h1>
-        ${aaBtn}
+        <div class="title-actions">
+          <div class="seg level-toggle" id="level-toggle" role="group" aria-label="难度 Level" lang="zh-CN">
+            <button data-level="mid" aria-pressed="${isMid()}" title="HSK 4">中级</button><button data-level="high" aria-pressed="${!isMid()}" title="HSK 6">高级</button>
+          </div>
+          ${aaBtn}
+        </div>
       </section>
       ${readSettingsPanel()}
-      ${newsGenre ? newsSection(newsGenre, news) : ""}
+      ${newsGenre && !isMid() ? newsSection(newsGenre, news) : ""}
       <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
       <div class="tiles bento">
         ${genres.filter((g) => g.id !== "news")
@@ -223,10 +243,19 @@
           .sort((a, b) => (a.g.soon || !a.n) - (b.g.soon || !b.n) || b.n - a.n)   // most stories first, "soon" last
           .map(({ g, n }, i) => genreTile(g, n, i < 2 ? "big" : "")).join("")}
       </div>`);
+    $("level-toggle").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-level]");
+      if (!b || b.dataset.level === settings.level) return;
+      settings.level = b.dataset.level;
+      saveSettings();
+      applyLevel();
+      Promise.resolve(route()).then(() => document.querySelector(`[data-level="${settings.level}"]`)?.focus({ preventScroll: true }));
+    });
   }
 
   // ---------- one genre: list of stories ----------
   async function renderGenre(id) {
+    if (id === "news" && isMid()) { location.replace("#/"); return; }   // news is 高级 only
     setTab("discover");
     const { genres, stories } = await getLibrary();
     const g = genres.find((x) => x.id === id);
@@ -264,12 +293,15 @@
     const box = $("genre-list");
     if (!box || !genrePage) return;
     const { id, all } = genrePage, v = genreView(id);
+    const order = v.sort === "short" ? (a, b) => a.characters - b.characters
+      : v.sort === "long" ? (a, b) => b.characters - a.characters
+      : id === "news" ? byDate
+      : (a, b) => Boolean(a.onlyHigh) - Boolean(b.onlyHigh)   // 中级: stories with an easy version first
+        || a.chapter_count - b.chapter_count || a.characters - b.characters;
     const list = all
       .filter((s) => v.done === "all" || isFinished(s) === (v.done === "yes"))
       .filter((s) => v.shelf === "all" || Boolean(shelf[s.id]) === (v.shelf === "yes"))
-      .sort(v.sort === "short" ? (a, b) => a.characters - b.characters
-        : v.sort === "long" ? (a, b) => b.characters - a.characters
-        : id === "news" ? byDate : (a, b) => a.chapter_count - b.chapter_count || a.characters - b.characters);
+      .sort(order);
     const filtered = v.done !== "all" || v.shelf !== "all";
     box.innerHTML = list.map((s) => storyCard(s)).join("")
       || `<p class="empty" lang="zh-CN">${all.length ? "没有符合条件的文章。" : "Stories coming soon."}</p>`;
@@ -347,7 +379,12 @@
   async function renderRead(id, n) {
     setTab(shelf[id] ? "library" : "discover");
     let s, lib;
-    try { [s, lib] = await Promise.all([getJSON(`data/stories/${encodeURIComponent(id)}.json`), getLibrary()]); }
+    try {
+      lib = await getLibrary();
+      const easy = isMid() && lib.stories.some((x) => x.id === id && x.mid);
+      s = await getJSON(`data/stories/${encodeURIComponent(id)}${easy ? ".mid" : ""}.json`);
+      s = { ...s, onlyHigh: isMid() && !easy };
+    }
     catch { return show(`${pageBar("#/", "Discover")}<p class="empty">Story not found.</p>`); }
     const total = s.chapters.length;
     n = Math.min(Math.max(1, n || 1), total);
@@ -396,6 +433,7 @@
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
         ${byline}
+        ${s.onlyHigh ? `<p class="byline">${onlyHighBadge(s)}</p>` : ""}
         ${blurbHtml && s.genre !== "news" ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
