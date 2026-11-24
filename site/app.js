@@ -381,15 +381,28 @@
           </div>`).join("")}
       </section>`;
   }
+  function showSettings(open) {
+    const btn = $("aa-btn"), panel = $("read-settings");
+    settingsOpen = open;
+    document.body.classList.toggle("settings-open", open && !!panel);
+    if (panel) panel.hidden = !open;
+    if (btn) btn.setAttribute("aria-expanded", String(open));
+  }
+  // A click anywhere outside closes the settings. On the page itself it does only that, so
+  // closing never opens a story or a word by accident; the bars around the page still work.
+  document.addEventListener("click", (e) => {
+    if (!settingsOpen || !$("read-settings")) return;
+    if (e.target.closest("#read-settings, #aa-btn")) return;
+    showSettings(false);
+    if (app.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
   function wireReadSettings() {
     const btn = $("aa-btn"), panel = $("read-settings");
+    document.body.classList.toggle("settings-open", settingsOpen && !!panel);
     if (!btn || !panel) return;
     btn.setAttribute("aria-expanded", String(settingsOpen));
-    btn.addEventListener("click", () => {
-      settingsOpen = panel.hidden;
-      panel.hidden = !settingsOpen;
-      btn.setAttribute("aria-expanded", String(settingsOpen));
-    });
+    btn.addEventListener("click", () => showSettings(panel.hidden));
     panel.addEventListener("click", (e) => {
       const b = e.target.closest("[data-set]");
       if (!b) return;
@@ -450,7 +463,7 @@
     if (e.target.closest("#popup") || e.target.closest(".w")) return;
     closePopup();
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePopup(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closePopup(); if (settingsOpen) showSettings(false); } });
   $("popup-save").addEventListener("click", () => {
     if (!popupToken) return;
     const [word, pinyin, level, meaning] = popupToken;

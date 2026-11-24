@@ -328,6 +328,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   background: var(--surface); border: 1px solid var(--line);
 }
 .read-settings[hidden] { display: none; }
+.settings-open { cursor: pointer; }  /* iPhone: lets a tap on empty space count as a click */
 .rs-row { display: flex; align-items: center; gap: 12px; }
 .rs-label { width: 2.6em; flex: none; font-size: 14px; color: var(--ink-soft); }
 .seg { display: flex; flex: 1; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
