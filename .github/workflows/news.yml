@@ -15,9 +15,9 @@ on:
   schedule:
     # GitHub may start scheduled runs late, or skip one. So there are backups: the first run
     # that publishes wins, and later ones stop at the "already published" check for free.
-    - cron: "55 1 * * *"       # 01:55 UTC = 09:55 Beijing time
+    - cron: "50 1 * * *"       # 09:55 Beijing time
     - cron: "25 2 * * *"       # 10:25 backup
-    - cron: "25 3 * * *"       # 11:25 backup
+    - cron: "25 8 * * *"       # 16:25 backup
   workflow_dispatch:            # a "Run workflow" button, for testing
     inputs:
       count:
