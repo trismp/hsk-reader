@@ -6,12 +6,13 @@ care about. The harness (news.py) then hands the best ones to Claude.
 
 Try it on its own:  .venv/Scripts/python.exe harness/news_feeds.py
 """
-import re, sys, urllib.request, xml.etree.ElementTree as ET
+import html, re, sys, urllib.request, xml.etree.ElementTree as ET
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-# Feeds tested on 2026-11-23. (36氪, 虎嗅, 机器之心 and 品玩 had no usable feed.)
+# Feeds tested on 2026-11-24. (36氪, 机器之心 and 品玩 had no usable feed.)
 FEEDS = {
     "IT之家": "https://www.ithome.com/rss/",                       # fast company & product news
     "界面新闻": "https://a.jiemian.com/index.php?m=article&a=rss&cid=65",  # business & tech companies
@@ -21,7 +22,16 @@ FEEDS = {
     "人人都是产品经理": "https://www.woshipm.com/feed",               # product management
     "极客公园": "https://www.geekpark.net/rss",                     # innovation, founders
     "雷峰网": "https://www.leiphone.com/feed",                      # AI, robots, cars
+    "虎嗅": "https://rss.huxiu.com/",                              # business analysis
+    "少数派": "https://sspai.com/feed",                             # apps, software, gadgets
 }
+
+# Our article reader finds no text on these sites' pages, but their feed carries the whole article.
+# So we keep the feed's text, and news.py gives Claude that instead of opening the page.
+FULL_TEXT_FEEDS = {"虎嗅"}
+MIN_FULL_TEXT = 500   # shorter than this is a video or a teaser, not an article: skip it
+
+MAX_PER_SOURCE = 6   # IT之家 alone can fill more than half the list otherwise
 
 # How each outlet's name is shown on the website (pinyin + English), used in the digest's credit line.
 SOURCE_GLOSSES = {
@@ -34,6 +44,8 @@ SOURCE_GLOSSES = {
                     "meaning": "Woshipm (a Chinese product-management community)"},
     "极客公园": {"name": "极客公园", "pinyin": "jí kè gōng yuán", "meaning": "GeekPark (a Chinese tech media site)"},
     "雷峰网": {"name": "雷峰网", "pinyin": "léi fēng wǎng", "meaning": "Leiphone (a Chinese AI and tech news site)"},
+    "虎嗅": {"name": "虎嗅", "pinyin": "hǔ xiù", "meaning": "Huxiu (a Chinese business news site)"},
+    "少数派": {"name": "少数派", "pinyin": "shǎo shù pài", "meaning": "Sspai (a Chinese site about apps and gadgets)"},
 }
 
 # What we care about. Each word found in a title scores 2, in the summary 1.
@@ -66,8 +78,8 @@ def _text(el, *names) -> str:
     return ""
 
 
-def _plain(html: str, limit: int) -> str:
-    text = re.sub(r"<[^>]+>", "", html)
+def _plain(raw_html: str, limit: int | None = None) -> str:
+    text = html.unescape(re.sub(r"<[^>]+>", "", raw_html))
     text = re.sub(r"\s+", " ", text).strip()
     return text[:limit]
 
@@ -104,8 +116,15 @@ def fetch_feed(source: str, url: str) -> list[dict]:
             continue
         date = _text(el, "pubDate", "published", "updated", "date")
         date = _china_time(date, ignore_zone=source in MISLABELLED_GMT)
-        items.append({"source": source, "title": _text(el, "title"), "url": _text(el, "link"), "date": date,
-                      "summary": _plain(_text(el, "description", "summary") or _text(el, "encoded"), 300)})
+        body = _text(el, "description", "summary") or _text(el, "encoded")
+        item = {"source": source, "title": _text(el, "title"), "url": _text(el, "link"), "date": date,
+                "summary": _plain(body, 300)}
+        if source in FULL_TEXT_FEEDS:
+            item["url"] = item["url"].removesuffix("?f=rss")   # clean link for the credit line
+            item["text"] = _plain(_text(el, "description"))    # the whole article, not just the summary
+            if len(item["text"]) < MIN_FULL_TEXT:
+                continue
+        items.append(item)
     return items
 
 
@@ -122,13 +141,21 @@ def top_headlines(limit: int = 40, days: int = 0) -> list[dict]:
     seen, items = set(), []
     for item in (i for batch in batches for i in batch):
         key = re.sub(r"\W", "", item["title"])[:20]   # same story from two feeds = same key
-        if item["date"] < since or "/video/" in item["url"]:   # too old, or a video page we can't read
+        if item["date"] < since or "限时特惠" in item["title"]:   # too old, or an ad
+            continue
+        if "/video/" in item["url"] or "/prime/" in item["url"]:   # a video or paid page we can't read
             continue
         if item["title"] and item["url"] and key not in seen and score(item) > 0:
             seen.add(key)
             items.append({**item, "score": score(item)})
     items.sort(key=lambda i: (i["score"], i["date"]), reverse=True)
-    return items[:limit]
+    # At most MAX_PER_SOURCE each, so one busy outlet can't crowd out the others.
+    kept, per_source = [], Counter()
+    for item in items:
+        if per_source[item["source"]] < MAX_PER_SOURCE:
+            per_source[item["source"]] += 1
+            kept.append(item)
+    return kept[:limit]
 
 
 if __name__ == "__main__":

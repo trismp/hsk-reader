@@ -6,7 +6,7 @@
     .venv/Scripts/python.exe harness/news.py --publish     # save to the website (what the daily GitHub run does)
 
 How one run works:
-  1. Plain code (news_feeds.py) downloads 8 tech-news RSS feeds and ranks the
+  1. Plain code (news_feeds.py) downloads 10 tech-news RSS feeds and ranks the
      headlines by the companies and topics we care about. No AI yet.
   2. Start our MCP server and get its tools (read_news_article, check_hsk_level, ...).
      Add one tool of our own: save_digest, which the harness runs itself.
@@ -202,6 +202,7 @@ async def main(args, claude=None) -> dict:
     when = "today" if args.days == 0 else f"today and the {args.days} day(s) before"
     print(f"Collected {len(headlines)} ranked headlines published {when} (China time) from "
           f"{len(news_feeds.FEEDS)} feeds, skipping {len(done)} already on the website.")
+    feed_texts = {h["url"]: h["text"] for h in headlines if "text" in h}   # articles the feed already gave us in full
     if not headlines:   # no fallback to older news: save nothing, and don't fail the daily run
         print("No new headlines from today yet, so nothing to write. Try again later in the day.")
         return {}
@@ -255,6 +256,11 @@ async def main(args, claude=None) -> dict:
                 print(f"  -> {call.name}({short(call.input)})")
                 if call.name == "save_digest":
                     content, is_error = await handle_save(mcp, call.input, args, run)
+                elif call.name == "read_news_article" and call.input.get("url") in feed_texts:
+                    # 虎嗅: the page can't be read, so use the article text that came with the feed.
+                    text = feed_texts[call.input["url"]]
+                    content, is_error = json.dumps({"url": call.input["url"], "characters": len(text), "text": text},
+                                                   ensure_ascii=False), False
                 else:   # every other tool lives on the MCP server
                     result = await mcp.call_tool(call.name, call.input)
                     content, is_error = result.content[0].text, bool(result.is_error)

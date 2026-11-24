@@ -39,17 +39,18 @@ Anthropic Console, then test with Actions → "Daily news digests" → Run workf
 
 | File | What it does |
 |---|---|
-| `news_feeds.py` | Plain code, no AI. Downloads 8 tech-news RSS feeds and ranks headlines by the companies and topics in its `KEYWORDS` list (edit that list to change what you get). |
+| `news_feeds.py` | Plain code, no AI. Downloads 10 tech-news RSS feeds and ranks headlines by the companies and topics in its `KEYWORDS` list (edit that list to change what you get). |
 | `news.py` | The news harness: the agent loop, the tools and the quality gate. |
 | `run.py` | The first version: writes one grounded story from a request. Stories can also be written in Claude Code, so this one is optional. |
 
-Feeds (tested 2026-11-23): IT之家, 界面新闻, 钛媒体, 量子位, InfoQ, 人人都是产品经理,
-极客公园, 雷峰网. 36氪, 虎嗅, 机器之心 and 品玩 had no usable RSS feed.
+Feeds (tested 2026-11-24): IT之家, 界面新闻, 钛媒体, 量子位, InfoQ, 人人都是产品经理,
+极客公园, 雷峰网, 虎嗅, 少数派. 虎嗅 is read from its feed, which carries the full article.
+36氪, 机器之心 and 品玩 had no usable RSS feed.
 
 ## The loop in one picture
 
 ```
- news_feeds.py (plain code): 8 RSS feeds ──► ranked headlines
+ news_feeds.py (plain code): 10 RSS feeds ─► ranked headlines
                                                    │
             ┌──────────────────── news.py (the HARNESS) ─────────┼───────────────────┐
             │ system prompt + tools + messages (headline list) ◄─┘                   │
@@ -110,7 +111,7 @@ Design choices worth pointing out:
    if the model asks for a tool, run it and send back the result → repeat until it
    says it's done. I wrote it by hand in about 40 lines instead of using a framework,
    so I can explain every step and its cost to a customer.
-2. **"Use AI only where it adds judgement."** Plain code collects and ranks 8 news
+2. **"Use AI only where it adds judgement."** Plain code collects and ranks 10 news
    feeds for free; the model does the parts code can't: picking the stories that
    matter, reading them and rewriting them for a learner. MCP made my tools reusable
    across Claude Code, Claude Desktop and this harness.
