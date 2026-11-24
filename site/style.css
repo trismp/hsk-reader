@@ -11,6 +11,7 @@
   --key-bg: #fbe9a8;
   --name: #2f7fae;
   --hard: #d8506b;
+  --hero-gradient: linear-gradient(90deg, #4a37d8, #8a3ee6 55%, #b44be0);
   --shadow: 0 12px 32px rgba(70, 50, 170, .14);
   --radius: 18px;
   --read-font: "Songti SC", "STSong", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", serif;   /* fonts already on the phone/PC: no download, works in China */
@@ -21,12 +22,14 @@
   :root:not([data-theme="light"]) {
     --bg: #121214; --surface: #1f1f23; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34;
     --accent: #c4b5fd; --accent-soft: #2d2840; --on-accent: #121214; --key-bg: #4d3d1c; --name: #8fd0f0; --hard: #ff8aa0;
+    --hero-gradient: linear-gradient(90deg, #a78bfa, #c79bfb 55%, #ecc4ff);
     --shadow: 0 12px 32px rgba(0, 0, 0, .4); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #121214; --surface: #1f1f23; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34;
   --accent: #c4b5fd; --accent-soft: #2d2840; --on-accent: #121214; --key-bg: #4d3d1c; --name: #8fd0f0; --hard: #ff8aa0;
+    --hero-gradient: linear-gradient(90deg, #a78bfa, #c79bfb 55%, #ecc4ff);
   --shadow: 0 12px 32px rgba(0, 0, 0, .4); color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -89,7 +92,10 @@ button, select, input { font: inherit; color: inherit; }
 
 /* Discover: genre tiles */
 .hero { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 2px; }
-.hero h1 { margin: 0; font-size: clamp(24px, 6vw, 32px); line-height: 1.2; }
+.hero h1 {
+  margin: 0; font-size: min(8.4vw, max(31.2px, 7.8vw), 41.6px); line-height: 1.25; white-space: nowrap;
+  color: transparent; background: var(--hero-gradient); -webkit-background-clip: text; background-clip: text;
+}
 .hero p { margin: 0; color: var(--ink-soft); }
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
 .tile {
@@ -127,11 +133,13 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
 /* Genre page + story cards */
 .genre-head {
   --tint: var(--accent); position: relative; overflow: hidden;
-  display: flex; gap: 14px; align-items: center; margin: 8px 0 4px; padding: 10px 14px; border-radius: 16px;
+  display: flex; gap: 14px; align-items: center; margin: 8px 0 4px; padding: 10px 14px; min-height: 66px; border-radius: 16px;
   background: color-mix(in srgb, var(--tint) 12%, var(--surface));
 }
-.genre-head .tile-mark { position: static; font-size: 42px; color: var(--tint); }
-.genre-head h1 { margin: 0; font-size: clamp(20px, 5.5vw, 26px); line-height: 1.25; white-space: nowrap; }
+.genre-head .tile-mark { position: static; line-height: 1; font-size: 42px; color: var(--tint); }
+/* trim each line box to its letters, so different fonts and sizes share one centre line */
+.genre-head .tile-mark, .genre-head h1 span { display: block; text-box: trim-both cap alphabetic; }
+.genre-head h1 { display: flex; align-items: center; gap: .3em; margin: 0; font-size: clamp(20px, 5.5vw, 26px); line-height: 1; white-space: nowrap; }
 .genre-head .en { font-size: clamp(13px, 3.6vw, 16px); font-weight: 600; color: var(--ink-soft); }
 .cards { display: grid; gap: 8px; margin-top: 10px; }
 .card {
