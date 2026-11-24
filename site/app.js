@@ -182,8 +182,8 @@
     const source = newsSource(s);
     return `
       <a class="news-item" href="#/read/${encodeURIComponent(s.id)}/1">
-        <span class="news-date">${esc(newsDate(s.date, true))}</span>
-        ${source ? `<span class="news-source" lang="zh-CN">${esc(source)}</span>` : ""}
+        <span class="news-meta"><span class="news-date">${esc(newsDate(s.date, true))}</span>${
+          source ? `<span class="news-source" lang="zh-CN">${esc(source)}</span>` : ""}</span>
         <span class="news-headline" lang="zh-CN">${cardText(s.title_tokens, s.title)}</span>
       </a>`;
   }
