@@ -145,7 +145,7 @@
             ${status ? `<span class="meta status">${status}</span>` : ""}
           </div>
           <h2><span class="zh-title" lang="zh-CN">${cardText(s.title_tokens, s.title)}</span><span class="title-en">${esc(s.title_en)}</span></h2>
-          <p class="blurb zh" lang="zh-CN">${cardText(s.blurb_tokens, s.blurb_zh)}</p>
+          ${s.genre === "news" ? "" : `<p class="blurb zh" lang="zh-CN">${cardText(s.blurb_tokens, s.blurb_zh)}</p>`}
         </a>
         ${saveStoryBtn(s.id)}
       </article>`;
@@ -173,19 +173,18 @@
   }
 
   // News source: its own field, or the "（IT之家）" an older digest put at the end of its blurb.
-  function newsParts(s) {
-    const m = String(s.blurb_zh || "").match(/^(.*?)（([^（）]+)）\s*$/);
-    return { source: s.source || (m ? m[2] : ""), blurb: m && !s.source ? m[1] : s.blurb_zh || "" };
+  function newsSource(s) {
+    const m = String(s.blurb_zh || "").match(/（([^（）]+)）\s*$/);
+    return s.source || (m ? m[1] : "");
   }
 
   function newsItem(s) {
-    const { source, blurb } = newsParts(s);
+    const source = newsSource(s);
     return `
       <a class="news-item" href="#/read/${encodeURIComponent(s.id)}/1">
         <span class="news-date">${esc(newsDate(s.date, true))}</span>
         ${source ? `<span class="news-source" lang="zh-CN">${esc(source)}</span>` : ""}
         <span class="news-headline" lang="zh-CN">${cardText(s.title_tokens, s.title)}</span>
-        <span class="news-blurb" lang="zh-CN">${s.source ? cardText(s.blurb_tokens, blurb) : esc(blurb)}</span>
       </a>`;
   }
 
@@ -314,7 +313,7 @@
     // news: date and a link to the original article
     const link = (s.sources || [])[0];
     const byline = s.date ? `<p class="byline">${esc(newsDate(s.date, true))}${link
-      ? ` · <a href="${esc(link)}" rel="noopener" target="_blank" lang="zh-CN">${esc(newsParts(s).source || "原文")} ↗</a>` : ""}</p>` : "";
+      ? ` · <a href="${esc(link)}" rel="noopener" target="_blank" lang="zh-CN">${esc(newsSource(s) || "原文")} ↗</a>` : ""}</p>` : "";
     const chapterTitleHtml = ch.title_tokens ? inline(ch.title_tokens) : esc(ch.title);
     const paras = ch.paragraphs.map(renderParagraph).join("");
     const pinyinTitles = settings.pinyin !== "off" ? "pinyin" : "";
@@ -341,7 +340,7 @@
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
         ${byline}
-        ${blurbHtml ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
+        ${blurbHtml && s.genre !== "news" ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
