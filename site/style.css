@@ -164,7 +164,7 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
 .badge.cat { background: transparent; border: 1px solid var(--line); color: var(--ink-soft); font-weight: 500; }
 .empty { padding: 32px 0; color: var(--ink-soft); text-align: center; }
 .shelf-btn {
-  display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px;
+  display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border-radius: 50%;
   border: 1px solid var(--line); background: var(--bg); color: var(--ink-soft); cursor: pointer; font-size: 13px; font-weight: 600;
 }
 .shelf-btn.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
@@ -315,7 +315,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 
 /* Reading settings */
 .read-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
-.title-actions .shelf-btn { height: 34px; }
+.inline-icon svg { vertical-align: -4px; color: var(--accent); }
 .title-actions { display: flex; gap: 8px; align-items: center; flex: none; }
 .title-actions .shelf-btn { margin-top: 0; }
 .aa-btn {

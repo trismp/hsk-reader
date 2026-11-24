@@ -105,7 +105,7 @@
   const saveStoryBtn = (id) => {
     const on = Boolean(shelf[id]);
     return `<button class="shelf-btn${on ? " on" : ""}" data-shelf="${esc(id)}" aria-pressed="${on}"
-      aria-label="${on ? "Remove from library" : "Save to library"}">${bookmarkIcon(on)}<span>${on ? "Saved" : "Save"}</span></button>`;
+      aria-label="Save to library" title="${on ? "Remove from library" : "Save to library"}">${bookmarkIcon(on)}</button>`;
   };
   function toggleShelf(id) {
     if (shelf[id]) delete shelf[id]; else shelf[id] = { added: Date.now() };
@@ -482,7 +482,7 @@
       <p class="meta">Stories you saved, with where you left off. Saved in this browser only.</p>
       <div class="cards ${listClass()}">
         ${mine.map((s) => storyCard(s, { showGenre: true, genres })).join("") ||
-          `<p class="empty">Nothing here yet. Open a story and tap <strong>Save</strong> to keep it on your shelf.<br><br>
+          `<p class="empty">Nothing here yet. Open a story and tap <span class="inline-icon" role="img" aria-label="the bookmark symbol">${bookmarkIcon(false)}</span> to keep it on your shelf.<br><br>
            <a class="btn" href="#/">Discover stories</a></p>`}
       </div>`);
   }
