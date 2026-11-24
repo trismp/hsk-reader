@@ -13,8 +13,11 @@ name: Daily news digests
 
 on:
   schedule:
-    - cron: "55 1 * * *"       # 01:55 UTC = 09:55 Beijing time; digests go live about 10:00
-                                # (GitHub sometimes starts scheduled runs 5-30 minutes late)
+    # GitHub may start scheduled runs late, or skip one. So there are backups: the first run
+    # that publishes wins, and later ones stop at the "already published" check for free.
+    - cron: "55 1 * * *"       # 01:55 UTC = 09:55 Beijing time
+    - cron: "25 2 * * *"       # 10:25 backup
+    - cron: "25 3 * * *"       # 11:25 backup
   workflow_dispatch:            # a "Run workflow" button, for testing
     inputs:
       count:
@@ -38,25 +41,46 @@ jobs:
       COUNT: ${{ github.event.inputs.count || '2' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main             # newest main, so a run that waited sees digests just published
+          fetch-depth: 0        # full history, for the check below
+
+      # Scheduled runs stop here if today's digests are already committed.
+      # The "Run workflow" button always goes ahead.
+      - name: Already published today?
+        id: check
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] &&
+             [ -n "$(git log --format=%s --grep="^News digests for $(date +%Y-%m-%d)$" -1)" ]; then
+            echo "Today's digests are already published. Stopping: no Claude call, no cost."
+            echo "done=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - uses: actions/setup-python@v5
+        if: steps.check.outputs.done != 'true'
         with:
           python-version: "3.14"
           cache: pip
 
       - name: Install Python packages
+        if: steps.check.outputs.done != 'true'
         run: pip install -r requirements.txt
 
       - name: Write today's digests with Claude
+        if: steps.check.outputs.done != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python harness/news.py --publish --count "$COUNT" --effort low   # Opus 5.5 on low effort: cheaper and faster
 
       - name: Rebuild the site data
+        if: steps.check.outputs.done != 'true'
         run: python tools/build_site.py
 
       - name: Commit the new digests
         id: commit
+        if: steps.check.outputs.done != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
