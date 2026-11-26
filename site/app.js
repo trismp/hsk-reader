@@ -283,7 +283,7 @@
         ${genres.filter((g) => g.id !== "news")
           .map((g) => ({ g, n: count(g) }))
           .sort((a, b) => (a.g.soon || !a.n) - (b.g.soon || !b.n) || b.n - a.n)   // most stories first, "soon" last
-          .map(({ g, n }, i) => genreTile(g, n, i < 2 ? "big" : "")).join("")}
+          .map(({ g, n }) => genreTile(g, n)).join("")}
       </div>`);
     $("level-toggle").addEventListener("click", (e) => {
       const b = e.target.closest("[data-level]");

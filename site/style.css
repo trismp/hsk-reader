@@ -497,19 +497,13 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 }
 .news-headline { margin-top: 4px; font: 700 var(--headline)/1.3 var(--read-font); color: var(--ink); }
 
-/* Discover: bento grid. Desktop: 2 big cards, then 3. Phone: 1 big card, then 2x2 */
-.tiles.bento { grid-template-columns: repeat(6, 1fr); }
-.bento .tile { grid-column: span 2; min-height: 128px; }
-.bento .tile.big { grid-column: span 3; min-height: 140px; }
-.bento .tile.big .tile-zh { font-size: 30px; }
-.bento .tile.big .tile-mark { font-size: 150px; bottom: -34px; }
+/* Discover: genre tiles, all the same size. Desktop: 3 per row. Phone: 2 per row. */
+.tiles.bento { grid-template-columns: repeat(3, 1fr); }
+.bento .tile { min-height: 128px; }
 @media (max-width: 600px) {
   .tiles.bento { grid-template-columns: 1fr 1fr; }
-  .bento .tile, .bento .tile.big { grid-column: span 1; min-height: 112px; }
-  .bento .tile:first-child { grid-column: span 2; min-height: 128px; }
-  .bento .tile.big:not(:first-child) .tile-zh { font-size: 24px; }
-  .bento .tile.big:not(:first-child) .tile-mark { font-size: 110px; bottom: -22px; }
-  .bento .tile:not(:first-child) .tile-tag { display: none; }
+  .bento .tile { min-height: 112px; }
+  .bento .tile .tile-tag { display: none; }
 }
 @media (max-width: 719px) { .footer { padding-bottom: 20px; } }   /* keep clear of the tab bar */
 
