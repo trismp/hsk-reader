@@ -62,7 +62,18 @@ def main() -> None:
             prefix, num = tag.rsplit("-", 1)
             levels[SCHEMES[prefix]] = int(num)
 
+        senses: dict[str, list[str]] = {}  # every meaning per reading, for the popup
+        for f in forms:
+            known = senses.setdefault(f["transcriptions"]["pinyin"], [])
+            known += [m for m in f["meanings"] if m not in known and "variant of" not in m]
+
         if word in words:
+            for p, ms in senses.items():  # merge the second listing's meanings
+                row = next((r for r in words[word]["senses"] if r[0] == p), None)
+                if row:
+                    row[1] += [m for m in ms if m not in row[1]][:max(0, 8 - len(row[1]))]
+                elif ms:
+                    words[word]["senses"].append([p, ms[:8]])
             # Same characters listed twice (e.g. two readings): keep the
             # easiest level per scheme and add the extra meanings.
             old = words[word]
@@ -76,6 +87,7 @@ def main() -> None:
             # main reading's meanings first, then the other reading's
             "meanings": form["meanings"][:4] + [m for m in other_meanings if m not in form["meanings"]],
             "levels": levels,
+            "senses": [[p, ms[:8]] for p, ms in senses.items() if ms],
         }
         if len({f["transcriptions"]["pinyin"] for f in forms}) > 1:  # for tools/readings.py
             by_reading: dict[str, list[str]] = {}

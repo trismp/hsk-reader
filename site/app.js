@@ -14,7 +14,7 @@
  *   #/                 Discover: genre tiles
  *   #/genre/<id>       stories in one genre
  *   #/read/<id>/<n>    read chapter n of a story
- *   #/library          bookshelf (saved stories + reading progress)
+ *   #/me               我的: recently read; #/me/saved saved stories; #/me/highlights highlights
  *   #/words            saved words; #/words/cards flashcards; #/words/quiz quiz
  */
 (() => {
@@ -55,8 +55,22 @@
   let progress = store.get("hsk.progress", {});  // story id -> {chapter, done: [chapter numbers]}
   const saveSettings = () => store.set("hsk.settings", settings);
   const saveWords = () => { store.set("hsk.saved", saved); updateCount(); };
+  // Saved words are keyed "word|pinyin", so 还 hái and 还 huán are two words.
+  // Older saves were keyed by the word alone: move them over once.
+  const wordKey = (word, pinyin) => `${word}|${(pinyin || "").toLowerCase()}`;
+  const wordOf = (key, e) => e.word || key.split("|")[0];
+  if (Object.keys(saved).some((k) => !k.includes("|"))) {
+    saved = Object.fromEntries(Object.entries(saved).map(([k, e]) =>
+      k.includes("|") ? [k, e] : [wordKey(k, e.pinyin), { ...e, word: k }]));
+    store.set("hsk.saved", saved);
+  }
   const saveShelf = () => store.set("hsk.shelf", shelf);
   const saveProgress = () => store.set("hsk.progress", progress);
+  // progress[id] also keeps: pos {chapter, para} (where the reader stopped), pct (one-shots), last (time)
+  let highlights = store.get("hsk.highlights", []);  // [{id, file, story, title, chapter, from, to, color, text, added}]
+  const saveHighlights = () => store.set("hsk.highlights", highlights);
+  let bookmarks = store.get("hsk.bookmarks", {});   // story id -> [{id, file, chapter, para, text, added}]
+  const saveBookmarks = () => store.set("hsk.bookmarks", bookmarks);
 
   // ---------- helpers ----------
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
@@ -85,6 +99,16 @@
   // In 中级, stories show their easier version (title, summary, length) where there is one.
   async function getLibrary() {
     const lib = await getJSON("data/library.json");
+    if (!store.get("hsk.doneFix", false)) {
+      // Before, opening a story's last chapter marked it finished. Undo that once
+      // (stories read since this change have a saved position, "pos").
+      for (const s of lib.stories) {
+        const p = progress[s.id];
+        if (p && !p.pos && p.done) p.done = p.done.filter((n) => n !== s.chapter_count && n !== s.mid?.chapter_count);
+      }
+      saveProgress();
+      store.set("hsk.doneFix", true);
+    }
     if (!isMid()) return lib;
     return { ...lib, stories: lib.stories.map((s) => (s.mid ? { ...s, ...s.mid } : { ...s, onlyHigh: true })) };
   }
@@ -117,11 +141,12 @@
     `<div class="read-bar">${backBtn(href, label)}<div class="title-actions">${actions}</div></div>`;
   const aaBtn = `<button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings" title="Reading settings"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 5.2L10.4 2.1L13.6 2.1L13.7 5.2L15.6 6.0L17.9 3.9L20.1 6.1L18.0 8.4L18.8 10.3L21.9 10.4L21.9 13.6L18.8 13.7L18.0 15.6L20.1 17.9L17.9 20.1L15.6 18.0L13.7 18.8L13.6 21.9L10.4 21.9L10.3 18.8L8.4 18.0L6.1 20.1L3.9 17.9L6.0 15.6L5.2 13.7L2.1 13.6L2.1 10.4L5.2 10.3L6.0 8.4L3.9 6.1L6.1 3.9L8.4 6.0z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`;
 
+  const heartIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 20.5s-7.5-4.6-9.3-9.4C1.6 8 3.6 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.4 0 5.4 3.5 4.3 6.6-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg>`;
   const bookmarkIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h12v18l-6-4.5L6 21z"/></svg>`;
   const saveStoryBtn = (id) => {
     const on = Boolean(shelf[id]);
     return `<button class="shelf-btn${on ? " on" : ""}" data-shelf="${esc(id)}" aria-pressed="${on}"
-      aria-label="Save to library" title="${on ? "Remove from library" : "Save to library"}">${bookmarkIcon(on)}</button>`;
+      aria-label="收藏 Save story" title="${on ? "Remove from saved" : "Save story"}">${heartIcon(on)}</button>`;
   };
   function toggleShelf(id) {
     if (shelf[id]) delete shelf[id]; else shelf[id] = { added: Date.now() };
@@ -134,7 +159,7 @@
     e.preventDefault(); e.stopPropagation();
     toggleShelf(b.dataset.shelf);
     b.outerHTML = saveStoryBtn(b.dataset.shelf);
-    if (location.hash === "#/library") route();
+    if (location.hash.startsWith("#/me")) route();
     else refreshGenreList();
   });
 
@@ -150,7 +175,8 @@
   function storyCard(s, { showGenre = false, genres = [] } = {}) {
     const p = progress[s.id];
     const genre = genres.find((g) => g.id === s.genre);
-    const status = p ? (p.done?.length >= s.chapter_count ? "✓ Finished" : `Reading · ${chapterLabel(p.chapter)}`) : "";
+    const status = !p ? "" : isFinished(s) ? "✓ Finished"
+      : s.chapter_count > 1 ? `Reading · ${chapterLabel(p.chapter)}` : `Reading${p.pct ? ` · ${p.pct}%` : ""}`;
     const start = p && p.chapter ? p.chapter : 1;
     return `
       <article class="card">
@@ -218,6 +244,21 @@
       </section>`;
   }
 
+  // The story read most recently and not finished yet, to pick up where the reader stopped.
+  function continueCard(stories) {
+    const s = stories.filter((x) => progress[x.id]?.last && !isFinished(x))
+      .sort((a, b) => progress[b.id].last - progress[a.id].last)[0];
+    if (!s) return "";
+    const p = progress[s.id];
+    const where = s.chapter_count > 1 ? chapterLabel(p.chapter || 1) : `${p.pct || 0}%`;
+    return `
+      <a class="continue-card" href="#/read/${encodeURIComponent(s.id)}/${p.chapter || 1}">
+        <span class="cc-label" lang="zh-CN">继续阅读</span>
+        <span class="cc-title" lang="zh-CN">${esc(s.title)}</span>
+        <span class="cc-meta" lang="zh-CN">${where} →</span>
+      </a>`;
+  }
+
   async function renderDiscover() {
     setTab("discover");
     const { genres, stories } = await getLibrary();
@@ -235,6 +276,7 @@
         </div>
       </section>
       ${readSettingsPanel()}
+      ${continueCard(stories)}
       ${newsGenre && !isMid() ? newsSection(newsGenre, news) : ""}
       <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
       <div class="tiles bento">
@@ -340,7 +382,7 @@
     const [word, pinyin, level] = t;
     const cls = ["w"];
     if (level === 0) cls.push("n");
-    if (saved[word]) cls.push("saved");
+    if (saved[wordKey(word, pinyin)]) cls.push("saved");
     const inner = showsPinyin(t) ? `<ruby>${rubyFor(word, pinyin)}</ruby>` : esc(word);
     return `<span class="${cls.join(" ")}" data-i="${i}" role="button" tabindex="0">${inner}</span>`;
   }
@@ -349,7 +391,11 @@
   // (saved with a word so flashcards can show it in context).
   let currentTokens = [];
   let tokenSentence = [];
+  let plainAfter = [];     // punctuation after each word, to copy a highlighted phrase
   let currentStory = null;
+  let currentFile = "", currentChapter = 0;   // which text the highlights belong to
+  let readState = null;    // {id, n, total} while a story is open
+  let pendingJump = null;  // a highlight to scroll to after the page opens
 
   function renderParagraph(tokens) {
     const sentenceEnd = /[。！？!?]/;
@@ -364,7 +410,9 @@
       if (typeof t === "string") {
         sentence += t;
         if (sentenceEnd.test(t)) flush();
-        return esc(t);
+        const a = currentTokens.length - 1;            // the word just before it
+        if (a >= 0) plainAfter[a] = (plainAfter[a] || "") + t;
+        return `<span class="pu" data-a="${a}">${esc(t)}</span>`;
       }
       currentTokens.push(t);
       const i = currentTokens.length - 1;
@@ -377,11 +425,11 @@
   }
 
   async function renderRead(id, n) {
-    setTab(shelf[id] ? "library" : "discover");
-    let s, lib;
+    setTab(progress[id] || shelf[id] ? "me" : "discover");
+    let s, lib, easy;
     try {
       lib = await getLibrary();
-      const easy = isMid() && lib.stories.some((x) => x.id === id && x.mid);
+      easy = isMid() && lib.stories.some((x) => x.id === id && x.mid);
       s = await getJSON(`data/stories/${encodeURIComponent(id)}${easy ? ".mid" : ""}.json`);
       s = { ...s, onlyHigh: isMid() && !easy };
     }
@@ -395,10 +443,13 @@
     // remember where the reader is
     const p = progress[id] || { chapter: 1, done: [] };
     p.chapter = n;
+    p.last = Date.now();
     progress[id] = p;
     saveProgress();
+    currentFile = id + (easy ? ".mid" : "");
+    currentChapter = n;
 
-    currentTokens = []; tokenSentence = [];
+    currentTokens = []; tokenSentence = []; plainAfter = [];
     // titles are tappable too: render them like a one-line paragraph
     const inline = (tokens) => renderParagraph(tokens || []).replace(/^<p>|<\/p>$/g, "");
     const titleHtml = s.title_tokens ? inline(s.title_tokens) : esc(s.title);
@@ -411,14 +462,22 @@
     const paras = ch.paragraphs.map(renderParagraph).join("");
     const pinyinTitles = settings.pinyin !== "off" ? "pinyin" : "";
 
+    const chapterOptions = s.chapters.map((c, i) =>
+      `<option value="${i + 1}" ${i + 1 === n ? "selected" : ""}>${esc(c.title || chapterLabel(i + 1))}</option>`).join("");
     const chapterNav = total > 1 ? `
       <nav class="chapter-nav" aria-label="Chapters">
         ${n > 1 ? `<a class="btn ghost" href="#/read/${encodeURIComponent(id)}/${n - 1}">← ${chapterLabel(n - 1)}</a>` : ""}
-        <select id="chapter-select" aria-label="Go to chapter">
-          ${s.chapters.map((c, i) => `<option value="${i + 1}" ${i + 1 === n ? "selected" : ""}>${esc(c.title)}</option>`).join("")}
-        </select>
+        <select class="chapter-select" aria-label="Go to chapter">${chapterOptions}</select>
         ${n < total ? `<a class="btn" id="next-ch" href="#/read/${encodeURIComponent(id)}/${n + 1}">${chapterLabel(n + 1)} →</a>` : ""}
       </nav>` : "";
+    // at the top too: previous / all chapters / next
+    const chapterTop = total > 1 ? `
+      <nav class="chapter-top" aria-label="Chapters">
+        ${n > 1 ? `<a class="ct-step" href="#/read/${encodeURIComponent(id)}/${n - 1}" aria-label="Previous chapter">‹</a>` : `<span class="ct-step off" aria-hidden="true">‹</span>`}
+        <select class="chapter-select" aria-label="Go to chapter">${chapterOptions}</select>
+        ${n < total ? `<a class="ct-step" href="#/read/${encodeURIComponent(id)}/${n + 1}" aria-label="Next chapter">›</a>` : `<span class="ct-step off" aria-hidden="true">›</span>`}
+      </nav>` : "";
+    const listHref = genre ? `#/genre/${esc(genre.id)}` : "#/";
 
     const finished = n === total;
     const sources = (s.sources || []).length ? `
@@ -428,32 +487,210 @@
       </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
-      ${pageBar(genre ? `#/genre/${esc(genre.id)}` : "#/", genre ? genre.en : "Discover", aaBtn + saveStoryBtn(id))}
+      ${pageBar(listHref, genre ? genre.en : "Discover", saveStoryBtn(id) + bmBtn(id) + aaBtn)}
       ${readSettingsPanel()}
+      <section class="read-settings bm-panel" id="bm-panel" hidden lang="zh-CN"></section>
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
         ${byline}
         ${s.onlyHigh ? `<p class="byline">${onlyHighBadge(s)}</p>` : ""}
         ${blurbHtml && s.genre !== "news" ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
+      ${chapterTop}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
       ${chapterNav}
-      ${finished ? `<div class="the-end" lang="zh-CN"><span>全文完</span><span aria-hidden="true">·</span>
+      ${finished ? `<div class="the-end" id="the-end" lang="zh-CN"><span>全文完</span><span aria-hidden="true">·</span>
         <a class="btn" href="#/words">复习生词 →</a></div>` : ""}
+      <a class="btn ghost back-list" href="${listHref}"><span aria-hidden="true">←</span> <span lang="zh-CN">返回列表</span></a>
       ${sources}`);
 
-    // chapter counts as read when the reader moves on (or reaches the end)
-    const markDone = (num) => {
-      const pr = progress[id];
-      if (!pr.done.includes(num)) { pr.done.push(num); saveProgress(); }
-    };
+    // A chapter counts as read when the reader moves on to the next one, or scrolls
+    // down to 全文完 at the end. Only opening a story is not finishing it.
     const next = $("next-ch");
-    if (next) next.addEventListener("click", () => markDone(n));
-    if (finished) markDone(n);
-    const sel = $("chapter-select");
-    if (sel) sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; });
+    if (next) next.addEventListener("click", () => markDone(id, n));
+    app.querySelectorAll(".chapter-select").forEach((sel) =>
+      sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; }));
+    readState = { id, n, total };
+    applyHighlights();
+    markBookmarks();
+    $("bm-panel").addEventListener("click", onBookmarkPanel);
+
+    // Open where the reader stopped (or at a highlight picked in 我的).
+    const jump = pendingJump && pendingJump.file === currentFile && pendingJump.chapter === n ? pendingJump : null;
+    pendingJump = null;
+    const target = jump ? (jump.para != null ? app.querySelectorAll("article.story > p")[jump.para]
+                                             : app.querySelector(`.w[data-i="${jump.from}"]`))
+      : p.pos && p.pos.chapter === n && p.pos.para > 0 ? app.querySelectorAll("article.story > p")[p.pos.para] : null;
+    if (target) {
+      const top = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, Math.max(0, top - (jump ? window.innerHeight / 3 : 90)));
+    }
   }
+
+  // ---------- bookmarks: places inside a story ----------
+  const storyBookmarks = (id) => (bookmarks[id] || []).filter((b) => b.file === currentFile);
+  const bmBtn = (id) => {
+    const on = storyBookmarks(id).length > 0;
+    return `<button class="aa-btn bm-btn${on ? " on" : ""}" id="bm-btn" aria-expanded="false" aria-controls="bm-panel" aria-label="书签 Bookmarks" title="Bookmarks">${bookmarkIcon(on)}</button>`;
+  };
+  // The paragraph at the top of the screen: where a new bookmark goes.
+  function paraOnScreen() {
+    const paras = [...app.querySelectorAll("article.story > p")];
+    const k = paras.findIndex((el) => el.getBoundingClientRect().bottom > 90);
+    return k < 0 ? Math.max(0, paras.length - 1) : k;
+  }
+  function paraText(k) {
+    const el = app.querySelectorAll("article.story > p")[k];
+    if (!el) return "";
+    const c = el.cloneNode(true);
+    c.querySelectorAll("rt").forEach((r) => r.remove());
+    const t = c.textContent.trim();
+    return t.length > 22 ? `${t.slice(0, 22)}…` : t;
+  }
+  function bmPanelHtml() {
+    const { id, total } = readState;
+    const list = storyBookmarks(id).sort((a, b) => a.chapter - b.chapter || a.para - b.para);
+    const here = paraOnScreen();
+    const exists = list.some((b) => b.chapter === readState.n && b.para === here);
+    return `
+      <div class="bm-head"><strong>书签</strong>
+        <button class="btn bm-add" data-bm-add ${exists ? "disabled" : ""}>${exists ? "这里已有书签" : "＋ 在这里加书签"}</button></div>
+      ${list.length ? `<ul class="bm-list">${list.map((b) => `
+        <li><button class="bm-go" data-bm-go="${esc(b.id)}">
+            <span class="bm-where">${total > 1 ? `${chapterLabel(b.chapter)} · ` : ""}第${b.para + 1}段</span>
+            <span class="bm-text">${esc(b.text)}</span></button>
+          <button class="bm-rm" data-bm-rm="${esc(b.id)}" aria-label="删除书签 Remove bookmark">×</button></li>`).join("")}</ul>`
+        : `<p class="bm-empty">还没有书签。读到想回来的地方，点“在这里加书签”。</p>`}`;
+  }
+  function markBookmarks() {
+    const paras = app.querySelectorAll("article.story > p");
+    paras.forEach((el) => el.classList.remove("bm"));
+    for (const b of storyBookmarks(readState.id)) if (b.chapter === readState.n) paras[b.para]?.classList.add("bm");
+    const btn = $("bm-btn");
+    if (btn) btn.outerHTML = bmBtn(readState.id).replace('aria-expanded="false"', `aria-expanded="${openPanel === "bm-panel"}"`);
+    $("bm-btn")?.addEventListener("click", () => {
+      if (openPanel === "bm-panel") return showPanel("");
+      $("bm-panel").innerHTML = bmPanelHtml();
+      showPanel("bm-panel");
+    });
+  }
+  function onBookmarkPanel(e) {
+    const { id, n } = readState;
+    const add = e.target.closest("[data-bm-add]"), go = e.target.closest("[data-bm-go]"), rm = e.target.closest("[data-bm-rm]");
+    if (add) {
+      const para = paraOnScreen();
+      (bookmarks[id] = bookmarks[id] || []).push({
+        id: Date.now().toString(36), file: currentFile, chapter: n, para, text: paraText(para), added: Date.now() });
+      saveBookmarks();
+    } else if (rm) {
+      bookmarks[id] = (bookmarks[id] || []).filter((b) => b.id !== rm.dataset.bmRm);
+      if (!bookmarks[id].length) delete bookmarks[id];
+      saveBookmarks();
+    } else if (go) {
+      const b = (bookmarks[id] || []).find((x) => x.id === go.dataset.bmGo);
+      if (!b) return;
+      showPanel("");
+      if (b.chapter === n) {
+        const el = app.querySelectorAll("article.story > p")[b.para];
+        if (el) window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - 90));
+      } else {
+        pendingJump = b;
+        location.hash = `#/read/${encodeURIComponent(id)}/${b.chapter}`;
+      }
+      return;
+    } else return;
+    $("bm-panel").innerHTML = bmPanelHtml();
+    markBookmarks();
+  }
+
+  function markDone(id, num) {
+    const pr = progress[id];
+    if (pr && !pr.done.includes(num)) { pr.done.push(num); saveProgress(); }
+  }
+
+  // While reading, remember the first paragraph on screen, and notice when 全文完 comes into view.
+  let scrollTimer = 0;
+  window.addEventListener("scroll", () => {
+    if (!readState || scrollTimer) return;
+    scrollTimer = setTimeout(() => { scrollTimer = 0; noteScroll(); }, 300);
+  }, { passive: true });
+  function noteScroll() {
+    if (!readState || !location.hash.startsWith("#/read/")) return;
+    const paras = [...app.querySelectorAll("article.story > p")];
+    const p = progress[readState.id];
+    if (!paras.length || !p) return;
+    let k = paras.findIndex((el) => el.getBoundingClientRect().bottom > 90);
+    if (k < 0) k = paras.length - 1;
+    p.pos = { chapter: readState.n, para: k };
+    if (readState.total === 1) p.pct = Math.round((k / paras.length) * 100);
+    p.last = Date.now();
+    const end = $("the-end");
+    if (end && end.getBoundingClientRect().top < window.innerHeight) markDone(readState.id, readState.n);
+    saveProgress();
+  }
+
+  // ---------- highlights ----------
+  // A highlight is a run of words (from..to, positions on the chapter page) in one of three colours.
+  const HL_COLORS = [["1", "黄 Yellow"], ["2", "绿 Green"], ["3", "粉 Pink"]];
+  const chapterHighlights = () => highlights.filter((h) => h.file === currentFile && h.chapter === currentChapter);
+  const highlightAt = (i) => chapterHighlights().find((h) => h.from <= i && h.to >= i);
+  function applyHighlights() {
+    app.querySelectorAll(".hl1, .hl2, .hl3").forEach((el) => el.classList.remove("hl1", "hl2", "hl3"));
+    for (const h of chapterHighlights()) {
+      for (let i = h.from; i <= h.to; i++) app.querySelector(`.w[data-i="${i}"]`)?.classList.add(`hl${h.color}`);
+      app.querySelectorAll(".pu").forEach((el) => {
+        const a = Number(el.dataset.a);
+        if (a >= h.from && a < h.to) el.classList.add(`hl${h.color}`);
+      });
+    }
+  }
+  function addHighlight(from, to, color) {
+    // one colour per word: a new highlight replaces the ones it overlaps
+    highlights = highlights.filter((h) => !(h.file === currentFile && h.chapter === currentChapter && h.from <= to && h.to >= from));
+    let text = "";
+    for (let i = from; i <= to; i++) text += currentTokens[i][0] + (i < to ? plainAfter[i] || "" : "");
+    highlights.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      file: currentFile, story: readState.id, title: currentStory.title, chapter: currentChapter,
+      from, to, color, text, added: Date.now(),
+    });
+    saveHighlights(); applyHighlights();
+  }
+  function removeHighlightAt(i) {
+    highlights = highlights.filter((h) => !(h.file === currentFile && h.chapter === currentChapter && h.from <= i && h.to >= i));
+    saveHighlights(); applyHighlights();
+  }
+
+  // Select text in a story (long-press on a phone) and a colour bar appears.
+  let selTimer = 0, lastSel = null;
+  function selectedWords() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
+    const r = sel.getRangeAt(0);
+    const story = app.querySelector("article.story");
+    if (!story || !story.contains(r.commonAncestorContainer)) return null;
+    const idx = [...story.querySelectorAll(".w")].filter((el) => r.intersectsNode(el)).map((el) => Number(el.dataset.i));
+    return idx.length ? [Math.min(...idx), Math.max(...idx)] : null;
+  }
+  document.addEventListener("selectionchange", () => {
+    clearTimeout(selTimer);
+    selTimer = setTimeout(() => {
+      const t = selectedWords();
+      if (t) { lastSel = t; closePopup(); $("hl-bar").hidden = false; }
+      else $("hl-bar").hidden = true;
+    }, 250);
+  });
+  $("hl-bar").addEventListener("pointerdown", (e) => e.preventDefault());   // keep the selection
+  $("hl-bar").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-hl]");
+    if (!b) return;
+    const t = selectedWords() || lastSel;
+    if (t && b.dataset.hl !== "x") addHighlight(t[0], t[1], b.dataset.hl);
+    window.getSelection()?.removeAllRanges();
+    lastSel = null;
+    $("hl-bar").hidden = true;
+  });
 
   // ---------- reading settings (Discover, story lists and story pages; in Chinese) ----------
   const SETTING_GROUPS = [
@@ -461,7 +698,7 @@
     { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
     { key: "theme", label: "主题", options: [["light", "浅色"], ["dark", "深色"], ["auto", "跟随系统"]] },
   ];
-  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn" };  // panel -> its button
+  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn", "bm-panel": "bm-btn" };  // panel -> its button
   let openPanel = "";   // at most one is open
   const optionRows = (groups, values, attr) => groups.map((g) => `
           <div class="rs-row">
@@ -489,7 +726,7 @@
   // closing never opens a story or a word by accident; the bars around the page still work.
   document.addEventListener("click", (e) => {
     if (!openPanel || !$(openPanel)) return;
-    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note")) return;
+    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note, #bm-panel, #bm-btn")) return;
     showPanel("");
     if (app.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
   }, true);
@@ -524,19 +761,42 @@
     const [word, pinyin, level, meaning] = popupToken;
     $("popup-word").textContent = word;
     $("popup-pinyin").textContent = pinyin || "";
-    $("popup-meaning").textContent = meaning || "No dictionary entry.";
+    const { own, others } = meaningsOf(popupToken);
+    $("popup-meaning").textContent = own || "No dictionary entry.";
+    $("popup-more").innerHTML = others.map(([p, ms]) =>
+      `<p><span class="more-py">${esc(p)}</span> ${esc(ms.join("; "))}</p>`).join("");
+    $("popup-hl").innerHTML = popupHlRow();
     updateSaveButton();
     $("popup").hidden = false;
     if (selectedEl) selectedEl.classList.remove("sel");
     selectedEl = el; el.classList.add("sel");
   }
+  // Every meaning of the word for this pinyin, in one line; other pinyin (还 huán) below it.
+  const bare = (p) => (p || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "");
+  function meaningsOf([word, pinyin, , meaning]) {
+    const rows = (currentStory && currentStory.senses && currentStory.senses[word]) || [];
+    const parts = (ms) => ms.flatMap((m) => m.split(";")).map((m) => m.trim()).filter(Boolean);
+    const first = parts([meaning || ""]);
+    const here = (pinyin || "").toLowerCase();
+    // this pinyin: exact match, or only the tones differ (dōng xi / dōng xī)
+    const mine = rows.find(([p]) => p.toLowerCase() === here) || rows.find(([p]) => bare(p) === bare(here));
+    const own = [...new Set([...first, ...(mine ? parts(mine[1]) : [])])].join("; ");
+    return { own, others: rows.filter((r) => r !== mine) };
+  }
+  function popupHlRow() {
+    const h = highlightAt(popupIndex);
+    return `<span class="hl-label" lang="zh-CN">高亮</span>` + HL_COLORS.map(([c, name]) =>
+      `<button class="hl-dot c${c}${h && h.color === c ? " on" : ""}" data-phl="${c}" aria-label="${name}" aria-pressed="${Boolean(h && h.color === c)}"></button>`).join("")
+      + (h ? `<button class="link-btn" data-phl="x" lang="zh-CN">清除</button>` : "");
+  }
+
   function closePopup() {
     $("popup").hidden = true;
     if (selectedEl) selectedEl.classList.remove("sel");
     selectedEl = null; popupToken = null; popupIndex = -1;
   }
   function updateSaveButton() {
-    const isSaved = popupToken && saved[popupToken[0]];
+    const isSaved = popupToken && saved[wordKey(popupToken[0], popupToken[1])];
     const btn = $("popup-save");
     btn.textContent = isSaved ? "✓ 已加入生词本 · 点击移除" : "＋ 加入生词本";
     btn.classList.toggle("ghost", Boolean(isSaved));
@@ -552,6 +812,16 @@
     if (el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); el.click(); }
   });
   $("popup-close").addEventListener("click", closePopup);
+  // Tap a colour in the popup: highlight this word (or recolour the highlight it is in).
+  $("popup-hl").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-phl]");
+    if (!b || popupIndex < 0) return;
+    const h = highlightAt(popupIndex);
+    if (b.dataset.phl === "x") removeHighlightAt(popupIndex);
+    else if (h) { h.color = b.dataset.phl; saveHighlights(); applyHighlights(); }
+    else addHighlight(popupIndex, popupIndex, b.dataset.phl);
+    $("popup-hl").innerHTML = popupHlRow();
+  });
   // Tap anywhere outside the popup (and not on another word) to close it.
   document.addEventListener("click", (e) => {
     if ($("popup").hidden) return;
@@ -562,9 +832,10 @@
   $("popup-save").addEventListener("click", () => {
     if (!popupToken) return;
     const [word, pinyin, level, meaning] = popupToken;
-    if (saved[word]) delete saved[word];
-    else saved[word] = {
-      pinyin, level, meaning, added: Date.now(), box: 0,
+    const key = wordKey(word, pinyin);
+    if (saved[key]) delete saved[key];
+    else saved[key] = {
+      word, pinyin, level, meaning, added: Date.now(), box: 0,
       sentence: tokenSentence[popupIndex] || "",
       story: currentStory ? currentStory.title : "",
     };
@@ -572,31 +843,64 @@
     updateSaveButton();
     document.querySelectorAll(".w").forEach((el) => {
       const t = currentTokens[Number(el.dataset.i)];
-      if (t && t[0] === word) el.classList.toggle("saved", Boolean(saved[word]));
+      if (t && wordKey(t[0], t[1]) === key) el.classList.toggle("saved", Boolean(saved[key]));
     });
   });
 
-  // ---------- Library (bookshelf) ----------
-  async function renderLibrary() {
-    setTab("library");
+  // ---------- 我的 Me: recently read, saved stories, highlights ----------
+  const ME_TABS = [["recent", "最近阅读", "Recent"], ["saved", "收藏", "Saved"], ["highlights", "高亮", "Highlights"]];
+  async function renderMe(sub) {
+    setTab("me");
     const { genres, stories } = await getLibrary();
-    const mine = stories.filter((s) => shelf[s.id]).sort((a, b) => shelf[b.id].added - shelf[a.id].added);
+    const subnav = `<nav class="subtabs" aria-label="我的">${ME_TABS.map(([k, zh, en]) =>
+      `<a href="#/me${k === "recent" ? "" : `/${k}`}" class="${k === sub ? "on" : ""}" ${k === sub ? 'aria-current="page"' : ""}><span lang="zh-CN">${zh}</span> ${en}</a>`).join("")}</nav>`;
+    const cards = (list, empty) => `<div class="cards ${listClass()}">${list.map((s) => storyCard(s, { showGenre: true, genres })).join("") || empty}</div>`;
+    let body;
+    if (sub === "saved") {
+      const mine = stories.filter((s) => shelf[s.id]).sort((a, b) => shelf[b.id].added - shelf[a.id].added);
+      body = cards(mine, `<p class="empty">Nothing here yet. Open a story and tap <span class="inline-icon" role="img" aria-label="the heart">${heartIcon(false)}</span> to keep it here.<br><br>
+           <a class="btn" href="#/">Discover stories</a></p>`);
+    } else if (sub === "highlights") {
+      const byId = Object.fromEntries(stories.map((s) => [s.id, s]));
+      const list = [...highlights].sort((a, b) => b.added - a.added);
+      body = list.length ? `<ul class="hl-list">${list.map((h) => {
+        const s = byId[h.story];
+        const where = `${esc(h.title)}${s && s.chapter_count > 1 ? ` · ${chapterLabel(h.chapter)}` : ""}${h.file.endsWith(".mid") ? " · 中级" : ""}`;
+        return `
+          <li class="hl-item c${esc(h.color)}">
+            <a href="#/read/${encodeURIComponent(h.story)}/${h.chapter}" data-jump="${esc(h.id)}">
+              <span class="hl-text" lang="zh-CN">${esc(h.text)}</span>
+              <span class="meta" lang="zh-CN">${where}</span>
+            </a>
+            <button class="small-btn" data-hl-rm="${esc(h.id)}" aria-label="Remove highlight">Remove</button>
+          </li>`;
+      }).join("")}</ul>`
+        : `<p class="empty">No highlights yet. In a story, long-press and select a phrase, then pick a colour. Or tap a word and pick a colour in its box.</p>`;
+    } else {
+      const read = stories.filter((s) => progress[s.id]).sort((a, b) => (progress[b.id].last || 0) - (progress[a.id].last || 0));
+      body = cards(read, `<p class="empty">Stories you open will show up here.<br><br><a class="btn" href="#/">Discover stories</a></p>`);
+    }
     show(`
       <div class="page-head">
-        <h1><span lang="zh-CN">书架</span> Library</h1>
+        <h1><span lang="zh-CN">我的</span> Me</h1>
         ${aaBtn}
       </div>
       ${readSettingsPanel()}
-      <p class="meta">Stories you saved, with where you left off. Saved in this browser only.</p>
-      <div class="cards ${listClass()}">
-        ${mine.map((s) => storyCard(s, { showGenre: true, genres })).join("") ||
-          `<p class="empty">Nothing here yet. Open a story and tap <span class="inline-icon" role="img" aria-label="the bookmark symbol">${bookmarkIcon(false)}</span> to keep it on your shelf.<br><br>
-           <a class="btn" href="#/">Discover stories</a></p>`}
-      </div>`);
+      ${subnav}
+      ${body}
+      <p class="meta me-note">Saved in this browser only.</p>`);
+    app.querySelectorAll("[data-jump]").forEach((a) => a.addEventListener("click", () => {
+      pendingJump = highlights.find((h) => h.id === a.dataset.jump) || null;
+    }));
+    app.querySelectorAll("[data-hl-rm]").forEach((b) => b.addEventListener("click", () => {
+      highlights = highlights.filter((h) => h.id !== b.dataset.hlRm);
+      saveHighlights(); renderMe(sub);
+    }));
   }
 
   // ---------- My Words ----------
-  const wordEntries = () => Object.entries(saved).sort((a, b) => b[1].added - a[1].added);
+  const wordEntries = () => Object.entries(saved).sort((a, b) => b[1].added - a[1].added)
+    .map(([k, e]) => [wordOf(k, e), e, k]);
 
   function renderWords() {
     setTab("words");
@@ -619,18 +923,18 @@
           <span class="pc-sub">${n < 4 ? "Save at least 4 words to unlock" : "Multiple choice, 10 questions"}</span>
         </a>
       </div>
-      <ul class="word-list">${entries.map(([w, e]) => `
+      <ul class="word-list">${entries.map(([w, e, k]) => `
         <li>
           <span class="zh" lang="zh-CN">${esc(w)}</span>
           <span class="py">${esc(e.pinyin)}${e.box >= 3 ? ` <span class="known">✓ known</span>` : ""}</span>
-          <button class="small-btn rm" data-word="${esc(w)}" aria-label="Remove ${esc(w)}">Remove</button>
+          <button class="small-btn rm" data-key="${esc(k)}" aria-label="Remove ${esc(w)}">Remove</button>
           <span class="en">${esc(e.meaning)}</span>
           ${e.sentence ? `<span class="ex" lang="zh-CN">${esc(e.sentence)}</span>` : ""}
         </li>`).join("")}</ul>`
       : `<p class="empty">No saved words yet. While reading, tap a word, then <strong>+ Save to My Words</strong>.</p>`}`);
 
     app.querySelectorAll(".rm").forEach((b) => b.addEventListener("click", () => {
-      delete saved[b.dataset.word]; saveWords(); renderWords();
+      delete saved[b.dataset.key]; saveWords(); renderWords();
     }));
     const exp = $("export");
     if (exp) exp.addEventListener("click", () => {
@@ -670,7 +974,7 @@
         $("again-deck").addEventListener("click", (e) => { e.preventDefault(); renderCards(); });
         return;
       }
-      const [w, e] = deck[i];
+      const [w, e, key] = deck[i];
       flipped = false;
       show(`
         ${pageBar("#/words", "My Words")}
@@ -700,7 +1004,7 @@
       };
       $("card").addEventListener("click", flip);
       const answer = (good) => {
-        const entry = saved[w];
+        const entry = saved[key];
         if (entry) { entry.box = good ? (entry.box || 0) + 1 : 0; saveWords(); }
         if (good) known++;
         i++; draw();
@@ -717,10 +1021,10 @@
     setTab("words");
     const all = wordEntries();
     if (all.length < 4) { location.hash = "#/words"; return; }
-    const qs = shuffle(all).slice(0, 10).map(([w, e], k) => {
-      const others = shuffle(all.filter(([x]) => x !== w)).slice(0, 3);
-      const options = shuffle([[w, e], ...others]);
-      return { w, e, options, reverse: k % 2 === 1 };
+    const qs = shuffle(all).slice(0, 10).map(([w, e, key], k) => {
+      const others = shuffle(all.filter(([, , x]) => x !== key)).slice(0, 3);
+      const options = shuffle([[w, e, key], ...others]);
+      return { w, e, key, options, reverse: k % 2 === 1 };
     });
     let i = 0, score = 0;
     const missed = [];
@@ -757,11 +1061,11 @@
         <div class="quiz-feedback" id="feedback" aria-live="polite"></div>`);
       const buttons = [...app.querySelectorAll(".option")];
       buttons.forEach((b) => b.addEventListener("click", () => {
-        const pick = q.options[Number(b.dataset.k)][0];
-        const right = pick === q.w;
+        const pick = q.options[Number(b.dataset.k)][2];
+        const right = pick === q.key;
         buttons.forEach((x) => {
           x.disabled = true;
-          if (q.options[Number(x.dataset.k)][0] === q.w) x.classList.add("right");
+          if (q.options[Number(x.dataset.k)][2] === q.key) x.classList.add("right");
         });
         if (right) score++; else { b.classList.add("wrong"); missed.push([q.w, q.e]); }
         $("feedback").innerHTML = `
@@ -778,12 +1082,15 @@
   // ---------- router ----------
   function route() {
     closePopup();
+    readState = null;
+    if ($("hl-bar")) $("hl-bar").hidden = true;
     const hash = location.hash || "#/";
     let m;
     if ((m = hash.match(/^#\/read\/([^/]+)(?:\/(\d+))?$/))) return renderRead(decodeURIComponent(m[1]), Number(m[2] || 1));
     if ((m = hash.match(/^#\/story\/([^/]+)$/))) { location.replace(`#/read/${m[1]}/1`); return; } // old links
     if ((m = hash.match(/^#\/genre\/([^/]+)$/))) return renderGenre(decodeURIComponent(m[1]));
-    if (hash === "#/library") return renderLibrary();
+    if ((m = hash.match(/^#\/me(?:\/(saved|highlights))?$/))) return renderMe(m[1] || "recent");
+    if (hash === "#/library") { location.replace("#/me/saved"); return; }   // old name
     if (hash === "#/words/cards") return renderCards();
     if (hash === "#/words/quiz") return renderQuiz();
     if (hash === "#/words") return renderWords();

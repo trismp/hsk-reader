@@ -217,6 +217,43 @@ def resolve_see(meanings: list[str]) -> list[str]:
     return meanings
 
 
+SKIP_SENSE = ("surname ", "(archaic)", "(dialect)", "variant of", "(vulgar)", "(slang)", "see ")
+
+
+def senses(word: str) -> list:
+    """[[pinyin, [meanings]], ...] for every everyday reading of a word, for the popup's
+    "more meanings". The app leaves out the ones the word already shows."""
+    words, dictionary = hsk._load()
+    e = words.get(word) or dictionary.get(word)
+    if not e:
+        return []
+    rows = e.get("senses") or e.get("readings") or [[e["pinyin"], e["meanings"]]]
+    out = []
+    for p, ms in rows:
+        if not p or p[:1].isupper():  # surnames and places
+            continue
+        ms = [re.sub(r"\s*\([^()]{30,}\)", "", m) for m in clean_meanings(ms, 8)]  # long notes
+        ms = [m for m in ms if len(m) <= 70 and not any(x in m for x in SKIP_SENSE)]
+        if ms:
+            out.append([p, ms[:6]])
+    return out
+
+
+def all_senses(token_lists) -> dict:
+    """word -> senses, for the words in a story that have more than they show."""
+    out = {}
+    for toks in token_lists:
+        for t in toks:
+            if isinstance(t, str) or t[2] in (NAME, KEYWORD) or t[0] in out:
+                continue
+            rows = senses(t[0])
+            shown = {m.strip() for m in t[3].split(";")}
+            extra = sum(len([m for m in ms if m not in shown]) for _, ms in rows)
+            if extra:
+                out[t[0]] = rows
+    return out
+
+
 def prepare(path: Path, level: int) -> tuple[dict, list[dict], dict]:
     """(story fields, chapters as tokens, level report) for one story file."""
     s = parse_story(path)
@@ -242,6 +279,8 @@ def prepare(path: Path, level: int) -> tuple[dict, list[dict], dict]:
         dict(zip(("word", "pinyin", "meanings"), (k, *keyword_gloss(k, keywords))))
         for k in s["keywords"]
     ]
+    story["senses"] = all_senses([story["title_tokens"], story["blurb_tokens"]]
+                                 + [t for ch in chapters for t in [ch["title_tokens"], *ch["paragraphs"]]])
     story |= {"characters": len(HAS_CHINESE.findall(full_text)),
               "chapter_count": len(chapters),
               f"within_hsk{level}": report["within_target"]}
@@ -276,7 +315,7 @@ def build() -> None:
     for path in sorted(STORIES.glob("*.md")):
         story, chapters, report = prepare(path, CHECK_LEVEL)
         write_story(path.stem, story, chapters)
-        card = {**{k: v for k, v in story.items() if k not in ("keywords", "sources")},
+        card = {**{k: v for k, v in story.items() if k not in ("keywords", "sources", "senses")},
                 "title_tokens": brief(story["title_tokens"]), "blurb_tokens": brief(story["blurb_tokens"]),
                 "chapter_titles": [c["title"] for c in chapters]}
         print_report(story, chapters, report, CHECK_LEVEL)

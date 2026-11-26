@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="字游 Ziyou">
-  <link rel="stylesheet" href="style.css?v=27">
+  <link rel="stylesheet" href="style.css?v=29">
 </head>
 <body>
   <header class="topbar">
@@ -21,9 +21,9 @@
       <a href="#/" data-tab="discover"><span class="tab-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm4.2 3.8-6 2.4-2.4 6 6-2.4 2.4-6zM12 10.8a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
       </span><span class="tab-label"><span lang="zh-CN">发现</span> Discover</span></a>
-      <a href="#/library" data-tab="library"><span class="tab-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M4 3h4v18H4zm6 0h4v18h-4zm5.4 1.2 3.9-1 4.5 17.4-3.9 1z"/></svg>
-      </span><span class="tab-label"><span lang="zh-CN">书架</span> Library</span></a>
+      <a href="#/me" data-tab="me"><span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM3 21c0-4.4 4-7 9-7s9 2.6 9 7h-2c0-3.1-3-5-7-5s-7 1.9-7 5z"/></svg>
+      </span><span class="tab-label"><span lang="zh-CN">我的</span> Me</span></a>
       <a href="#/words" data-tab="words"><span class="tab-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h12V5zm2 3h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
       </span><span class="tab-label"><span lang="zh-CN">生词本</span> My Words</span><span class="count" id="saved-count"></span></a>
@@ -39,7 +39,17 @@
     </div>
     <div class="popup-pinyin" id="popup-pinyin"></div>
     <div class="popup-meaning" id="popup-meaning"></div>
+    <div class="popup-more" id="popup-more"></div>
+    <div class="hl-row" id="popup-hl"></div>
     <button class="btn" id="popup-save"></button>
+  </div>
+
+  <div class="hl-bar" id="hl-bar" role="toolbar" aria-label="高亮 Highlight" hidden>
+    <span class="hl-label" lang="zh-CN">高亮</span>
+    <button class="hl-dot c1" data-hl="1" aria-label="黄 Yellow"></button>
+    <button class="hl-dot c2" data-hl="2" aria-label="绿 Green"></button>
+    <button class="hl-dot c3" data-hl="3" aria-label="粉 Pink"></button>
+    <button class="hl-x" data-hl="x" aria-label="Cancel">×</button>
   </div>
 
   <footer class="footer">
@@ -49,6 +59,6 @@
       HSK lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
   </footer>
 
-  <script src="app.js?v=24"></script>
+  <script src="app.js?v=26"></script>
 </body>
 </html>
