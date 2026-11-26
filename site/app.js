@@ -176,7 +176,7 @@
     const p = progress[s.id];
     const genre = genres.find((g) => g.id === s.genre);
     const status = !p ? "" : isFinished(s) ? "✓ Finished"
-      : s.chapter_count > 1 ? `Reading · ${chapterLabel(p.chapter)}` : `Reading${p.pct ? ` · ${p.pct}%` : ""}`;
+      : s.chapter_count > 1 ? `Reading · ${chapterLabel(p.chapter)}` : `Reading${p.pct != null ? ` · ${p.pct}%` : ""}`;
     const start = p && p.chapter ? p.chapter : 1;
     return `
       <article class="card">
@@ -530,6 +530,7 @@
       const top = target.getBoundingClientRect().top + window.scrollY;
       window.scrollTo(0, Math.max(0, top - (jump ? window.innerHeight / 3 : headerHeight() + 8)));
     }
+    noteScroll(true);   // count what is on screen now, even if the reader never scrolls
   }
 
   // ---------- bookmarks: places inside a story ----------
@@ -628,7 +629,8 @@
     if (!readState || scrollTimer) return;
     scrollTimer = setTimeout(() => { scrollTimer = 0; noteScroll(); }, 300);
   }, { passive: true });
-  function noteScroll() {
+  // opened: called when the page opens. Then 全文完 on screen does not yet count as finishing.
+  function noteScroll(opened = false) {
     if (!readState || !location.hash.startsWith("#/read/")) return;
     const paras = [...app.querySelectorAll("article.story > p")];
     const p = progress[readState.id];
@@ -636,10 +638,24 @@
     let k = paras.findIndex((el) => el.getBoundingClientRect().bottom > headerHeight() + 8);
     if (k < 0) k = paras.length - 1;
     p.pos = { chapter: readState.n, para: k };
-    if (readState.total === 1) p.pct = Math.round((k / paras.length) * 100);
+    if (readState.total === 1) {
+      // Share of the story's characters that have been on screen: everything above the bottom of
+      // the screen counts, a paragraph cut by the bottom edge counts in part. Never goes down.
+      const tabsTop = document.querySelector(".tabs")?.getBoundingClientRect().top ?? window.innerHeight;
+      const bottom = tabsTop > window.innerHeight / 2 ? tabsTop : window.innerHeight;   // phones: above the tab bar
+      const hanzi = (el) => (el.textContent.match(/[一-鿿]/g) || []).length;   // pinyin is not counted
+      let seen = 0, all = 0;
+      for (const el of paras) {
+        const r = el.getBoundingClientRect(), n = hanzi(el);
+        all += n;
+        seen += n * Math.min(1, Math.max(0, (bottom - r.top) / (r.height || 1)));
+      }
+      const pct = all ? Math.max(1, Math.min(100, Math.round((seen / all) * 100))) : 0;
+      p.pct = Math.max(p.pct || 0, pct);
+    }
     p.last = Date.now();
     const end = $("the-end");
-    if (end && end.getBoundingClientRect().top < window.innerHeight) markDone(readState.id, readState.n);
+    if (!opened && end && end.getBoundingClientRect().top < window.innerHeight) markDone(readState.id, readState.n);
     saveProgress();
   }
 
