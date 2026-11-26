@@ -138,6 +138,7 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
 .g-mystery { --tint: #3f3a9e; }
 .g-work { --tint: #2a9670; }
 .g-romance { --tint: #d94c80; }
+.g-bl { --tint: #3f7fd6; }
 .g-news { --tint: #2f7fae; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .g-myths { --tint: #b6a4ff; }
@@ -145,6 +146,7 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
   :root:not([data-theme="light"]) .g-mystery { --tint: #9c97f2; }
   :root:not([data-theme="light"]) .g-work { --tint: #6fd6ad; }
   :root:not([data-theme="light"]) .g-romance { --tint: #ff93b8; }
+  :root:not([data-theme="light"]) .g-bl { --tint: #8fb8ff; }
   :root:not([data-theme="light"]) .g-news { --tint: #8fd0f0; }
 }
 
@@ -451,6 +453,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 :root[data-theme="dark"] .g-mystery { --tint: #9c97f2; }
 :root[data-theme="dark"] .g-work { --tint: #6fd6ad; }
 :root[data-theme="dark"] .g-romance { --tint: #ff93b8; }
+:root[data-theme="dark"] .g-bl { --tint: #8fb8ff; }
 :root[data-theme="dark"] .g-news { --tint: #8fd0f0; }
 
 /* Discover: News & Markets on top */

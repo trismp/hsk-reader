@@ -62,6 +62,8 @@ GENRES = [
      "tagline": "Offices, colleagues and everyday city life"},
     {"id": "romance", "zh": "言情", "en": "Romance", "mark": "情",
      "tagline": "Love stories from today's cities"},
+    {"id": "bl",      "zh": "耽美", "en": "BL", "mark": "耽",
+     "tagline": "Two people, and what grows between them"},
     {"id": "news",    "zh": "时事财经", "en": "News & Markets", "mark": "财",
      "tagline": "This week's news and market moves, made readable", "soon": True},
 ]
