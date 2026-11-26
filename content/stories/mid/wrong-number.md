@@ -6,7 +6,7 @@ blurb_en: A grandmother keeps calling the wrong number, and the young woman who 
 blurb_zh: 一位奶奶总是打错电话，以为接电话的人是孙子的女朋友。她不好意思说不是。
 sources:
 names: 唐悦|Táng Yuè|Tang Yue, 江临|Jiāng Lín|Jiang Lin, 小玲|Xiǎo Líng|Xiaoling (the grandson's ex-girlfriend), 成都|Chéng dū|Chengdu, 北京|Běi jīng|Beijing, 重庆|Chóng qìng|Chongqing
-keywords: 抄手|chāo shǒu|Sichuan wonton, 晓得|xiǎo de|to know (Sichuan dialect), 骗|piàn|to lie to; to trick, 煮|zhǔ|to boil; to cook
+keywords: 抄手|chāo shǒu|Sichuan wonton, 骗|piàn|to lie to; to trick, 煮|zhǔ|to boil; to cook
 ---
 唐悦换了新手机号，第二天就接到一个电话。
 
@@ -66,11 +66,11 @@ keywords: 抄手|chāo shǒu|Sichuan wonton, 晓得|xiǎo de|to know (Sichuan di
 
 电话那边很久没有声音。
 
-“我晓得。”奶奶说。
+“唐……唐什么？”奶奶问。
 
-“您……知道？”
+“唐悦。”
 
-“小玲是重庆人，说话不是你这个样子。第三天我就晓得了。”奶奶的声音低下来，“我就是想，这个女孩子一个人，怎么每天八点都在，都没有人叫她吃饭。”
+“唐悦。”奶奶慢慢地念了一遍，好像要把它记住，“那唐悦，吃饭没有？”
 
 过年的时候，唐悦去成都办事。她买了水果，按照地址找到一个老院子。开门的是一个高高的年轻人，手上全是白色的面。
 
