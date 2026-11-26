@@ -798,6 +798,19 @@
 
   // ---------- installable app (PWA) ----------
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
-    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").then((reg) => {
+      // A home-screen app can stay open for days: look for a new version whenever it comes back.
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") reg.update().catch(() => {});
+      });
+    }).catch(() => {}));
+    // New version ready: reload now, or after the story if someone is reading.
+    let hadOne = Boolean(navigator.serviceWorker.controller), reloading = false;
+    const reload = () => { if (!reloading) { reloading = true; location.reload(); } };
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!hadOne) { hadOne = true; return; }   // first visit, nothing to replace
+      if (/^#\/(read|words\/)/.test(location.hash)) window.addEventListener("hashchange", reload, { once: true });
+      else reload();
+    });
   }
 })();
