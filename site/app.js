@@ -304,9 +304,11 @@
     if (!g) return show(`${pageBar("#/", "All genres")}<p class="empty">Genre not found.</p>`);
     genrePage = { id, all: stories.filter((s) => s.genre === id) };
     show(`
+      <div class="sticky-head">
       ${pageBar("#/", "All genres", (genrePage.all.length ? sortBtn : "") + aaBtn)}
       ${sortPanel(genreView(id))}
       ${readSettingsPanel()}
+      </div>
       <header class="genre-head g-${esc(g.id)}">
         <span class="tile-mark" lang="zh-CN" aria-hidden="true">${esc(g.mark)}</span>
         <h1><span lang="zh-CN">${esc(g.zh)}</span> <span class="en">· ${esc(g.en)}</span></h1>
@@ -487,9 +489,11 @@
       </section>` : `<section class="sources">An original story written for 字游 Ziyou.</section>`;
 
     show(`
+      <div class="sticky-head">
       ${pageBar(listHref, genre ? genre.en : "Discover", saveStoryBtn(id) + bmBtn(id) + aaBtn)}
       ${readSettingsPanel()}
       <section class="read-settings bm-panel" id="bm-panel" hidden lang="zh-CN"></section>
+      </div>
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
         ${byline}
@@ -524,7 +528,7 @@
       : p.pos && p.pos.chapter === n && p.pos.para > 0 ? app.querySelectorAll("article.story > p")[p.pos.para] : null;
     if (target) {
       const top = target.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo(0, Math.max(0, top - (jump ? window.innerHeight / 3 : 90)));
+      window.scrollTo(0, Math.max(0, top - (jump ? window.innerHeight / 3 : headerHeight() + 8)));
     }
   }
 
@@ -537,7 +541,7 @@
   // The paragraph at the top of the screen: where a new bookmark goes.
   function paraOnScreen() {
     const paras = [...app.querySelectorAll("article.story > p")];
-    const k = paras.findIndex((el) => el.getBoundingClientRect().bottom > 90);
+    const k = paras.findIndex((el) => el.getBoundingClientRect().bottom > headerHeight() + 8);
     return k < 0 ? Math.max(0, paras.length - 1) : k;
   }
   function paraText(k) {
@@ -546,7 +550,7 @@
     const c = el.cloneNode(true);
     c.querySelectorAll("rt").forEach((r) => r.remove());
     const t = c.textContent.trim();
-    return t.length > 22 ? `${t.slice(0, 22)}…` : t;
+    return t.length > 80 ? t.slice(0, 80) : t;   // the list cuts it to one line with "…"
   }
   function bmPanelHtml() {
     const { id, total } = readState;
@@ -554,7 +558,7 @@
     const here = paraOnScreen();
     const exists = list.some((b) => b.chapter === readState.n && b.para === here);
     return `
-      <div class="bm-head"><strong>书签</strong>
+      <div class="bm-head"><span class="rs-label">书签</span>
         <button class="btn bm-add" data-bm-add ${exists ? "disabled" : ""}>${exists ? "这里已有书签" : "＋ 在这里加书签"}</button></div>
       ${list.length ? `<ul class="bm-list">${list.map((b) => `
         <li><button class="bm-go" data-bm-go="${esc(b.id)}">
@@ -593,7 +597,7 @@
       showPanel("");
       if (b.chapter === n) {
         const el = app.querySelectorAll("article.story > p")[b.para];
-        if (el) window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - 90));
+        if (el) window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - headerHeight() - 8));
       } else {
         pendingJump = b;
         location.hash = `#/read/${encodeURIComponent(id)}/${b.chapter}`;
@@ -603,6 +607,15 @@
     $("bm-panel").innerHTML = bmPanelHtml();
     markBookmarks();
   }
+
+  // Height of what stays at the top of the screen: the app bar plus the story's button row.
+  const headerHeight = () => (document.querySelector(".topbar")?.offsetHeight || 0)
+    + (app.querySelector(".sticky-head .read-bar")?.offsetHeight || 0) + 12;
+  // The button row sticks just under the app bar, whatever its height on this phone.
+  const syncTopbar = () => document.documentElement.style.setProperty(
+    "--topbar-h", `${document.querySelector(".topbar")?.offsetHeight || 0}px`);
+  syncTopbar();
+  window.addEventListener("resize", syncTopbar);
 
   function markDone(id, num) {
     const pr = progress[id];
@@ -620,7 +633,7 @@
     const paras = [...app.querySelectorAll("article.story > p")];
     const p = progress[readState.id];
     if (!paras.length || !p) return;
-    let k = paras.findIndex((el) => el.getBoundingClientRect().bottom > 90);
+    let k = paras.findIndex((el) => el.getBoundingClientRect().bottom > headerHeight() + 8);
     if (k < 0) k = paras.length - 1;
     p.pos = { chapter: readState.n, para: k };
     if (readState.total === 1) p.pct = Math.round((k / paras.length) * 100);
@@ -853,7 +866,7 @@
     setTab("me");
     const { genres, stories } = await getLibrary();
     const subnav = `<nav class="subtabs" aria-label="我的">${ME_TABS.map(([k, zh, en]) =>
-      `<a href="#/me${k === "recent" ? "" : `/${k}`}" class="${k === sub ? "on" : ""}" ${k === sub ? 'aria-current="page"' : ""}><span lang="zh-CN">${zh}</span> ${en}</a>`).join("")}</nav>`;
+      `<a href="#/me${k === "recent" ? "" : `/${k}`}" class="${k === sub ? "on" : ""}" ${k === sub ? 'aria-current="page"' : ""} title="${en}"><span lang="zh-CN">${zh}</span></a>`).join("")}</nav>`;
     const cards = (list, empty) => `<div class="cards ${listClass()}">${list.map((s) => storyCard(s, { showGenre: true, genres })).join("") || empty}</div>`;
     let body;
     if (sub === "saved") {
@@ -882,7 +895,7 @@
     }
     show(`
       <div class="page-head">
-        <h1><span lang="zh-CN">我的</span> Me</h1>
+        <h1 class="page-title" lang="zh-CN">我的</h1>
         ${aaBtn}
       </div>
       ${readSettingsPanel()}
@@ -908,7 +921,7 @@
     const n = entries.length;
     show(`
       <div class="page-head">
-        <h1><span lang="zh-CN">生词本</span> My Words</h1>
+        <h1 class="page-title" lang="zh-CN">生词本</h1>
         ${n ? `<button class="small-btn" id="export">Export CSV (Anki)</button>` : ""}
       </div>
       <p class="meta">${n} word${n === 1 ? "" : "s"} · saved in this browser only.</p>

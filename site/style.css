@@ -190,6 +190,11 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
 .shelf-btn.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
 .page-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 0 2px; }
 .page-head h1 { margin: 0; font-size: 28px; }
+/* 我的 and 生词本: the same purple heading as 今天想读什么 */
+.page-head h1.page-title {
+  font-size: var(--hero-size); font-weight: 700; line-height: 1.25;
+  color: transparent; background: var(--hero-gradient); -webkit-background-clip: text; background-clip: text;
+}
 
 /* Reader */
 .back {
@@ -301,10 +306,10 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .cc-meta { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
 
 /* 我的 */
-.subtabs { display: flex; gap: 6px; margin: 10px 0 4px; overflow-x: auto; }
+.subtabs { display: flex; gap: 6px; margin: 10px 0 4px; }
 .subtabs a {
   padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
-  color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap;
+  color: var(--ink-soft); text-decoration: none; font-size: 15px; font-weight: 600; white-space: nowrap;
 }
 .subtabs a.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .hl-list { list-style: none; margin: 10px 0; padding: 0; display: grid; gap: 8px; }
@@ -321,17 +326,19 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 
 /* Bookmarks inside a story */
 .bm-btn.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
-.bm-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.bm-add { padding: 7px 14px; border-radius: 12px; font-size: 14px; }
+/* same layout as the reading-settings rows: grey label on the left, control filling the rest */
+.bm-head { display: flex; align-items: center; gap: 12px; }
+.bm-add { flex: 1; padding: 8px 10px; border-radius: 10px; font-size: 14px; }
 .bm-add:disabled { opacity: .55; cursor: default; }
-.bm-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
-.bm-list li { display: flex; align-items: center; gap: 6px; }
-.bm-go { flex: 1; min-width: 0; display: flex; gap: 8px; align-items: baseline; padding: 8px 10px; border-radius: 10px;
-  border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; text-align: left; font: inherit; }
+.bm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.bm-list li { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.bm-list li + li { border-top: 1px solid var(--line); }
+.bm-go { flex: 1; min-width: 0; display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border: 0;
+  background: none; color: var(--ink); cursor: pointer; text-align: left; font: inherit; }
 .bm-where { flex: none; font-size: 13px; font-weight: 700; color: var(--accent); }
 .bm-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--read-font); }
-.bm-rm { width: 32px; height: 32px; border: 0; background: none; font-size: 20px; color: var(--ink-soft); cursor: pointer; }
-.bm-empty { margin: 8px 0 0; font-size: 14px; color: var(--ink-soft); }
+.bm-rm { width: 28px; height: 28px; margin-right: -6px; border: 0; background: none; font-size: 20px; color: var(--ink-soft); cursor: pointer; }
+.bm-empty { margin: 0; font-size: 14px; color: var(--ink-soft); }
 .story p.bm { position: relative; }
 .story p.bm::before {   /* a small ribbon in the margin */
   content: ""; position: absolute; left: -14px; top: .35em; width: 8px; height: 14px; background: var(--accent);
@@ -436,6 +443,15 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   background: var(--surface); border: 1px solid var(--line);
 }
 .read-settings[hidden] { display: none; }
+.read-settings > * { min-width: 0; }   /* lets long lines inside shrink and end in "…" */
+
+/* Story and genre pages: the button row (and its open panel) stays at the top while scrolling */
+.sticky-head {
+  position: sticky; top: var(--topbar-h, 53px); z-index: 9;
+  margin: 0 -16px; padding: 0 16px 6px; background: var(--bg);
+}
+.sticky-head .read-bar { margin-top: 0; padding-top: 6px; }
+.sticky-head .read-settings { max-height: calc(70vh - var(--topbar-h, 53px)); overflow-y: auto; }
 .settings-open { cursor: pointer; }  /* iPhone: lets a tap on empty space count as a click */
 .rs-row { display: flex; align-items: center; gap: 12px; }
 .rs-label { width: 2.6em; flex: none; font-size: 14px; color: var(--ink-soft); }
