@@ -1,6 +1,6 @@
 # Daily tech-news digests for the website.
 #
-# Every day at 09:55 Beijing time GitHub's servers:
+# Every day at 09:50 Beijing time GitHub's servers:
 #   1. run the news harness (harness/news.py --publish): Claude picks today's stories,
 #      reads them and writes short HSK 6 digests into content/stories/ (genre: news)
 #   2. rebuild the site data (pinyin, meanings, HSK levels) with tools/build_site.py
@@ -15,14 +15,14 @@ on:
   schedule:
     # GitHub may start scheduled runs late, or skip one. So there are backups: the first run
     # that publishes wins, and later ones stop at the "already published" check for free.
-    - cron: "50 1 * * *"       # 09:55 Beijing time
+    - cron: "50 1 * * *"       # 01:50 UTC = 09:50 Beijing time
     - cron: "25 2 * * *"       # 10:25 backup
     - cron: "25 8 * * *"       # 16:25 backup
   workflow_dispatch:            # a "Run workflow" button, for testing
     inputs:
       count:
         description: "How many digests"
-        default: "2"
+        default: "1"
 
 permissions:
   contents: write               # commit the new digests
@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 30
     env:
       TZ: Asia/Shanghai         # dates in file names and feeds use Beijing time
-      COUNT: ${{ github.event.inputs.count || '2' }}
+      COUNT: ${{ github.event.inputs.count || '1' }}
     steps:
       - uses: actions/checkout@v4
         with:

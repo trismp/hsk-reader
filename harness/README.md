@@ -23,9 +23,9 @@ hsk6_coverage). My untested estimate is $0.20–0.40 per digest on Opus 5.5; eac
 
 ## Daily on GitHub (publishing to the website)
 
-`.github/workflows/news.yml` is scheduled daily for 09:55 Beijing time, with backups at 10:25 and 11:25
+`.github/workflows/news.yml` is scheduled daily for 09:50 Beijing time, with backups at 10:25 and 16:25
 (GitHub can start late or skip a run; backups stop for free once today's digests are published), on GitHub's servers:
-`news.py --publish --count 2 --effort low` writes the digests straight into `content/stories/` as
+`news.py --publish --count 1 --effort low` writes the digests straight into `content/stories/` as
 `news-<date>-<NN>.md` (genre `news`, with the source link in `sources`), then
 `tools/build_site.py` adds pinyin and meanings, the workflow commits, and the Pages
 deploy runs. `--publish` also skips articles already on the site and deletes digests
