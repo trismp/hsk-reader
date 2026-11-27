@@ -258,7 +258,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .hl-dot.on { border-color: var(--ink); }
 .hl-bar {
   position: fixed; z-index: 21; left: 50%; bottom: 16px; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 16px;
+  display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 12px;
   background: var(--surface); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow);
 }
 .hl-bar[hidden] { display: none; }
@@ -287,13 +287,13 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   font-size: 15px; font-weight: 600;
 }
 .the-end .btn { text-decoration: none; padding: 8px 16px; }
-.back-list { display: block; width: fit-content; margin: 14px auto 0; padding: 9px 18px; text-decoration: none; }
 .chapter-top { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
 .chapter-top select { height: 36px; max-width: min(260px, 60vw); padding: 0 10px; border-radius: 12px; font-size: 14px;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-overflow: ellipsis; }
 .ct-step { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; font-size: 22px; line-height: 1;
   border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none; }
 .ct-step.off { opacity: .3; }
+.chapter-top.below { margin: 18px 0 6px; }
 
 /* Discover: pick up where you stopped */
 .continue-card {

@@ -466,18 +466,12 @@
 
     const chapterOptions = s.chapters.map((c, i) =>
       `<option value="${i + 1}" ${i + 1 === n ? "selected" : ""}>${esc(c.title || chapterLabel(i + 1))}</option>`).join("");
-    const chapterNav = total > 1 ? `
-      <nav class="chapter-nav" aria-label="Chapters">
-        ${n > 1 ? `<a class="btn ghost" href="#/read/${encodeURIComponent(id)}/${n - 1}">← ${chapterLabel(n - 1)}</a>` : ""}
-        <select class="chapter-select" aria-label="Go to chapter">${chapterOptions}</select>
-        ${n < total ? `<a class="btn" id="next-ch" href="#/read/${encodeURIComponent(id)}/${n + 1}">${chapterLabel(n + 1)} →</a>` : ""}
-      </nav>` : "";
-    // at the top too: previous / all chapters / next
-    const chapterTop = total > 1 ? `
-      <nav class="chapter-top" aria-label="Chapters">
+    // previous / all chapters / next: the same row above and below the text
+    const chapterRow = (where) => total > 1 ? `
+      <nav class="chapter-top ${where}" aria-label="Chapters">
         ${n > 1 ? `<a class="ct-step" href="#/read/${encodeURIComponent(id)}/${n - 1}" aria-label="Previous chapter">‹</a>` : `<span class="ct-step off" aria-hidden="true">‹</span>`}
         <select class="chapter-select" aria-label="Go to chapter">${chapterOptions}</select>
-        ${n < total ? `<a class="ct-step" href="#/read/${encodeURIComponent(id)}/${n + 1}" aria-label="Next chapter">›</a>` : `<span class="ct-step off" aria-hidden="true">›</span>`}
+        ${n < total ? `<a class="ct-step" data-next href="#/read/${encodeURIComponent(id)}/${n + 1}" aria-label="Next chapter">›</a>` : `<span class="ct-step off" aria-hidden="true">›</span>`}
       </nav>` : "";
     const listHref = genre ? `#/genre/${esc(genre.id)}` : "#/";
 
@@ -500,19 +494,17 @@
         ${s.onlyHigh ? `<p class="byline">${onlyHighBadge(s)}</p>` : ""}
         ${blurbHtml && s.genre !== "news" ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
-      ${chapterTop}
+      ${chapterRow("above")}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
-      ${chapterNav}
+      ${chapterRow("below")}
       ${finished ? `<div class="the-end" id="the-end" lang="zh-CN"><span>全文完</span><span aria-hidden="true">·</span>
         <a class="btn" href="#/words">复习生词 →</a></div>` : ""}
-      <a class="btn ghost back-list" href="${listHref}"><span aria-hidden="true">←</span> <span lang="zh-CN">返回列表</span></a>
       ${sources}`);
 
     // A chapter counts as read when the reader moves on to the next one, or scrolls
     // down to 全文完 at the end. Only opening a story is not finishing it.
-    const next = $("next-ch");
-    if (next) next.addEventListener("click", () => markDone(id, n));
+    app.querySelectorAll("[data-next]").forEach((a) => a.addEventListener("click", () => markDone(id, n)));
     app.querySelectorAll(".chapter-select").forEach((sel) =>
       sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; }));
     readState = { id, n, total };
@@ -814,7 +806,7 @@
   }
   function popupHlRow() {
     const h = highlightAt(popupIndex);
-    return `<span class="hl-label" lang="zh-CN">高亮</span>` + HL_COLORS.map(([c, name]) =>
+    return HL_COLORS.map(([c, name]) =>
       `<button class="hl-dot c${c}${h && h.color === c ? " on" : ""}" data-phl="${c}" aria-label="${name}" aria-pressed="${Boolean(h && h.color === c)}"></button>`).join("")
       + (h ? `<button class="link-btn" data-phl="x" lang="zh-CN">清除</button>` : "");
   }
