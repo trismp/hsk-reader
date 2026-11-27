@@ -232,6 +232,24 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
 }
 .popup[hidden] { display: none; }
+.popup.expanded { max-height: 75vh; overflow-y: auto; overscroll-behavior: contain; }
+/* short by default: 3 lines of meaning (faded at the cut), other pinyin only when opened */
+.popup:not(.expanded) .popup-meaning {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.popup.can-expand:not(.expanded) .popup-meaning {
+  cursor: pointer; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+}
+.popup:not(.expanded) .popup-more { display: none; }
+.popup-grip {
+  display: none; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 88px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; touch-action: none;
+}
+.popup-grip::before {
+  content: ""; display: block; width: 40px; height: 5px; margin: 8px auto 0; border-radius: 3px; background: var(--line);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink-soft) 25%, transparent);
+}
+.popup.can-expand .popup-grip { display: block; }
 .popup-close {
   position: absolute; top: 8px; right: 10px; width: 32px; height: 32px; border: 0; background: none;
   font-size: 24px; color: var(--ink-soft); cursor: pointer; border-radius: 8px;
@@ -240,7 +258,6 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .popup-word { font: 700 34px/1.2 var(--read-font); }
 .popup-pinyin { margin-top: 2px; font-size: 18px; color: var(--accent); }
 .popup-meaning { margin: 6px 0 12px; color: var(--ink); font-size: 15px; }
-.popup-meaning { max-height: 28vh; overflow-y: auto; }
 .popup-more:empty { display: none; }
 .popup-more { margin: -6px 0 12px; font-size: 15px; color: var(--ink); }
 .popup-more p { margin: 4px 0 0; }

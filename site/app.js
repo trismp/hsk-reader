@@ -788,6 +788,7 @@
     $("popup-hl").innerHTML = popupHlRow();
     updateSaveButton();
     $("popup").hidden = false;
+    setPopupExpanded(false);
     selectedEl = el;
     markSelection();
   }
@@ -821,6 +822,34 @@
       `<button class="hl-dot c${c}${h && h.color === c ? " on" : ""}" data-phl="${c}" aria-label="${name}" aria-pressed="${Boolean(h && h.color === c)}"></button>`).join("")
       + (h ? `<button class="hl-del" data-phl="x" lang="zh-CN" aria-label="删除高亮 Delete highlight"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>删除</button>` : "");
   }
+
+  // The word box starts short (3 lines of meaning) so it covers less of the story.
+  // Drag the grip up, or tap the grip or the meaning, to see everything; drag down to close.
+  function setPopupExpanded(on) {
+    const pop = $("popup");
+    pop.classList.toggle("expanded", on);
+    pop.scrollTop = 0;
+    const m = $("popup-meaning");
+    const more = !on && (m.scrollHeight > m.clientHeight + 2 || $("popup-more").children.length > 0);
+    pop.classList.toggle("can-expand", on || more);
+    $("popup-grip").setAttribute("aria-expanded", String(on));
+  }
+  $("popup-grip").addEventListener("click", () => setPopupExpanded(!$("popup").classList.contains("expanded")));
+  $("popup-meaning").addEventListener("click", () => {
+    if ($("popup").classList.contains("can-expand") && !$("popup").classList.contains("expanded")) setPopupExpanded(true);
+  });
+  let dragY = null;
+  $("popup-grip").addEventListener("touchstart", (e) => { dragY = e.touches[0].clientY; }, { passive: true });
+  $("popup-grip").addEventListener("touchend", (e) => {
+    if (dragY == null) return;
+    const dy = e.changedTouches[0].clientY - dragY;
+    dragY = null;
+    const open = $("popup").classList.contains("expanded");
+    if (dy < -25) setPopupExpanded(true);
+    else if (dy > 35) { if (open) setPopupExpanded(false); else closePopup(); }
+    else return;
+    e.preventDefault();   // a drag is not also a tap
+  });
 
   function closePopup() {
     $("popup").hidden = true;

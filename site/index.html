@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="字游 Ziyou">
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=37">
 </head>
 <body>
   <header class="topbar">
@@ -33,6 +33,7 @@
   <main id="app" tabindex="-1"></main>
 
   <div class="popup" id="popup" role="dialog" aria-modal="false" aria-labelledby="popup-word" hidden>
+    <button class="popup-grip" id="popup-grip" aria-label="展开 Show all meanings" aria-expanded="false"></button>
     <button class="popup-close" id="popup-close" aria-label="Close">×</button>
     <div class="popup-head">
       <span class="popup-word" id="popup-word" lang="zh-CN"></span>
@@ -58,6 +59,6 @@
       HSK lists: <a href="https://github.com/drkameleon/complete-hsk-vocabulary" rel="noopener">complete-hsk-vocabulary</a> (MIT).</p>
   </footer>
 
-  <script src="app.js?v=33"></script>
+  <script src="app.js?v=34"></script>
 </body>
 </html>
