@@ -824,7 +824,7 @@
   }
 
   // The word box starts short (3 lines of meaning) so it covers less of the story.
-  // Drag the grip up, or tap the grip or the meaning, to see everything; drag down to close.
+  // Pull it up to see everything; pull it down to make it short again, or to close it.
   function setPopupExpanded(on) {
     const pop = $("popup");
     pop.classList.toggle("expanded", on);
@@ -832,24 +832,26 @@
     const m = $("popup-meaning");
     const more = !on && (m.scrollHeight > m.clientHeight + 2 || $("popup-more").children.length > 0);
     pop.classList.toggle("can-expand", on || more);
-    $("popup-grip").setAttribute("aria-expanded", String(on));
   }
-  $("popup-grip").addEventListener("click", () => setPopupExpanded(!$("popup").classList.contains("expanded")));
-  $("popup-meaning").addEventListener("click", () => {
-    if ($("popup").classList.contains("can-expand") && !$("popup").classList.contains("expanded")) setPopupExpanded(true);
-  });
-  let dragY = null;
-  $("popup-grip").addEventListener("touchstart", (e) => { dragY = e.touches[0].clientY; }, { passive: true });
-  $("popup-grip").addEventListener("touchend", (e) => {
-    if (dragY == null) return;
-    const dy = e.changedTouches[0].clientY - dragY;
-    dragY = null;
-    const open = $("popup").classList.contains("expanded");
-    if (dy < -25) setPopupExpanded(true);
-    else if (dy > 35) { if (open) setPopupExpanded(false); else closePopup(); }
-    else return;
-    e.preventDefault();   // a drag is not also a tap
-  });
+  // The pull works anywhere on the box. When the open box is scrolled down, pulling down
+  // scrolls it back up first; only a pull from the top shrinks it.
+  let pullY = null, pullTop = 0;
+  const pullStart = (y) => { pullY = y; pullTop = $("popup").scrollTop; };
+  const pullEnd = (y) => {
+    if (pullY == null) return false;
+    const dy = y - pullY, pop = $("popup");
+    pullY = null;
+    const open = pop.classList.contains("expanded");
+    if (dy < -30 && !open && pop.classList.contains("can-expand")) setPopupExpanded(true);
+    else if (dy > 40 && pullTop <= 0) { if (open) setPopupExpanded(false); else closePopup(); }
+    else return false;
+    return true;
+  };
+  $("popup").addEventListener("touchstart", (e) => pullStart(e.touches[0].clientY), { passive: true });
+  $("popup").addEventListener("touchend", (e) => { if (pullEnd(e.changedTouches[0].clientY)) e.preventDefault(); });
+  // with a mouse: press and drag on the box
+  $("popup").addEventListener("mousedown", (e) => { if (!e.target.closest("button")) pullStart(e.clientY); });
+  window.addEventListener("mouseup", (e) => pullEnd(e.clientY));
 
   function closePopup() {
     $("popup").hidden = true;

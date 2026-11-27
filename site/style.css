@@ -233,17 +233,18 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 }
 .popup[hidden] { display: none; }
 .popup.expanded { max-height: 75vh; overflow-y: auto; overscroll-behavior: contain; }
+.popup:not(.expanded) { touch-action: none; }   /* a pull on the short box moves the box, not the story */
 /* short by default: 3 lines of meaning (faded at the cut), other pinyin only when opened */
 .popup:not(.expanded) .popup-meaning {
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .popup.can-expand:not(.expanded) .popup-meaning {
-  cursor: pointer; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
 }
 .popup:not(.expanded) .popup-more { display: none; }
 .popup-grip {
   display: none; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 88px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; touch-action: none;
+  width: 88px; height: 22px; padding: 0; border: 0; background: none; pointer-events: none;   /* a sign only: pull the box */
 }
 .popup-grip::before {
   content: ""; display: block; width: 40px; height: 5px; margin: 8px auto 0; border-radius: 3px; background: var(--line);
