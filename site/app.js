@@ -497,9 +497,8 @@
       ${chapterRow("above")}
       ${ch.title ? `<h2 class="chapter-title ${pinyinTitles}" lang="zh-CN">${chapterTitleHtml}</h2>` : ""}
       <article class="story size-${esc(settings.size)} ${settings.pinyin !== "off" ? "pinyin" : ""}" lang="zh-CN">${paras}</article>
+      ${finished ? `<p class="the-end" id="the-end" lang="zh-CN">全文完</p>` : ""}
       ${chapterRow("below")}
-      ${finished ? `<div class="the-end" id="the-end" lang="zh-CN"><span>全文完</span><span aria-hidden="true">·</span>
-        <a class="btn" href="#/words">复习生词 →</a></div>` : ""}
       ${sources}`);
 
     // A chapter counts as read when the reader moves on to the next one, or scrolls
@@ -789,8 +788,20 @@
     $("popup-hl").innerHTML = popupHlRow();
     updateSaveButton();
     $("popup").hidden = false;
-    if (selectedEl) selectedEl.classList.remove("sel");
-    selectedEl = el; el.classList.add("sel");
+    selectedEl = el;
+    markSelection();
+  }
+  // The tapped word is outlined; if it is highlighted, the whole highlighted phrase is selected instead.
+  function markSelection() {
+    app.querySelectorAll(".sel, .sel-hl").forEach((x) => x.classList.remove("sel", "sel-hl"));
+    if (popupIndex < 0) return;
+    const h = highlightAt(popupIndex);
+    if (!h) { selectedEl?.classList.add("sel"); return; }
+    for (let i = h.from; i <= h.to; i++) app.querySelector(`.w[data-i="${i}"]`)?.classList.add("sel-hl");
+    app.querySelectorAll(".pu").forEach((x) => {
+      const a = Number(x.dataset.a);
+      if (a >= h.from && a < h.to) x.classList.add("sel-hl");
+    });
   }
   // Every meaning of the word for this pinyin, in one line; other pinyin (还 huán) below it.
   const bare = (p) => (p || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "");
@@ -808,12 +819,12 @@
     const h = highlightAt(popupIndex);
     return HL_COLORS.map(([c, name]) =>
       `<button class="hl-dot c${c}${h && h.color === c ? " on" : ""}" data-phl="${c}" aria-label="${name}" aria-pressed="${Boolean(h && h.color === c)}"></button>`).join("")
-      + (h ? `<button class="link-btn" data-phl="x" lang="zh-CN">清除</button>` : "");
+      + (h ? `<button class="hl-del" data-phl="x" lang="zh-CN" aria-label="删除高亮 Delete highlight"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>删除</button>` : "");
   }
 
   function closePopup() {
     $("popup").hidden = true;
-    if (selectedEl) selectedEl.classList.remove("sel");
+    app.querySelectorAll(".sel, .sel-hl").forEach((x) => x.classList.remove("sel", "sel-hl"));
     selectedEl = null; popupToken = null; popupIndex = -1;
   }
   function updateSaveButton() {
@@ -837,11 +848,13 @@
   $("popup-hl").addEventListener("click", (e) => {
     const b = e.target.closest("[data-phl]");
     if (!b || popupIndex < 0) return;
+    e.stopPropagation();   // the row is redrawn below; the tap must not count as a tap outside the popup
     const h = highlightAt(popupIndex);
     if (b.dataset.phl === "x") removeHighlightAt(popupIndex);
     else if (h) { h.color = b.dataset.phl; saveHighlights(); applyHighlights(); }
     else addHighlight(popupIndex, popupIndex, b.dataset.phl);
     $("popup-hl").innerHTML = popupHlRow();
+    markSelection();
   });
   // Tap anywhere outside the popup (and not on another word) to close it.
   document.addEventListener("click", (e) => {
