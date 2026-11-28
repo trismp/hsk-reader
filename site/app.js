@@ -75,8 +75,7 @@
   // progress[id] also keeps: pos {chapter, para} (where the reader stopped), pct (one-shots), last (time)
   let highlights = store.get("hsk.highlights", []);  // [{id, file, story, title, chapter, from, to, color, text, added}]
   const saveHighlights = () => store.set("hsk.highlights", highlights);
-  let bookmarks = store.get("hsk.bookmarks", {});   // story id -> [{id, file, chapter, para, text, added}]
-  const saveBookmarks = () => store.set("hsk.bookmarks", bookmarks);
+  try { localStorage.removeItem("hsk.bookmarks"); } catch { /* in-story bookmarks were removed */ }
 
   // ---------- helpers ----------
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
@@ -148,7 +147,6 @@
   const aaBtn = `<button class="aa-btn" id="aa-btn" aria-expanded="false" aria-controls="read-settings" aria-label="阅读设置 Reading settings" title="Reading settings"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 5.2L10.4 2.1L13.6 2.1L13.7 5.2L15.6 6.0L17.9 3.9L20.1 6.1L18.0 8.4L18.8 10.3L21.9 10.4L21.9 13.6L18.8 13.7L18.0 15.6L20.1 17.9L17.9 20.1L15.6 18.0L13.7 18.8L13.6 21.9L10.4 21.9L10.3 18.8L8.4 18.0L6.1 20.1L3.9 17.9L6.0 15.6L5.2 13.7L2.1 13.6L2.1 10.4L5.2 10.3L6.0 8.4L3.9 6.1L6.1 3.9L8.4 6.0z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`;
 
   const heartIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 20.5s-7.5-4.6-9.3-9.4C1.6 8 3.6 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.4 0 5.4 3.5 4.3 6.6-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg>`;
-  const bookmarkIcon = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h12v18l-6-4.5L6 21z"/></svg>`;
   const saveStoryBtn = (id) => {
     const on = Boolean(shelf[id]);
     return `<button class="shelf-btn${on ? " on" : ""}" data-shelf="${esc(id)}" aria-pressed="${on}"
@@ -496,9 +494,8 @@
 
     show(`
       <div class="sticky-head">
-      ${pageBar(listHref, genre ? genre.en : "Discover", saveStoryBtn(id) + bmBtn(id) + aaBtn, "列表")}
+      ${pageBar(listHref, genre ? genre.en : "Discover", saveStoryBtn(id) + aaBtn, "列表")}
       ${readSettingsPanel()}
-      <section class="read-settings bm-panel" id="bm-panel" hidden lang="zh-CN"></section>
       </div>
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
@@ -521,96 +518,17 @@
     readState = { id, n, total };
     userMoved = false;
     applyHighlights();
-    markBookmarks();
-    $("bm-panel").addEventListener("click", onBookmarkPanel);
 
     // Open where the reader stopped (or at a highlight picked in 我的).
     const jump = pendingJump && pendingJump.file === currentFile && pendingJump.chapter === n ? pendingJump : null;
     pendingJump = null;
-    const target = jump ? (jump.para != null ? app.querySelectorAll("article.story > p")[jump.para]
-                                             : app.querySelector(`.w[data-i="${jump.from}"]`))
+    const target = jump ? app.querySelector(`.w[data-i="${jump.from}"]`)
       : p.pos && p.pos.chapter === n && p.pos.para > 0 ? app.querySelectorAll("article.story > p")[p.pos.para] : null;
     if (target) {
       const top = target.getBoundingClientRect().top + window.scrollY;
       window.scrollTo(0, Math.max(0, top - (jump ? window.innerHeight / 3 : headerHeight() + 8)));
     }
     noteScroll(true);   // count what is on screen now, even if the reader never scrolls
-  }
-
-  // ---------- bookmarks: places inside a story ----------
-  const storyBookmarks = (id) => (bookmarks[id] || []).filter((b) => b.file === currentFile);
-  const bmBtn = (id) => {
-    const on = storyBookmarks(id).length > 0;
-    return `<button class="aa-btn bm-btn${on ? " on" : ""}" id="bm-btn" aria-expanded="false" aria-controls="bm-panel" aria-label="书签 Bookmarks" title="Bookmarks">${bookmarkIcon(on)}</button>`;
-  };
-  // The paragraph at the top of the screen: where a new bookmark goes.
-  function paraOnScreen() {
-    const paras = [...app.querySelectorAll("article.story > p")];
-    const k = paras.findIndex((el) => el.getBoundingClientRect().bottom > headerHeight() + 8);
-    return k < 0 ? Math.max(0, paras.length - 1) : k;
-  }
-  function paraText(k) {
-    const el = app.querySelectorAll("article.story > p")[k];
-    if (!el) return "";
-    const c = el.cloneNode(true);
-    c.querySelectorAll("rt").forEach((r) => r.remove());
-    const t = c.textContent.trim();
-    return t.length > 80 ? t.slice(0, 80) : t;   // the list cuts it to one line with "…"
-  }
-  function bmPanelHtml() {
-    const { id, total } = readState;
-    const list = storyBookmarks(id).sort((a, b) => a.chapter - b.chapter || a.para - b.para);
-    const here = paraOnScreen();
-    const exists = list.some((b) => b.chapter === readState.n && b.para === here);
-    return `
-      <div class="bm-head"><span class="rs-label">书签</span>
-        <button class="btn bm-add" data-bm-add ${exists ? "disabled" : ""}>${exists ? "这里已有书签" : "＋ 在这里加书签"}</button></div>
-      ${list.length ? `<ul class="bm-list">${list.map((b) => `
-        <li><button class="bm-go" data-bm-go="${esc(b.id)}">
-            <span class="bm-where">${total > 1 ? `${chapterLabel(b.chapter)} · ` : ""}第${b.para + 1}段</span>
-            <span class="bm-text">${esc(b.text)}</span></button>
-          <button class="bm-rm" data-bm-rm="${esc(b.id)}" aria-label="删除书签 Remove bookmark">×</button></li>`).join("")}</ul>`
-        : `<p class="bm-empty">还没有书签。读到想回来的地方，点“在这里加书签”。</p>`}`;
-  }
-  function markBookmarks() {
-    const paras = app.querySelectorAll("article.story > p");
-    paras.forEach((el) => el.classList.remove("bm"));
-    for (const b of storyBookmarks(readState.id)) if (b.chapter === readState.n) paras[b.para]?.classList.add("bm");
-    const btn = $("bm-btn");
-    if (btn) btn.outerHTML = bmBtn(readState.id).replace('aria-expanded="false"', `aria-expanded="${openPanel === "bm-panel"}"`);
-    $("bm-btn")?.addEventListener("click", () => {
-      if (openPanel === "bm-panel") return showPanel("");
-      $("bm-panel").innerHTML = bmPanelHtml();
-      showPanel("bm-panel");
-    });
-  }
-  function onBookmarkPanel(e) {
-    const { id, n } = readState;
-    const add = e.target.closest("[data-bm-add]"), go = e.target.closest("[data-bm-go]"), rm = e.target.closest("[data-bm-rm]");
-    if (add) {
-      const para = paraOnScreen();
-      (bookmarks[id] = bookmarks[id] || []).push({
-        id: Date.now().toString(36), file: currentFile, chapter: n, para, text: paraText(para), added: Date.now() });
-      saveBookmarks();
-    } else if (rm) {
-      bookmarks[id] = (bookmarks[id] || []).filter((b) => b.id !== rm.dataset.bmRm);
-      if (!bookmarks[id].length) delete bookmarks[id];
-      saveBookmarks();
-    } else if (go) {
-      const b = (bookmarks[id] || []).find((x) => x.id === go.dataset.bmGo);
-      if (!b) return;
-      showPanel("");
-      if (b.chapter === n) {
-        const el = app.querySelectorAll("article.story > p")[b.para];
-        if (el) window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - headerHeight() - 8));
-      } else {
-        pendingJump = b;
-        location.hash = `#/read/${encodeURIComponent(id)}/${b.chapter}`;
-      }
-      return;
-    } else return;
-    $("bm-panel").innerHTML = bmPanelHtml();
-    markBookmarks();
   }
 
   // Height of what stays at the top of the screen: the app bar (unless hidden) plus the story's button row.
@@ -765,7 +683,7 @@
     { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
     { key: "theme", label: "主题", options: [["light", "浅色"], ["dark", "深色"], ["auto", "跟随系统"]] },
   ];
-  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn", "bm-panel": "bm-btn" };  // panel -> its button
+  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn" };  // panel -> its button
   let openPanel = "";   // at most one is open
   const optionRows = (groups, values, attr) => groups.map((g) => `
           <div class="rs-row">
@@ -793,7 +711,7 @@
   // closing never opens a story or a word by accident; the bars around the page still work.
   document.addEventListener("click", (e) => {
     if (!openPanel || !$(openPanel)) return;
-    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note, #bm-panel, #bm-btn")) return;
+    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note")) return;
     showPanel("");
     if (app.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
   }, true);

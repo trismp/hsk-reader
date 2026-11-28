@@ -367,26 +367,6 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .hl-text { font: 20px/1.5 var(--read-font); }
 .me-note { margin-top: 14px; text-align: center; }
 
-/* Bookmarks inside a story */
-.bm-btn.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
-/* same layout as the reading-settings rows: grey label on the left, control filling the rest */
-.bm-head { display: flex; align-items: center; gap: 12px; }
-.bm-add { flex: 1; padding: 8px 10px; border-radius: 10px; font-size: 14px; }
-.bm-add:disabled { opacity: .55; cursor: default; }
-.bm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-.bm-list li { display: flex; align-items: center; gap: 6px; min-width: 0; }
-.bm-list li + li { border-top: 1px solid var(--line); }
-.bm-go { flex: 1; min-width: 0; display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border: 0;
-  background: none; color: var(--ink); cursor: pointer; text-align: left; font: inherit; }
-.bm-where { flex: none; font-size: 13px; font-weight: 700; color: var(--accent); }
-.bm-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--read-font); }
-.bm-rm { width: 28px; height: 28px; margin-right: -6px; border: 0; background: none; font-size: 20px; color: var(--ink-soft); cursor: pointer; }
-.bm-empty { margin: 0; font-size: 14px; color: var(--ink-soft); }
-.story p.bm { position: relative; }
-.story p.bm::before {   /* a small ribbon in the margin */
-  content: ""; position: absolute; left: -14px; top: .35em; width: 8px; height: 14px; background: var(--accent);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
-}
 
 /* My Words */
 .practice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 6px; }
