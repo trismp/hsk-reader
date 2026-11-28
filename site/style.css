@@ -68,6 +68,12 @@ button, select, input { font: inherit; color: inherit; }
   background: color-mix(in srgb, var(--bg) 90%, transparent);
   backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
 }
+/* the 字游 bar moves by its sticky 'top' (a transform would drag the phone tab bar, which sits inside it) */
+.topbar { transition: top .25s ease; }
+.tabs { transition: transform .25s ease; }
+:root.bars-hidden .topbar { top: calc(-1 * var(--topbar-h, 53px) - 2px); }
+.sticky-head { transition: top .25s ease; }
+:root.bars-hidden .sticky-head { top: env(safe-area-inset-top, 0px); }   /* clear of the phone's notch */
 .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); text-decoration: none; white-space: nowrap; margin-right: auto; }
 .brand-mark {
   display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
@@ -92,18 +98,21 @@ button, select, input { font: inherit; color: inherit; }
   .tabs {
     position: fixed; z-index: 15; left: 0; right: 0; bottom: 0;
     justify-content: space-around; gap: 0;
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+    padding: 3px 8px calc(3px + env(safe-area-inset-bottom));
     background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(10px);
     border-top: 1px solid var(--line);
   }
-  .tabs a { flex: 1; flex-direction: column; gap: 2px; padding: 6px 4px; font-size: 11.5px; border-radius: 10px; }
+  .tabs a { flex: 1; flex-direction: column; gap: 1px; padding: 4px 4px; font-size: 11.5px; border-radius: 10px; }
+  .tab-en { display: none; }   /* phones: Chinese labels only, for a shorter bar */
   .tabs a.active { background: none; color: var(--accent); }
   .tab-icon { display: block; }
   .tab-label { display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
   .tab-label [lang] { font-size: 13px; font-weight: 600; }
-  .count:not(:empty) { position: absolute; top: 2px; left: calc(50% + 6px); min-width: 18px; line-height: 18px; font-size: 11px; }
-  body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
-  .popup, .hl-bar { bottom: calc(80px + env(safe-area-inset-bottom)) !important; }
+  .count:not(:empty) { position: absolute; top: 0; left: calc(50% + 6px); min-width: 18px; line-height: 18px; font-size: 11px; }
+  body { padding-bottom: calc(54px + env(safe-area-inset-bottom)); }
+  .popup, .hl-bar { bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
+  :root.bars-hidden .tabs { transform: translateY(100%); }
+  :root.bars-hidden .popup, :root.bars-hidden .hl-bar { bottom: calc(16px + env(safe-area-inset-bottom)) !important; }
 }
 
 
@@ -202,6 +211,13 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-2px); box-shadow: va
   border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none;
 }
 .back:hover { background: var(--accent-soft); color: var(--accent); }
+.back.with-text { width: auto; display: flex; gap: 4px; padding: 0 13px 0 9px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+/* round − button for taking something off a list */
+.minus-btn {
+  display: grid; place-items: center; width: 30px; height: 30px; padding: 0; flex: none; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink-soft); font: 600 20px/1 var(--ui-font); cursor: pointer;
+}
+.minus-btn:hover { color: #d13b40; border-color: color-mix(in srgb, #d13b40 40%, var(--line)); }
 .story-head { text-align: center; }
 .story-head h1 { margin: 32px 0 4px; font: 700 clamp(26px, 6.5vw, 34px)/1.3 var(--read-font); }
 .story-head p { margin: 0; color: var(--ink-soft); }
@@ -391,7 +407,7 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .word-list .known { color: #2f7a6a; font-weight: 600; }
 .word-list .en { color: var(--ink-soft); font-size: 14px; grid-column: 2; }
 .word-list .ex { grid-column: 1 / -1; font: 15px/1.6 var(--read-font); color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 6px; margin-top: 4px; }
-.word-list .rm { grid-row: 1 / span 2; grid-column: 3; }
+.word-list .rm { grid-row: 1 / span 2; grid-column: 3; align-self: center; }
 .small-btn { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; font-size: 13px; }
 
 /* Flashcards + quiz */
