@@ -255,9 +255,11 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   position: absolute; top: 8px; right: 10px; width: 32px; height: 32px; border: 0; background: none;
   font-size: 24px; color: var(--ink-soft); cursor: pointer; border-radius: 8px;
 }
-.popup-head { display: flex; align-items: center; gap: 12px; padding-right: 32px; }
-.popup-head .save-btn { flex: none; padding: 5px 12px; border-radius: 999px; font-size: 13.5px; white-space: nowrap; }
-.popup-word { font: 700 34px/1.2 var(--read-font); }
+.popup-head { display: flex; align-items: center; gap: 8px; padding-right: 32px; }
+/* small pill: text centred inside it, and the pill centred on the word's characters */
+.popup-head .save-btn { flex: none; display: inline-flex; align-items: center; justify-content: center; padding: 6px 10px;
+  border-radius: 999px; font-size: 13px; line-height: 1; white-space: nowrap; }
+.popup-word { font: 700 34px/1 var(--read-font); padding: 3px 0; }
 .popup-pinyin { margin-top: 2px; font-size: 18px; color: var(--accent); }
 .popup-meaning { margin: 6px 0 12px; color: var(--ink); font-size: 15px; }
 .popup-more:empty { display: none; }
