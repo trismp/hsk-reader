@@ -66,6 +66,12 @@
   }
   const saveShelf = () => store.set("hsk.shelf", shelf);
   const saveProgress = () => store.set("hsk.progress", progress);
+  // Older saves don't say whether the reader scrolled. Back then only opening a story gave
+  // about 10-15% on a phone, so more than 20% means they really read: convert once.
+  if (Object.values(progress).some((p) => p && !("scrolled" in p))) {
+    for (const p of Object.values(progress)) if (p && !("scrolled" in p)) p.scrolled = (p.pct || 0) > 20;
+    saveProgress();
+  }
   // progress[id] also keeps: pos {chapter, para} (where the reader stopped), pct (one-shots), last (time)
   let highlights = store.get("hsk.highlights", []);  // [{id, file, story, title, chapter, from, to, color, text, added}]
   const saveHighlights = () => store.set("hsk.highlights", highlights);
@@ -172,11 +178,17 @@
     : esc(text));
   const listClass = () => `size-${esc(settings.size)}${settings.pinyin !== "off" ? " pinyin" : ""}`;
 
+  // Has the reader really read some of it? Scrolling with a finger, wheel or keys counts;
+  // only opening a story does not.
+  const hasRead = (p) => Boolean(p && (p.scrolled || p.done?.length || p.chapter > 1));
+  const readPct = (s, p) => Math.max(1, p.pct || Math.round(((p.chapter || 1) - 1) / s.chapter_count * 100));
+  const readingStatus = (s, p) => !p ? "" : isFinished(s) ? "✓ Finished" : !hasRead(p) ? "Opened"
+    : `Reading · ${readPct(s, p)}%`;
+
   function storyCard(s, { showGenre = false, genres = [] } = {}) {
     const p = progress[s.id];
     const genre = genres.find((g) => g.id === s.genre);
-    const status = !p ? "" : isFinished(s) ? "✓ Finished"
-      : s.chapter_count > 1 ? `Reading · ${chapterLabel(p.chapter)}` : `Reading${p.pct != null ? ` · ${p.pct}%` : ""}`;
+    const status = readingStatus(s, p);
     const start = p && p.chapter ? p.chapter : 1;
     return `
       <article class="card">
@@ -250,7 +262,7 @@
       .sort((a, b) => progress[b.id].last - progress[a.id].last)[0];
     if (!s) return "";
     const p = progress[s.id];
-    const where = s.chapter_count > 1 ? chapterLabel(p.chapter || 1) : `${p.pct || 0}%`;
+    const where = !hasRead(p) ? "已打开" : `${readPct(s, p)}%`;
     return `
       <a class="continue-card" href="#/read/${encodeURIComponent(s.id)}/${p.chapter || 1}">
         <span class="cc-label" lang="zh-CN">继续阅读</span>
@@ -443,7 +455,7 @@
     currentStory = s;
 
     // remember where the reader is
-    const p = progress[id] || { chapter: 1, done: [] };
+    const p = progress[id] || { chapter: 1, done: [], scrolled: false };
     p.chapter = n;
     p.last = Date.now();
     progress[id] = p;
@@ -507,6 +519,7 @@
     app.querySelectorAll(".chapter-select").forEach((sel) =>
       sel.addEventListener("change", () => { location.hash = `#/read/${encodeURIComponent(id)}/${sel.value}`; }));
     readState = { id, n, total };
+    userMoved = false;
     applyHighlights();
     markBookmarks();
     $("bm-panel").addEventListener("click", onBookmarkPanel);
@@ -627,6 +640,11 @@
   }
 
   // While reading, remember the first paragraph on screen, and notice when 全文完 comes into view.
+  let userMoved = false;   // the reader moved the page themselves since this chapter opened
+  const moved = () => { if (readState) userMoved = true; };
+  window.addEventListener("touchmove", moved, { passive: true });
+  window.addEventListener("wheel", moved, { passive: true });
+  window.addEventListener("keydown", (e) => { if (/^(Arrow(Up|Down)|PageUp|PageDown|Home|End| )$/.test(e.key)) moved(); });
   let scrollTimer = 0;
   window.addEventListener("scroll", () => {
     if (!readState || scrollTimer) return;
@@ -641,9 +659,11 @@
     let k = paras.findIndex((el) => el.getBoundingClientRect().bottom > headerHeight() + 8);
     if (k < 0) k = paras.length - 1;
     p.pos = { chapter: readState.n, para: k };
-    if (readState.total === 1) {
-      // Share of the story's characters that have been on screen: everything above the bottom of
-      // the screen counts, a paragraph cut by the bottom edge counts in part. Never goes down.
+    if (!opened && userMoved) p.scrolled = true;
+    {
+      // Share of the chapter's characters that have been on screen: everything above the bottom of
+      // the screen counts, a paragraph cut by the bottom edge counts in part. For the whole story,
+      // earlier chapters count as read: chapter 2 of 3, half seen = 50%. Never goes down.
       const tabsTop = document.querySelector(".tabs")?.getBoundingClientRect().top ?? window.innerHeight;
       const bottom = tabsTop > window.innerHeight / 2 ? tabsTop : window.innerHeight;   // phones: above the tab bar
       const hanzi = (el) => (el.textContent.match(/[一-鿿]/g) || []).length;   // pinyin is not counted
@@ -653,7 +673,8 @@
         all += n;
         seen += n * Math.min(1, Math.max(0, (bottom - r.top) / (r.height || 1)));
       }
-      const pct = all ? Math.max(1, Math.min(100, Math.round((seen / all) * 100))) : 0;
+      const chapterShare = all ? Math.min(1, seen / all) : 0;
+      const pct = Math.max(1, Math.min(100, Math.round(((readState.n - 1 + chapterShare) / readState.total) * 100)));
       p.pct = Math.max(p.pct || 0, pct);
     }
     p.last = Date.now();
