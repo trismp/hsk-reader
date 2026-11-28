@@ -820,7 +820,7 @@
     const h = highlightAt(popupIndex);
     return HL_COLORS.map(([c, name]) =>
       `<button class="hl-dot c${c}${h && h.color === c ? " on" : ""}" data-phl="${c}" aria-label="${name}" aria-pressed="${Boolean(h && h.color === c)}"></button>`).join("")
-      + (h ? `<button class="hl-del" data-phl="x" lang="zh-CN" aria-label="删除高亮 Delete highlight"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>删除</button>` : "");
+      + (h ? `<button class="hl-dot hl-none" data-phl="x" aria-label="删除高亮 Remove highlight" title="删除高亮"></button>` : "");
   }
 
   // The word box starts short (3 lines of meaning) so it covers less of the story.
@@ -861,7 +861,8 @@
   function updateSaveButton() {
     const isSaved = popupToken && saved[wordKey(popupToken[0], popupToken[1])];
     const btn = $("popup-save");
-    btn.textContent = isSaved ? "✓ 已加入生词本 · 点击移除" : "＋ 加入生词本";
+    btn.textContent = isSaved ? "✓ 已加入" : "＋ 生词本";
+    btn.title = isSaved ? "从生词本移除 Remove from My Words" : "加入生词本 Add to My Words";
     btn.classList.toggle("ghost", Boolean(isSaved));
   }
 
