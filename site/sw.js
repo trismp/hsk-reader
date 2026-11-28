@@ -7,8 +7,8 @@
  * reuse its own copy for 10 minutes (GitHub Pages sends max-age=600).
  * Bump VERSION when the app shell changes to clear old caches.
  */
-const VERSION = "hsk-reader-v46";
-const SHELL = ["./", "index.html", "style.css?v=41", "app.js?v=36", "manifest.webmanifest",
+const VERSION = "hsk-reader-v47";
+const SHELL = ["./", "index.html", "style.css?v=42", "app.js?v=36", "manifest.webmanifest",
   "data/library.json", "icons/icon-192.png"];
 
 self.addEventListener("install", (e) => {
