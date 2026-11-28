@@ -730,10 +730,24 @@
     clearTimeout(selTimer);
     selTimer = setTimeout(() => {
       const t = selectedWords();
-      if (t) { lastSel = t; closePopup(); $("hl-bar").hidden = false; }
+      if (t) { lastSel = t; closePopup(); $("hl-bar").hidden = false; placeHlBar(); }
       else $("hl-bar").hidden = true;
     }, 250);
   });
+  // The colour bar sits just under the selected text (below the phone's selection handles),
+  // or just above it when there is no room below. It scrolls with the page.
+  function placeHlBar() {
+    const sel = window.getSelection(), bar = $("hl-bar");
+    if (!sel || !sel.rangeCount) return;
+    const r = sel.getRangeAt(0).getBoundingClientRect();
+    const gap = 34, w = bar.offsetWidth, h = bar.offsetHeight;
+    const roomBelow = window.innerHeight - r.bottom - gap - h - 70;   // 70: the tab bar on phones
+    const top = roomBelow > 0 ? r.bottom + gap : Math.max(8, r.top - gap - h);
+    const left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), window.innerWidth - w - 8);
+    bar.classList.add("at-text");
+    bar.style.top = `${top + window.scrollY}px`;
+    bar.style.left = `${left + window.scrollX}px`;
+  }
   $("hl-bar").addEventListener("pointerdown", (e) => e.preventDefault());   // keep the selection
   $("hl-bar").addEventListener("click", (e) => {
     const b = e.target.closest("[data-hl]");

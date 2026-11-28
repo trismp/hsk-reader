@@ -305,6 +305,8 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   background: var(--surface); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow);
 }
 .hl-bar[hidden] { display: none; }
+/* placed by the script right under the selected text */
+:root .hl-bar.at-text, :root.bars-hidden .hl-bar.at-text { position: absolute; bottom: auto !important; transform: none; }
 .hl-x { width: 32px; height: 32px; border: 0; background: none; font-size: 22px; color: var(--ink-soft); cursor: pointer; }
 .btn {
   padding: 11px 20px; border-radius: 14px; border: 1px solid var(--accent); background: var(--accent);
