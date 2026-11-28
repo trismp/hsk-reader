@@ -49,6 +49,23 @@
   --bg: #121214; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
   --accent: #8fe0b4; --accent-soft: #1c3328; --hero-gradient: linear-gradient(90deg, #4fd39a, #8fe0b4 55%, #d2f5c8);
 }
+/* 初级 (HSK 3): warm orange. */
+:root[data-level="low"] {
+  --bg: #fdf3e8; --ink: #3a2414; --ink-soft: #85664f; --line: #f1dcc6;
+  --accent: #c2610c; --accent-soft: #fbe5cf;
+  --hero-gradient: linear-gradient(90deg, #c9580f, #e8892b 55%, #f2a93b);
+  --shadow: 0 12px 32px rgba(190, 95, 20, .14);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-level="low"]:not([data-theme="light"]) {
+    --bg: #121214; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+    --accent: #f5a35c; --accent-soft: #3a2a1c; --hero-gradient: linear-gradient(90deg, #f08a3c, #f5a35c 55%, #ffd29a);
+  }
+}
+:root[data-level="low"][data-theme="dark"] {
+  --bg: #121214; --ink: #f5f5f7; --ink-soft: #b3b3bb; --line: #2e2e34; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+  --accent: #f5a35c; --accent-soft: #3a2a1c; --hero-gradient: linear-gradient(90deg, #f08a3c, #f5a35c 55%, #ffd29a);
+}
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -549,9 +566,38 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 .news-list.pinyin .news-headline { line-height: 1.7; }
 .news-list .news-headline rt { font-size: .6em; }
 
-/* 中级 | 高级 switch on Discover */
-.level-toggle { flex: none; border-radius: 999px; }
-.level-toggle button { padding: 6px 12px; font-size: 14px; line-height: 20px; white-space: nowrap; }
+/* Level button on Discover: the current level, a small menu with all three */
+.level-pick { position: relative; flex: none; }
+.level-pill {
+  display: flex; align-items: center; gap: 3px; height: 34px; padding: 0 10px 0 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--accent-soft); color: var(--accent);
+  font-size: 14px; font-weight: 700; white-space: nowrap;
+}
+.level-pill[aria-expanded="true"] { border-color: var(--accent); }
+.level-menu {
+  position: absolute; z-index: 12; right: 0; top: calc(100% + 6px); min-width: 120px; padding: 6px; display: grid; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+}
+.level-menu[hidden] { display: none; }
+.level-menu button {
+  display: flex; align-items: center; gap: 10px; padding: 9px 10px; border: 0; border-radius: 10px; background: none;
+  color: var(--ink); font-size: 15px; text-align: left; cursor: pointer;
+}
+.level-menu .lm-low { --lv: #c2610c; }
+.level-menu .lm-mid { --lv: #187a4f; }
+.level-menu .lm-high { --lv: #5b4fe9; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .level-menu .lm-low { --lv: #f5a35c; }
+  :root:not([data-theme="light"]) .level-menu .lm-mid { --lv: #8fe0b4; }
+  :root:not([data-theme="light"]) .level-menu .lm-high { --lv: #c4b5fd; }
+}
+:root[data-theme="dark"] .level-menu .lm-low { --lv: #f5a35c; }
+:root[data-theme="dark"] .level-menu .lm-mid { --lv: #8fe0b4; }
+:root[data-theme="dark"] .level-menu .lm-high { --lv: #c4b5fd; }
+/* no colour until an option is highlighted (the current level, or under the finger / pointer): then its own colour */
+.level-menu button[aria-checked="true"], .level-menu button:hover, .level-menu button:focus-visible {
+  background: color-mix(in srgb, var(--lv) 16%, transparent); color: var(--lv); font-weight: 700; outline: none;
+}
 .only-high { background: none; border: 1px solid var(--line); color: var(--ink-soft); }
 /* the two purple genres turn green-ish with the rest: teal and moss */
 :root[data-level="mid"] .g-myths { --tint: #0d8587; }
@@ -562,10 +608,18 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
 }
 :root[data-level="mid"][data-theme="dark"] .g-myths { --tint: #74d8d8; }
 :root[data-level="mid"][data-theme="dark"] .g-mystery { --tint: #bcd97c; }
+/* 初级: the two purple genres turn warm with the rest: rust and olive */
+:root[data-level="low"] .g-myths { --tint: #b4532a; }
+:root[data-level="low"] .g-mystery { --tint: #6f7a22; }
+@media (prefers-color-scheme: dark) {
+  :root[data-level="low"]:not([data-theme="light"]) .g-myths { --tint: #f09a72; }
+  :root[data-level="low"]:not([data-theme="light"]) .g-mystery { --tint: #c9d27a; }
+}
+:root[data-level="low"][data-theme="dark"] .g-myths { --tint: #f09a72; }
+:root[data-level="low"][data-theme="dark"] .g-mystery { --tint: #c9d27a; }
 @media (max-width: 400px) {
   :root { --hero-size: 7.8vw; }   /* room for the switch on the same line */
   .hero { gap: 6px; }
   .hero .title-actions { gap: 6px; }
-  .level-toggle button { padding: 6px 7px; font-size: 13px; }
 }
 @media (max-width: 340px) { :root { --hero-size: 6.8vw; } }

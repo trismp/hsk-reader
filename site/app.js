@@ -36,13 +36,21 @@
   const settings = Object.assign({ pinyin: "hard", size: "m", theme: "auto", level: "high" }, store.get("hsk.settings", {}));
   if (!["off", "hard", "all"].includes(settings.pinyin)) settings.pinyin = "hard";
   if (!["auto", "light", "dark"].includes(settings.theme)) settings.theme = "auto";
-  if (!["mid", "high"].includes(settings.level)) settings.level = "high";
-  const isMid = () => settings.level === "mid";          // 中级 (HSK 4) or 高级 (HSK 6)
-  const readerLevel = () => (isMid() ? 4 : 5);           // a word above this is a "new word"
-  const applyLevel = () => {                             // 中级 turns the app green (style.css)
+  // 初级 (HSK 3, orange), 中级 (HSK 4, green), 高级 (HSK 5–6, purple). reader: a word above it is a "new word".
+  const LEVELS = [
+    { id: "low", zh: "初级", hsk: "HSK 3", reader: 3, bar: "#fdf3e8" },
+    { id: "mid", zh: "中级", hsk: "HSK 4", reader: 4, bar: "#eef7f1" },
+    { id: "high", zh: "高级", hsk: "HSK 5–6", reader: 5, bar: "#f4f0fd" },
+  ];
+  if (!LEVELS.some((l) => l.id === settings.level)) settings.level = "high";
+  const level = () => LEVELS.find((l) => l.id === settings.level);
+  // 初级 and 中级 read the easier versions and have no news. (初级 has no texts of its own yet: it uses 中级's.)
+  const isMid = () => settings.level !== "high";
+  const readerLevel = () => level().reader;
+  const applyLevel = () => {                             // each level has its own colours (style.css)
     document.documentElement.dataset.level = settings.level;
     const bar = document.querySelector('meta[name="theme-color"][media*="light"]');
-    if (bar) bar.content = isMid() ? "#eef7f1" : "#f4f0fd";
+    if (bar) bar.content = level().bar;
   };
   applyLevel();
   const applyTheme = () => {
@@ -115,9 +123,11 @@
       store.set("hsk.doneFix", true);
     }
     if (!isMid()) return lib;
-    return { ...lib, stories: lib.stories.map((s) => (s.mid ? { ...s, ...s.mid } : { ...s, onlyHigh: true })) };
+    return { ...lib, stories: lib.stories.map((s) => (s.mid ? { ...s, ...s.mid, shownAs: "mid" } : { ...s, onlyHigh: true, shownAs: "high" })) };
   }
-  const onlyHighBadge = (s) => (s.onlyHigh ? `<span class="badge only-high" lang="zh-CN">仅高级</span>` : "");
+  // A story without a version at the reader's level shows a harder one, and says so.
+  const shownBadge = (shownAs) => (shownAs === "high" ? "仅高级" : shownAs === "mid" && settings.level === "low" ? "仅中级" : "");
+  const onlyHighBadge = (s) => (shownBadge(s.shownAs) ? `<span class="badge only-high" lang="zh-CN">${shownBadge(s.shownAs)}</span>` : "");
 
   function updateCount() {
     const n = Object.keys(saved).length;
@@ -275,19 +285,26 @@
     const count = (g) => stories.filter((s) => s.genre === g.id).length;
     const newsGenre = genres.find((g) => g.id === "news");
     const news = stories.filter((s) => s.genre === "news").sort(byDate);
+    // Discover shows Chinese text (headlines) only when it has the news. Without it, 拼音 and 字号
+    // would change nothing here, so the settings show only 主题. Add the rows back for any story
+    // list Discover gets later.
+    const showsNews = Boolean(newsGenre) && !isMid();
     show(`
       <section class="hero">
         <h1 lang="zh-CN">今天想读什么？</h1>
         <div class="title-actions">
-          <div class="seg level-toggle" id="level-toggle" role="group" aria-label="难度 Level" lang="zh-CN">
-            <button data-level="mid" aria-pressed="${isMid()}" title="HSK 4">中级</button><button data-level="high" aria-pressed="${!isMid()}" title="HSK 6">高级</button>
+          <div class="level-pick" lang="zh-CN">
+            <button class="level-pill" id="level-pill" aria-haspopup="true" aria-expanded="false" aria-controls="level-menu" aria-label="难度 Level: ${level().zh}">${level().zh}<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></button>
+            <div class="level-menu" id="level-menu" role="menu" ${openPanel === "level-menu" ? "" : "hidden"}>
+              ${LEVELS.map((l) => `<button role="menuitemradio" aria-checked="${l.id === settings.level}" data-level="${l.id}" class="lm-${l.id}">${l.zh}</button>`).join("")}
+            </div>
           </div>
           ${aaBtn}
         </div>
       </section>
-      ${readSettingsPanel()}
+      ${readSettingsPanel(showsNews ? null : ["theme"])}
       ${continueCard(stories)}
-      ${newsGenre && !isMid() ? newsSection(newsGenre, news) : ""}
+      ${showsNews ? newsSection(newsGenre, news) : ""}
       <h2 class="section-title"><span lang="zh-CN">故事</span> · Stories</h2>
       <div class="tiles bento">
         ${genres.filter((g) => g.id !== "news")
@@ -295,13 +312,16 @@
           .sort((a, b) => (a.g.soon || !a.n) - (b.g.soon || !b.n) || b.n - a.n)   // most stories first, "soon" last
           .map(({ g, n }) => genreTile(g, n)).join("")}
       </div>`);
-    $("level-toggle").addEventListener("click", (e) => {
+    $("level-pill").addEventListener("click", () => showPanel(openPanel === "level-menu" ? "" : "level-menu"));
+    $("level-menu").addEventListener("click", (e) => {
       const b = e.target.closest("[data-level]");
-      if (!b || b.dataset.level === settings.level) return;
+      if (!b) return;
+      showPanel("");
+      if (b.dataset.level === settings.level) return;
       settings.level = b.dataset.level;
       saveSettings();
       applyLevel();
-      Promise.resolve(route()).then(() => document.querySelector(`[data-level="${settings.level}"]`)?.focus({ preventScroll: true }));
+      Promise.resolve(route()).then(() => $("level-pill")?.focus({ preventScroll: true }));
     });
   }
 
@@ -443,7 +463,7 @@
       lib = await getLibrary();
       easy = isMid() && lib.stories.some((x) => x.id === id && x.mid);
       s = await getJSON(`data/stories/${encodeURIComponent(id)}${easy ? ".mid" : ""}.json`);
-      s = { ...s, onlyHigh: isMid() && !easy };
+      s = { ...s, onlyHigh: isMid() && !easy, shownAs: isMid() ? (easy ? "mid" : "high") : "" };
     }
     catch { return show(`${pageBar("#/", "Discover")}<p class="empty">Story not found.</p>`); }
     const total = s.chapters.length;
@@ -500,7 +520,7 @@
       <header class="story-head">
         <h1 class="${pinyinTitles}" lang="zh-CN">${titleHtml}</h1>
         ${byline}
-        ${s.onlyHigh ? `<p class="byline">${onlyHighBadge(s)}</p>` : ""}
+        ${onlyHighBadge(s) ? `<p class="byline">${onlyHighBadge(s)}</p>` : ""}
         ${blurbHtml && s.genre !== "news" ? `<p class="story-blurb ${pinyinTitles}" lang="zh-CN">${blurbHtml}</p>` : ""}
       </header>
       ${chapterRow("above")}
@@ -683,7 +703,7 @@
     { key: "size", label: "字号", options: [["s", "小"], ["m", "中"], ["l", "大"]] },
     { key: "theme", label: "主题", options: [["light", "浅色"], ["dark", "深色"], ["auto", "跟随系统"]] },
   ];
-  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn" };  // panel -> its button
+  const PANELS = { "read-settings": "aa-btn", "sort-panel": "sort-btn", "level-menu": "level-pill" };  // panel -> its button
   let openPanel = "";   // at most one is open
   const optionRows = (groups, values, attr) => groups.map((g) => `
           <div class="rs-row">
@@ -692,9 +712,11 @@
               ${g.options.map(([v, text]) => `<button data-${attr}="${g.key}" data-val="${v}" aria-pressed="${values[g.key] === v}">${text}</button>`).join("")}
             </div>
           </div>`).join("");
-  function readSettingsPanel() {
+  // only: the setting rows that change something on this page (all of them by default)
+  function readSettingsPanel(only = null) {
+    const groups = only ? SETTING_GROUPS.filter((g) => only.includes(g.key)) : SETTING_GROUPS;
     return `
-      <section class="read-settings" id="read-settings" ${openPanel === "read-settings" ? "" : "hidden"} lang="zh-CN">${optionRows(SETTING_GROUPS, settings, "set")}</section>`;
+      <section class="read-settings" id="read-settings" ${openPanel === "read-settings" ? "" : "hidden"} lang="zh-CN">${optionRows(groups, settings, "set")}</section>`;
   }
   function showPanel(name) {
     openPanel = name;
@@ -711,7 +733,7 @@
   // closing never opens a story or a word by accident; the bars around the page still work.
   document.addEventListener("click", (e) => {
     if (!openPanel || !$(openPanel)) return;
-    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note")) return;
+    if (e.target.closest("#read-settings, #aa-btn, #sort-panel, #sort-btn, #filter-note, #level-menu, #level-pill")) return;
     showPanel("");
     if (app.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
   }, true);
