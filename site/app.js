@@ -294,7 +294,7 @@
         <h1 lang="zh-CN">今天想读什么？</h1>
         <div class="title-actions">
           <div class="level-pick" lang="zh-CN">
-            <button class="level-pill" id="level-pill" aria-haspopup="true" aria-expanded="false" aria-controls="level-menu" aria-label="难度 Level: ${level().zh}">${level().zh}<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></button>
+            <button class="level-pill${store.get("hsk.levelSeen", false) ? "" : " pulse"}" id="level-pill" aria-haspopup="true" aria-expanded="false" aria-controls="level-menu" aria-label="难度 Level: ${level().zh}">${level().zh}<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></button>
             <div class="level-menu" id="level-menu" role="menu" ${openPanel === "level-menu" ? "" : "hidden"}>
               ${LEVELS.map((l) => `<button role="menuitemradio" aria-checked="${l.id === settings.level}" data-level="${l.id}" class="lm-${l.id}">${l.zh}</button>`).join("")}
             </div>
@@ -312,7 +312,12 @@
           .sort((a, b) => (a.g.soon || !a.n) - (b.g.soon || !b.n) || b.n - a.n)   // most stories first, "soon" last
           .map(({ g, n }) => genreTile(g, n)).join("")}
       </div>`);
-    $("level-pill").addEventListener("click", () => showPanel(openPanel === "level-menu" ? "" : "level-menu"));
+    $("level-pill").addEventListener("click", () => {
+      // a reader who has never opened the level menu sees the button pulse; once is enough
+      store.set("hsk.levelSeen", true);
+      $("level-pill").classList.remove("pulse");
+      showPanel(openPanel === "level-menu" ? "" : "level-menu");
+    });
     $("level-menu").addEventListener("click", (e) => {
       const b = e.target.closest("[data-level]");
       if (!b) return;

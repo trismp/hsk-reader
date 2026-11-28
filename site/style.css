@@ -574,6 +574,16 @@ rt { font: 500 .5em var(--ui-font); color: var(--ink-soft); letter-spacing: 0; }
   font-size: 14px; font-weight: 700; white-space: nowrap;
 }
 .level-pill[aria-expanded="true"] { border-color: var(--accent); }
+/* until the reader first opens the level menu: a soft ring that grows and fades */
+.level-pill.pulse { animation: level-pulse 1.8s ease-out infinite; }
+@keyframes level-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  70% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {   /* no movement: a steady ring instead */
+  .level-pill.pulse { animation: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+}
 .level-menu {
   position: absolute; z-index: 12; right: 0; top: calc(100% + 6px); min-width: 120px; padding: 6px; display: grid; gap: 2px;
   background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
